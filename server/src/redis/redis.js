@@ -76,3 +76,8 @@ export const getFeaturedStoriesKey = () => ({
   key: `STORIES_FEATURED`,
   interval: 60 * 60 * 24,
 });
+
+export const getStoryKey = (storyID) => ({
+  key: `STORIES_${storyID}`,
+  interval: 60 * 60 * 24,
+});

@@ -1,7 +1,12 @@
 import { Router } from "express";
-import { getFeaturedStoriesController } from "../controllers/stories.controller.js";
+import {
+  getFeaturedStoriesController,
+  getStoryController,
+} from "../controllers/stories.controller.js";
 import { serverErrorCatcherWrapper } from "../helpers/wrappers.js";
 import { authAPIKey } from "../middleware/auth.mw.js";
+import { StoryIDSchema } from "../schemas/stories.schemas.js";
+import { paramsValidator } from "../middleware/validators.js";
 
 const storiesRouter = Router();
 
@@ -10,6 +15,14 @@ storiesRouter.get(
   "/featured",
   authAPIKey,
   serverErrorCatcherWrapper(getFeaturedStoriesController)
+);
+
+// Get Stories
+storiesRouter.get(
+  "/:storyID",
+  authAPIKey,
+  paramsValidator(StoryIDSchema),
+  serverErrorCatcherWrapper(getStoryController)
 );
 
 export default storiesRouter;

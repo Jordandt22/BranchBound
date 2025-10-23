@@ -11,6 +11,10 @@ export const errorCodes = {
 
   // Supabase
   SUPABASE_ERROR: "supabase-error",
+
+  // Stories
+  STORY_NOT_FOUND: "story-not-found",
+  STORIES_NOT_FOUND: "stories-not-found",
 };
 
 export const customErrorHandler = (code, message, error) => {
