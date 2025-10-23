@@ -6,6 +6,9 @@ import morgan from "morgan";
 import http from "http";
 import { arcjetMiddleware } from "./middleware/arcjet.mw.js";
 
+// Routers
+import storiesRouter from "./routes/stories.routes.js";
+
 const app = express();
 
 // Middleware
@@ -36,8 +39,8 @@ app.use(arcjetMiddleware);
 
 // ---- API Routes ----
 
-// Routes for Businesses
-// app.use(`/v${API_VERSION}/api/businesses`, businessesRouter);
+// Routes for Stories
+app.use(`/v${API_VERSION}/api/stories`, storiesRouter);
 
 // PORT and Sever
 const server = http.createServer(app);

@@ -6,6 +6,8 @@ export const errorCodes = {
   BOTS_DETECTED: "bots-detected",
   ACCESS_DENIED: "access-denied",
   ROUTE_NOT_FOUND: "route-not-found",
+  NO_API_KEY: "no-api-key",
+  INVALID_API_KEY: "invalid-api-key",
 
   // Supabase
   SUPABASE_ERROR: "supabase-error",

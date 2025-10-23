@@ -71,8 +71,8 @@ export const flushDBCache = async () => {
 
 // REDIS KEYS
 
-// --- Businesses ----
-// export const getFeaturedBusinessesKey = () => ({
-//   key: `FEATURED_BUSINESSES`,
-//   interval: 60 * 60 * 24 * 2,
-// });
+// --- Stories ----
+export const getFeaturedStoriesKey = () => ({
+  key: `STORIES_FEATURED`,
+  interval: 60 * 60 * 24,
+});
