@@ -82,3 +82,45 @@ export const getStoryController = async (req, res) => {
   await cacheData(key, interval, storyData);
   return res.status(200).json(successHandler(storyData));
 };
+
+// Generate Story Scene
+export const generateSceneController = async (req, res) => {
+  const { storyID, characterID } = req.params;
+  const {} = req.body;
+
+  // !FUTURE: CHECK IF USER HAS ENOUGH TOKENS
+
+  // !FUTURE: CHECK IF USER HAS ACCESS TO STORY
+
+  // !FUTURE: GET USER INFO FOR SCENE (Total Scenes, Scene Index)
+  const sceneInfo = {
+    sceneIndex: 0,
+    totalScenes: 0,
+    previousSceneText: "",
+    userPreviousChoices: "",
+    previousChoice: {
+      category: "",
+      text: "",
+      risk: "",
+    },
+    storySummary: "",
+  };
+
+  // Get Story Info
+  const { data: storyData, error: storyError } = await getStoryByID(storyID);
+  if (storyError) {
+    return res
+      .status(500)
+      .json(
+        customErrorHandler(
+          errorCodes.SUPABASE_ERROR,
+          "There was an error fetching the story.",
+          storyError
+        )
+      );
+  }
+
+  // Get Character Info
+
+  // ! CONTINUE LATER
+};
