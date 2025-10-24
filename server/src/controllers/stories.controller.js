@@ -10,6 +10,8 @@ import {
 import { getFeaturedStoriesKey, getStoryKey } from "../redis/redis.js";
 import { getCacheData, cacheData } from "../redis/redis.js";
 
+const { SUPABASE_ERROR, STORIES_NOT_FOUND, STORY_NOT_FOUND } = errorCodes;
+
 // Get Featured Stories
 export const getFeaturedStoriesController = async (req, res) => {
   // Get Data from Cache
@@ -26,7 +28,7 @@ export const getFeaturedStoriesController = async (req, res) => {
       .status(500)
       .json(
         customErrorHandler(
-          errorCodes.SUPABASE_ERROR,
+          SUPABASE_ERROR,
           "There was an error fetching featured stories.",
           error
         )
@@ -37,9 +39,7 @@ export const getFeaturedStoriesController = async (req, res) => {
   if (!data || data?.length === 0)
     return res
       .status(404)
-      .json(
-        customErrorHandler(errorCodes.STORIES_NOT_FOUND, "Stories not found.")
-      );
+      .json(customErrorHandler(STORIES_NOT_FOUND, "Stories not found."));
 
   // Cache Data
   await cacheData(key, interval, data);
@@ -64,7 +64,7 @@ export const getStoryController = async (req, res) => {
       .status(500)
       .json(
         customErrorHandler(
-          errorCodes.SUPABASE_ERROR,
+          SUPABASE_ERROR,
           "There was an error fetching the story.",
           error
         )
@@ -75,7 +75,7 @@ export const getStoryController = async (req, res) => {
   if (!data || data?.length === 0)
     return res
       .status(404)
-      .json(customErrorHandler(errorCodes.STORY_NOT_FOUND, "Story not found."));
+      .json(customErrorHandler(STORY_NOT_FOUND, "Story not found."));
 
   // Cache Data
   const storyData = data[0];
@@ -113,7 +113,7 @@ export const generateSceneController = async (req, res) => {
       .status(500)
       .json(
         customErrorHandler(
-          errorCodes.SUPABASE_ERROR,
+          SUPABASE_ERROR,
           "There was an error fetching the story.",
           storyError
         )

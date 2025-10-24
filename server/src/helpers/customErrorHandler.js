@@ -15,6 +15,14 @@ export const errorCodes = {
   // Stories
   STORY_NOT_FOUND: "story-not-found",
   STORIES_NOT_FOUND: "stories-not-found",
+
+  // Users
+  USER_NOT_FOUND: "user-not-found",
+  EMAIL_USED: "email-used",
+  USERNAME_USED: "username-used",
+  INVALID_CREDENTIALS: "invalid-credentials",
+  EMAIL_NOT_CONFIRMED: "email-not-confirmed",
+  EMAIL_RATE_LIMIT: "email-rate-limit",
 };
 
 export const customErrorHandler = (code, message, error) => {
@@ -22,9 +30,7 @@ export const customErrorHandler = (code, message, error) => {
     console.error(error);
   }
 
-  console.error(`${code}:`);
-  console.log(message);
-
+  console.error(`${code}:`, message);
   return {
     data: null,
     error: {
