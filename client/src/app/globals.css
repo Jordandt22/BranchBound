@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+:root {
+  /* Tailwind custom colors */
+  --color-primary: #25db96;
+  --color-dark-primary: #25db96;
+  --color-teal: #0f766e;
+}
+
+@theme {
+  --color-primary: var(--color-primary);
+  --color-dark-primary: var(--color-dark-primary);
+  --color-teal: var(--color-teal);
+}
+
+/* Dark theme background */
+body {
+  @apply bg-black text-white;
+}
