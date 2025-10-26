@@ -1,3 +1,4 @@
+// Components
 import MobileAuthForm from "@/components/auth/MobileAuthForm";
 import DesktopAuthForm from "@/components/auth/DesktopAuthForm";
 
