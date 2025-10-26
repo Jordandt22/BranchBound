@@ -5,24 +5,27 @@ import cors from "cors";
 import morgan from "morgan";
 import http from "http";
 import { arcjetMiddleware } from "./middleware/arcjet.mw.js";
+import { getWebURL } from "./utils/urlGenerator.js";
+import { authAPIKey } from "./middleware/auth.mw.js";
 
 // Routers
 import storiesRouter from "./routes/stories.routes.js";
+import usersRouter from "./routes/users.routes.js";
+import internalAuthRouter from "./routes/auth/internal.routes.js";
 
 const app = express();
 
 // Middleware
-const { NODE_ENV, API_VERSION, PORT, WEB_URL } = process.env;
-const notProduction = NODE_ENV !== "production";
+const { NODE_ENV, API_VERSION, PORT } = process.env;
 app.use(helmet());
 app.use(
   cors({
-    origin: notProduction ? "http://localhost:3000" : WEB_URL,
+    origin: getWebURL(),
   })
 );
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-if (notProduction) {
+if (NODE_ENV !== "production") {
   app.use(morgan("dev"));
 } else {
   app.enable("trust proxy");
@@ -40,7 +43,18 @@ app.use(arcjetMiddleware);
 // ---- API Routes ----
 
 // Routes for Stories
-app.use(`/v${API_VERSION}/api/stories`, storiesRouter);
+app.use(
+  `/v${API_VERSION}/api/stories`,
+  authAPIKey(process.env.INTERNAL_API_KEY),
+  storiesRouter
+);
+
+// Routes for Users
+app.use(`/v${API_VERSION}/api/users`, usersRouter);
+
+// ! NOT USED
+// Routes for Auth
+// app.use(`/v${API_VERSION}/api/auth/internal`, authAPIKey, internalAuthRouter);
 
 // PORT and Sever
 const server = http.createServer(app);
