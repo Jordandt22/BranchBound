@@ -3,14 +3,12 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 
 // Contexts
 import { useSupabase } from "@/contexts/Supabase.context";
-import { useGlobal } from "@/contexts/Global.context";
 
 const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [session, setSession] = useState(null);
   const { supabase } = useSupabase();
-  const { showLoading, hideLoading } = useGlobal();
 
   // Check for session
   useEffect(() => {
@@ -27,8 +25,13 @@ export const AuthProvider = ({ children }) => {
     return () => subscription.unsubscribe();
   }, []);
 
+  const signOut = async () => {
+    await supabase.auth.signOut();
+    setSession(null);
+  };
+
   return (
-    <AuthContext.Provider value={{ session, setSession }}>
+    <AuthContext.Provider value={{ session, setSession, signOut }}>
       {children}
     </AuthContext.Provider>
   );

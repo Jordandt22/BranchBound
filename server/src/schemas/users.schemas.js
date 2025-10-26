@@ -8,12 +8,25 @@ export const UserIDSchema = Yup.object({
 
 // ---- Body Request ----
 
+// Profile Schema
+export const ProfileSchema = Yup.object({
+  username: Yup.string()
+    .trim()
+    .min(3, "Please enter a username.")
+    .max(20, "Username exceeds the max character limit (20).")
+    .required("Please enter a username."),
+  age: Yup.number()
+    .min(13, "You must be atleast 13 years old.")
+    .max(150, "Age exceeds the max age limit (150).")
+    .required("Please enter your age."),
+});
+
 // Sign Up Schema
 export const SignUpSchema = Yup.object({
   username: Yup.string()
     .trim()
     .min(3, "Please enter a username.")
-    .max(50, "Username exceeds the max character limit (50).")
+    .max(20, "Username exceeds the max character limit (20).")
     .required("Please enter a username."),
   email: Yup.string()
     .trim()

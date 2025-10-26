@@ -35,8 +35,20 @@ export const UsersAPIProvider = ({ children }) => {
     });
   };
 
+  const createProfile = async (values) => {
+    return checkAuthWrapper(async (session) => {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${session.user.id}/profile`,
+        values,
+        setAuthHeader(session)
+      );
+
+      return response.data;
+    });
+  };
+
   return (
-    <UsersAPIContext.Provider value={{ getUser }}>
+    <UsersAPIContext.Provider value={{ getUser, createProfile }}>
       {children}
     </UsersAPIContext.Provider>
   );

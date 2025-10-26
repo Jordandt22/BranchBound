@@ -1,6 +1,6 @@
 // Components
-import MobileAuthForm from "@/components/auth/MobileAuthForm";
-import DesktopAuthForm from "@/components/auth/DesktopAuthForm";
+import MobileAuthForm from "@/components/auth/AuthForm/MobileAuthForm";
+import DesktopAuthForm from "@/components/auth/AuthForm/DesktopAuthForm";
 
 export default function Login() {
   return (

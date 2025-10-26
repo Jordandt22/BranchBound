@@ -8,6 +8,8 @@ export const errorCodes = {
   ROUTE_NOT_FOUND: "route-not-found",
   NO_API_KEY: "no-api-key",
   INVALID_API_KEY: "invalid-api-key",
+  NO_ACCESS_TOKEN: "no-access-token",
+  INVALID_ACCESS_TOKEN: "invalid-access-token",
 
   // Supabase
   SUPABASE_ERROR: "supabase-error",
