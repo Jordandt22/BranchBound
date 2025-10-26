@@ -4,6 +4,9 @@ import "./globals.css";
 // Contexts
 import ContextProvider from "@/contexts/Context.provider";
 
+// Components
+import LoadingSpinner from "@/components/state/LoadingSpinner";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -25,7 +28,10 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ContextProvider>{children}</ContextProvider>
+        <ContextProvider>
+          {children}
+          <LoadingSpinner />
+        </ContextProvider>
       </body>
     </html>
   );
