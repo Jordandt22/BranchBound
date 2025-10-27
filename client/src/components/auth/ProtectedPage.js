@@ -14,16 +14,15 @@ export default function ProtectedPage({ children }) {
   const { session } = useAuth();
   const { getUser } = useUsersAPI();
   const { showLoading, hideLoading } = useGlobal();
-  const { user, setUser } = useUser();
+  const { user, updateUser } = useUser();
 
   useEffect(() => {
     showLoading("Loading your adventure...");
 
     // No User Session
-    console.log("session", session);
     if (!session) {
       hideLoading();
-      return router.push("/auth/login");
+      return router.push("/login");
     }
 
     // User already has a profile
@@ -43,7 +42,7 @@ export default function ProtectedPage({ children }) {
         }
 
         hideLoading();
-        setUser(data.user);
+        updateUser(data.user);
         router.push("/dashboard");
       } catch (error) {
         hideLoading();

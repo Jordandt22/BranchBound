@@ -26,7 +26,7 @@ export default function AuthCallback() {
 
       if (session) {
         setSession(session);
-        router.push("/dashboard");
+        router.push("/create-profile");
       }
     };
 
