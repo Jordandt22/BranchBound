@@ -81,3 +81,9 @@ export const getStoryKey = (storyID) => ({
   key: `STORIES_${storyID}`,
   interval: 60 * 60 * 24,
 });
+
+// --- Users ----
+export const getUserKey = (uid) => ({
+  key: `USER_UID:${uid}`,
+  interval: 60 * 60,
+});
