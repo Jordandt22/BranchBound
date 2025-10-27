@@ -5,8 +5,7 @@ export default function Login() {
   return (
     <AuthForm
       title="Login"
-      subTitle="Welcome back to BranchBound"
-      description="Experience interactive stories where your choices shape the narrative. Choose your path and create unique adventures."
+      description="Welcome back! Log in to continue your magical journey with our interactive stories and endless possibilities."
       type="login"
     />
   );

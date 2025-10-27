@@ -4,6 +4,37 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  /* Cinematic Design System Font Variables */
+  --font-merriweather: var(--font-merriweather);
+  --font-inter: var(--font-inter);
+  --font-oswald: var(--font-oswald);
+  --font-playfair: var(--font-playfair);
+
+  /* Cinematic Color Palette */
+  --color-base-bg: #0e1114; /* deep near-black background */
+  --color-surface: #14181c; /* slightly lighter panels */
+  --color-surface-hover: #1a1e22; /* for hover or elevation effects */
+  --color-text-primary: #e9ecef; /* high contrast, readable white */
+  --color-text-secondary: #a0a7ae; /* muted gray for narrative text */
+  --color-accent-primary: #25db96; /* signature mint green accent */
+  --color-accent-hover: #1ec988; /* hover/active variant */
+  --color-accent-subtle: #173c32; /* subtle background or border use */
+  --color-error: #e96363; /* gentle red for alerts */
+
+  /* Cinematic Design System Font Variables */
+  --font-family-merriweather: "Merriweather", serif;
+  --font-family-inter: "Inter", sans-serif;
+  --font-family-oswald: "Oswald", sans-serif;
+  --font-family-playfair: "Playfair Display", serif;
+
+  /* Cinematic Design System Shadow Variables */
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.6);
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.8);
+  --shadow-button: 0 0 12px rgba(37, 219, 150, 0.3);
+  --shadow-button-hover: 0 0 16px rgba(37, 219, 150, 0.4);
+  --shadow-error: 0 2px 8px rgba(233, 99, 99, 0.2);
+  --shadow-logo: 0 2px 8px rgba(0, 0, 0, 0.4);
+
   /* Tailwind custom colors */
   --color-primary: #25db96;
   --color-dark-primary: #25db96;
@@ -43,6 +74,32 @@
 }
 
 @theme {
+  /* Cinematic Design System Colors */
+  --color-base-bg: var(--color-base-bg);
+  --color-surface: var(--color-surface);
+  --color-surface-hover: var(--color-surface-hover);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-accent-primary: var(--color-accent-primary);
+  --color-accent-hover: var(--color-accent-hover);
+  --color-accent-subtle: var(--color-accent-subtle);
+  --color-error: var(--color-error);
+
+  /* Cinematic Design System Fonts */
+  --font-family-merriweather: var(--font-family-merriweather);
+  --font-family-inter: var(--font-family-inter);
+  --font-family-oswald: var(--font-family-oswald);
+  --font-family-playfair: var(--font-family-playfair);
+
+  /* Cinematic Design System Shadows */
+  --shadow-card: var(--shadow-card);
+  --shadow-card-hover: var(--shadow-card-hover);
+  --shadow-button: var(--shadow-button);
+  --shadow-button-hover: var(--shadow-button-hover);
+  --shadow-error: var(--shadow-error);
+  --shadow-logo: var(--shadow-logo);
+
+  /* Legacy colors */
   --color-primary: var(--color-primary);
   --color-dark-primary: var(--color-dark-primary);
   --color-teal: var(--color-teal);
