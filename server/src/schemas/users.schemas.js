@@ -11,14 +11,14 @@ export const UserIDSchema = Yup.object({
 // Profile Schema
 export const ProfileSchema = Yup.object({
   username: Yup.string()
-    .trim()
-    .min(3, "Please enter a username.")
-    .max(20, "Username exceeds the max character limit (20).")
-    .required("Please enter a username."),
+    .min(3, "Username must be at least 3 characters")
+    .max(20, "Username must not exceed 20 characters")
+    .matches(/^[a-zA-Z0-9]+$/, "Username can only contain letters and numbers")
+    .required("Username is required"),
   age: Yup.number()
-    .min(13, "You must be atleast 13 years old.")
-    .max(150, "Age exceeds the max age limit (150).")
-    .required("Please enter your age."),
+    .min(13, "You must be at least 13 years old")
+    .required("Age is required")
+    .typeError("Please enter a valid age"),
 });
 
 // Sign Up Schema
