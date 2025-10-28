@@ -147,7 +147,7 @@ export default function CreateProfileForm() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-accent-primary to-accent-hover hover:from-accent-hover hover:to-accent-primary disabled:from-accent-primary/50 disabled:to-accent-hover/50 font-semibold py-4 px-6 rounded-2xl shadow-button hover:shadow-button-hover transition-all duration-200 hover:scale-[1.02] disabled:scale-100 disabled:cursor-not-allowed tracking-wide cursor-pointer mt-4 font-oswald text-white"
+                className="w-full bg-linear-to-r from-accent-primary to-accent-hover hover:from-accent-hover hover:to-accent-primary disabled:from-accent-primary/50 disabled:to-accent-hover/50 font-semibold py-4 px-6 rounded-2xl shadow-button hover:shadow-button-hover transition-all duration-200 hover:scale-[1.02] disabled:scale-100 disabled:cursor-not-allowed tracking-wide cursor-pointer mt-4 font-oswald text-white"
               >
                 {isSubmitting ? (
                   <div className="flex items-center justify-center gap-2">
