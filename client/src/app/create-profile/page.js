@@ -1,16 +1,30 @@
 "use client";
 
-import React from "react";
-import MobileCreateProfileForm from "@/components/auth/CreateProfile/MobileCreateProfileForm";
-import DesktopCreateProfileForm from "@/components/auth/CreateProfile/DesktopCreateProfileForm";
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+// Contexts
+import { useUser } from "@/contexts/User.context";
+import { useAuth } from "@/contexts/Auth.context";
+
+// Components
+import CreateProfileForm from "@/components/auth/CreateProfileForm";
 
 export default function CreateProfilePage() {
-  // ! CHECK IF USER HAS A PROFILE
+  const { session } = useAuth();
+  const { user } = useUser();
+  const router = useRouter();
 
-  return (
-    <div className="min-h-screen bg-black text-white">
-      <MobileCreateProfileForm />
-      <DesktopCreateProfileForm />
-    </div>
-  );
+  useEffect(() => {
+    if (!session) {
+      return router.push("/login");
+    }
+
+    console.log("USER", user);
+    if (user) {
+      return router.push("/dashboard");
+    }
+  }, [user, session, router]);
+
+  return <CreateProfileForm />;
 }
