@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { createProfileSchema } from "@/lib/schemas/user.schemas";
 import { useRouter } from "next/navigation";
@@ -11,42 +10,62 @@ import { useState } from "react";
 import { useGlobal } from "@/contexts/Global.context";
 import { useUsersAPI } from "@/contexts/API/UsersAPI.context";
 import { useUser } from "@/contexts/User.context";
+import { useError } from "@/contexts/Error.context";
 
 // Components
-import AuthBackground from "./AuthBackground";
-import AuthFormCard from "./AuthFormCard";
+import AuthBackground from "./layout/AuthBackground";
+import AuthFormCard from "./layout/AuthFormCard";
+import AuthFormError from "./layout/AuthFormError";
 
 export default function CreateProfileForm() {
   const { showLoading, hideLoading } = useGlobal();
+  const { createProfileErrorHandler } = useError();
   const { createProfile } = useUsersAPI();
   const { updateUser } = useUser();
   const router = useRouter();
   const [error, setError] = useState("");
 
-  const handleSubmit = async (values, { setSubmitting }) => {
+  const errorHandler = (error, setFormErrors) => {
+    return setError(
+      createProfileErrorHandler(error, (formErrors) =>
+        setFormErrors(formErrors)
+      )
+    );
+  };
+
+  const handleSubmit = async (
+    values,
+    { setErrors: setFormErrors, setSubmitting }
+  ) => {
     setError("");
     showLoading("Creating your profile...");
 
     try {
       const res = await createProfile(values);
-      const data = res.data;
+      const { data, error: APIError } = res.data;
 
-      if (!data.user) {
-        setError("Failed to create profile. Please try again.");
-        hideLoading();
-        setSubmitting(false);
-        return;
+      // Check if there was an error
+      if (APIError) {
+        return errorHandler(APIError, setFormErrors);
+      }
+
+      // Check if user was created
+      const user = data?.user;
+      if (!user) {
+        return setError("Failed to create profile. Please try again.");
       }
 
       // Set User
-      updateUser(data.user);
+      updateUser(user);
       router.push("/dashboard");
     } catch (error) {
-      console.error(error);
-      setError(
-        error.response?.data?.message ||
-          "Failed to create profile. Please try again."
-      );
+      if (error?.response?.data) {
+        const { error: APIError } = error.response.data;
+        errorHandler(APIError, setFormErrors);
+      } else {
+        setError("An unexpected error occurred. Please try again.");
+      }
+    } finally {
       hideLoading();
       setSubmitting(false);
     }
@@ -60,11 +79,7 @@ export default function CreateProfileForm() {
         description="Let's set up your profile. Choose a username and confirm your age to get started."
       >
         {/* Error Message */}
-        {error && (
-          <div className="bg-error/10 border border-error/30 text-error px-4 py-3 rounded-xl text-sm animate-slide-in shadow-error">
-            {error}
-          </div>
-        )}
+        {error && <AuthFormError error={error} />}
 
         {/* Form */}
         <Formik

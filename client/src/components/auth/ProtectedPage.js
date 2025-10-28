@@ -3,18 +3,26 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
+// Handlers
+import {
+  errorCodes,
+  DEFAULT_ERROR_MESSAGE,
+} from "@/lib/handlers/errorHandlers";
+
 // Contexts
 import { useAuth } from "@/contexts/Auth.context";
 import { useUsersAPI } from "@/contexts/API/UsersAPI.context";
 import { useGlobal } from "@/contexts/Global.context";
 import { useUser } from "@/contexts/User.context";
+import { useError } from "@/contexts/Error.context";
 
 export default function ProtectedPage({ children }) {
   const router = useRouter();
   const { session } = useAuth();
   const { getUser } = useUsersAPI();
-  const { showLoading, hideLoading } = useGlobal();
+  const { showLoading, hideLoading, showError } = useGlobal();
   const { user, updateUser } = useUser();
+  const { getUserErrorHandler } = useError();
 
   useEffect(() => {
     showLoading("Loading your adventure...");
@@ -35,19 +43,40 @@ export default function ProtectedPage({ children }) {
     const getUserWrapper = async () => {
       try {
         const res = await getUser(session.user.id);
-        const data = res.data.data;
+        const { data, error: APIError } = res.data.data;
+
+        // Check for API Error
+        if (APIError) {
+          if (APIError.code === errorCodes.USER_NOT_FOUND) {
+            return router.push("/create-profile");
+          }
+
+          getUserErrorHandler(APIError, showError);
+          return router.push("/");
+        }
+
+        // Check if profile was created
         if (!data.user) {
-          hideLoading();
           return router.push("/create-profile");
         }
 
-        hideLoading();
         updateUser(data.user);
         router.push("/dashboard");
       } catch (error) {
+        if (error?.response?.data) {
+          const { error: APIError } = error.response.data;
+          if (APIError.code === errorCodes.USER_NOT_FOUND) {
+            return router.push("/create-profile");
+          }
+
+          getUserErrorHandler(APIError, showError);
+        } else {
+          showError(DEFAULT_ERROR_MESSAGE);
+        }
+
+        return router.push("/");
+      } finally {
         hideLoading();
-        console.error("Error getting user:", error);
-        return router.push("/create-profile");
       }
     };
     getUserWrapper();

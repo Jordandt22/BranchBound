@@ -1,15 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useState } from "react";
 
 // Contexts
 import { useSupabase } from "@/contexts/Supabase.context";
 
 // Components
-import AuthBackground from "./AuthBackground";
-import AuthFormCard from "./AuthFormCard";
+import AuthBackground from "./layout/AuthBackground";
+import AuthFormCard from "./layout/AuthFormCard";
+import AuthFormError from "./layout/AuthFormError";
 
 export default function AuthForm({ title, description, type = "signup" }) {
   const { supabase } = useSupabase();
@@ -27,12 +27,10 @@ export default function AuthForm({ title, description, type = "signup" }) {
       });
 
       if (error) {
-        setError("Failed to sign in with Google. Please try again.");
-        console.error(error);
+        return setError("Failed to sign in with Google. Please try again.");
       }
     } catch (err) {
-      setError("An unexpected error occurred. Please try again.");
-      console.error(err);
+      return setError("An unexpected error occurred. Please try again.");
     }
   };
 
@@ -41,11 +39,7 @@ export default function AuthForm({ title, description, type = "signup" }) {
       {/* Main Card */}
       <AuthFormCard title={title} description={description}>
         {/* Error Message */}
-        {error && (
-          <div className="bg-error/10 border border-error/30 text-error px-4 py-3 rounded-xl text-sm animate-slide-in shadow-error">
-            {error}
-          </div>
-        )}
+        {error && <AuthFormError error={error} />}
 
         {/* Google Login Button */}
         <button

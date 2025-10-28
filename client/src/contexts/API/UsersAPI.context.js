@@ -1,6 +1,9 @@
 import React, { createContext, useContext } from "react";
 import axios from "axios";
 
+// Error Codes
+import { errorCodes } from "@/lib/handlers/errorHandlers";
+
 // Contexts
 import { useAuth } from "@/contexts/Auth.context";
 
@@ -8,12 +11,18 @@ const UsersAPIContext = createContext();
 export const useUsersAPI = () => useContext(UsersAPIContext);
 export const UsersAPIProvider = ({ children }) => {
   const { session } = useAuth();
-  const checkAuthWrapper = async (fn) => {
+  const checkAuthWrapper = (fn) => {
     if (!session) {
-      return null;
+      return {
+        data: null,
+        error: {
+          code: errorCodes.NO_ACCESS_TOKEN,
+          message: "Please log in to continue.",
+        },
+      };
     }
 
-    return await fn(session);
+    return fn(session);
   };
 
   const setAuthHeader = (session) => {
@@ -24,27 +33,23 @@ export const UsersAPIProvider = ({ children }) => {
     };
   };
 
-  const getUser = async (uid) => {
-    return checkAuthWrapper(async (session) => {
-      const response = await axios.get(
+  const getUser = (uid) => {
+    return checkAuthWrapper((session) =>
+      axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/users/${uid}`,
         setAuthHeader(session)
-      );
-
-      return response.data;
-    });
+      )
+    );
   };
 
-  const createProfile = async (values) => {
-    return checkAuthWrapper(async (session) => {
-      const response = await axios.post(
+  const createProfile = (values) => {
+    return checkAuthWrapper((session) =>
+      axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/users/${session.user.id}/profile`,
         values,
         setAuthHeader(session)
-      );
-
-      return response.data;
-    });
+      )
+    );
   };
 
   return (

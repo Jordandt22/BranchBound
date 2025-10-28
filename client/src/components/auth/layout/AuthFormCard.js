@@ -4,7 +4,7 @@ import Image from "next/image";
 
 function AuthFormCard({ title, description, children }) {
   return (
-    <div className="relative w-full max-w-md animate-fade-in">
+    <div className="fixed bottom-0 md:relative w-full max-w-md animate-fade-in">
       <div className="bg-surface backdrop-blur-sm rounded-t-2xl pb-16 md:rounded-2xl shadow-card p-6 md:p-8 space-y-6">
         {/* Back to Home Link */}
         <div className="flex justify-start">
