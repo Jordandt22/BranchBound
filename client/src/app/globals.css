@@ -19,6 +19,7 @@
   --color-accent-primary: #25db96; /* signature mint green accent */
   --color-accent-hover: #1ec988; /* hover/active variant */
   --color-accent-subtle: #173c32; /* subtle background or border use */
+  --color-accent-dark: #189c6a; /* dark accent color */
   --color-error: #e96363; /* gentle red for alerts */
 
   /* Cinematic Design System Font Variables */
@@ -83,6 +84,7 @@
   --color-accent-primary: var(--color-accent-primary);
   --color-accent-hover: var(--color-accent-hover);
   --color-accent-subtle: var(--color-accent-subtle);
+  --color-accent-dark: var(--color-accent-dark);
   --color-error: var(--color-error);
 
   /* Cinematic Design System Fonts */

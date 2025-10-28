@@ -16,6 +16,9 @@ import { useGlobal } from "@/contexts/Global.context";
 import { useUser } from "@/contexts/User.context";
 import { useError } from "@/contexts/Error.context";
 
+// Components
+import Sidebar from "@/components/layout/Sidebar";
+
 export default function ProtectedPage({ children }) {
   const router = useRouter();
   const { session } = useAuth();
@@ -82,5 +85,13 @@ export default function ProtectedPage({ children }) {
     getUserWrapper();
   }, []);
 
-  return <>{children}</>;
+  return (
+    <div className="flex h-screen bg-[#0E1114]">
+      {/* Left Sidebar */}
+      <Sidebar />
+
+      {/* Main Content */}
+      <div className="flex-1 overflow-auto md:p-12">{children}</div>
+    </div>
+  );
 }
