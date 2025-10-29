@@ -57,7 +57,7 @@ export default function CreateProfileForm() {
 
       // Set User
       updateUser(user);
-      router.push("/dashboard");
+      router.push("/discover");
     } catch (error) {
       if (error?.response?.data) {
         const { error: APIError } = error.response.data;

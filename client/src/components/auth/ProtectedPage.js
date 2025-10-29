@@ -39,7 +39,7 @@ export default function ProtectedPage({ children }) {
     // User already has a profile
     if (user) {
       hideLoading();
-      return router.push("/dashboard");
+      return router.push("/discover");
     }
 
     // Get user from DB
@@ -64,7 +64,7 @@ export default function ProtectedPage({ children }) {
         }
 
         updateUser(data.user);
-        router.push("/dashboard");
+        router.push("/discover");
       } catch (error) {
         if (error?.response?.data) {
           const { error: APIError } = error.response.data;
@@ -91,7 +91,7 @@ export default function ProtectedPage({ children }) {
       <Sidebar />
 
       {/* Main Content */}
-      <div className="flex-1 overflow-auto md:p-12">{children}</div>
+      <div className="flex-1 overflow-auto md:py-8 md:px-20">{children}</div>
     </div>
   );
 }

@@ -122,7 +122,7 @@ const Sidebar = () => {
             variant="ghost"
             size="sm"
             onClick={toggleCollapse}
-            className="w-full h-10 bg-gray-700 hover:bg-accent-hover text-gray-400 hover:text-white cursor-pointer rounded-md"
+            className="w-full h-10 bg-gray-700 hover:bg-surface-hover text-gray-400 hover:text-white cursor-pointer rounded-md"
           >
             <Search size={20} />
           </Button>
@@ -176,7 +176,7 @@ const Sidebar = () => {
                 flex items-center gap-3 p-2 rounded-md duration-200
                 ${
                   isActive
-                    ? "bg-accent-hover text-white"
+                    ? "bg-accent-primary text-white"
                     : "text-gray-400 hover:text-white hover:bg-gray-700"
                 }
                 ${isCollapsed ? "justify-center" : ""}
@@ -323,7 +323,7 @@ const Sidebar = () => {
       <div
         className={`
         hidden md:flex flex-col h-full bg-surface border-r border-gray-800 transition-all duration-300
-        ${isCollapsed ? "w-16" : "w-64"}
+        ${isCollapsed ? "w-16" : "w-64"} z-50
       `}
       >
         {sidebarContent}
