@@ -5,6 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { ExternalLink } from "lucide-react";
 
+// Utils
+import { getStoryImageURL } from "@/lib/utils";
+
 const FeaturedBanner = ({ story }) => {
   const [currentStory, setCurrentStory] = useState(story);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -29,7 +32,7 @@ const FeaturedBanner = ({ story }) => {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src={currentStory.image_url}
+          src={getStoryImageURL(currentStory.slug)}
           alt={currentStory.title}
           fill
           className={`object-cover group-hover/active-story:scale-110 group-hover/active-story:rotate-3 transition-all duration-500 ${

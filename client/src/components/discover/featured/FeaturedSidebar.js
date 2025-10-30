@@ -3,6 +3,9 @@
 import React from "react";
 import Image from "next/image";
 
+// Utils
+import { getStoryImageURL } from "@/lib/utils";
+
 const FeaturedSidebar = ({ stories, activeStoryId, onStorySelect }) => {
   // Filter out the active story to show only non-active ones
   const nonActiveStories = stories.filter(
@@ -24,7 +27,7 @@ const FeaturedSidebar = ({ stories, activeStoryId, onStorySelect }) => {
             {/* Story Image */}
             <div className="relative w-16 h-16 rounded-lg overflow-hidden shrink-0">
               <Image
-                src={story.image_url}
+                src={getStoryImageURL(story.slug)}
                 alt={story.title}
                 fill
                 className="object-cover group-hover:scale-110 transition-transform duration-200"

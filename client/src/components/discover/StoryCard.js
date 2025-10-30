@@ -4,6 +4,9 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+// Utils
+import { getStoryImageURL } from "@/lib/utils";
+
 const StoryCard = ({ story }) => {
   return (
     <Link
@@ -14,7 +17,7 @@ const StoryCard = ({ story }) => {
         {/* Story Image */}
         <div className="relative w-full h-full overflow-hidden">
           <Image
-            src={story.image_url}
+            src={getStoryImageURL(story.slug)}
             alt={story.title}
             fill
             className="object-cover transition-transform duration-400 bg-black"

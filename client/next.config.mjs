@@ -2,7 +2,12 @@
 const nextConfig = {
   /* config options here */
   images: {
-    domains: ["doyzrrinsuvhnunonrip.supabase.co", "images.unsplash.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "doyzrrinsuvhnunonrip.supabase.co",
+      },
+    ],
   },
 };
 
