@@ -26,6 +26,9 @@ export default function ProtectedPage({ children }) {
   const { showLoading, hideLoading, showError } = useGlobal();
   const { user, updateUser } = useUser();
   const { getUserErrorHandler } = useError();
+  const {
+    sidebarState: { isCollapsed },
+  } = useGlobal();
 
   useEffect(() => {
     showLoading("Loading your adventure...");
@@ -91,7 +94,13 @@ export default function ProtectedPage({ children }) {
       <Sidebar />
 
       {/* Main Content */}
-      <div className="flex-1 overflow-auto md:py-8 md:px-20">{children}</div>
+      <div
+        className={`flex-1 overflow-auto md:py-4 px-4 ${
+          isCollapsed ? "md:px-36" : "px-12"
+        }`}
+      >
+        {children}
+      </div>
     </div>
   );
 }

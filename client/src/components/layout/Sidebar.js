@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -18,51 +18,30 @@ import {
 
 // Contexts
 import { useUser } from "@/contexts/User.context";
+import { useGlobal } from "@/contexts/Global.context";
 
 // Components
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+
+// Components
 import ProfileMenuDropdown from "@/components/layout/ProfileMenuDropdown";
 
 const Sidebar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
-  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const {
+    sidebarState: { isCollapsed, isProfileMenuOpen, searchValue },
+    toggleSidebar,
+    updateSearchValue,
+    toggleProfileMenu,
+    isMobile,
+  } = useGlobal();
   const { user } = useUser();
   const pathname = usePathname();
   const searchInputRef = useRef(null);
 
-  // Check if mobile
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed);
-    // Focus search input when expanding
-    if (isCollapsed && searchInputRef.current) {
-      setTimeout(() => {
-        searchInputRef.current?.focus();
-      }, 300); // Wait for animation to complete
-    }
-  };
-
   const clearSearch = () => {
-    setSearchValue("");
+    updateSearchValue("");
     searchInputRef.current?.focus();
-  };
-
-  const toggleProfileMenu = () => {
-    setIsProfileMenuOpen(!isProfileMenuOpen);
   };
 
   const navigationItems = [
@@ -102,16 +81,12 @@ const Sidebar = () => {
           variant="ghost"
           size="sm"
           onClick={() => {
-            if (isMobile) {
-              setIsMobileOpen(false);
-            } else {
-              toggleCollapse();
-            }
+            toggleSidebar();
             clearSearch();
           }}
           className="text-gray-400 hover:text-white hover:bg-gray-700 rounded-full cursor-pointer duration-200"
         >
-          {isCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
+          {isCollapsed ? <ChevronRight size={25} /> : <ChevronLeft size={25} />}
         </Button>
       </div>
 
@@ -121,7 +96,7 @@ const Sidebar = () => {
           <Button
             variant="ghost"
             size="sm"
-            onClick={toggleCollapse}
+            onClick={() => toggleSidebar(false)}
             className="w-full h-10 bg-gray-700 hover:bg-surface-hover text-gray-400 hover:text-white cursor-pointer rounded-md"
           >
             <Search size={20} />
@@ -139,8 +114,8 @@ const Sidebar = () => {
               type="text"
               placeholder="Search..."
               value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              className="w-full bg-gray-700 text-white placeholder-gray-400 rounded-md px-10 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent transition-all duration-200"
+              onChange={(e) => updateSearchValue(e.target.value)}
+              className="w-full bg-gray-700 text-white placeholder-gray-400 rounded-md px-10 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-accent-primary focus:border-transparent transition-all duration-200"
             />
             {searchValue && (
               <Button
@@ -238,7 +213,7 @@ const Sidebar = () => {
           }`}
         >
           <div
-            onClick={toggleProfileMenu}
+            onClick={() => toggleProfileMenu()}
             className={`
           flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer transition-all duration-200 bg-gray-800 md:bg-transparent
           ${
@@ -269,13 +244,7 @@ const Sidebar = () => {
               </>
             )}
           </div>
-          {isProfileMenuOpen && (
-            <ProfileMenuDropdown
-              isCollapsed={isCollapsed}
-              setIsProfileMenuOpen={setIsProfileMenuOpen}
-              setIsMobileOpen={setIsMobileOpen}
-            />
-          )}
+          {isProfileMenuOpen && <ProfileMenuDropdown />}
         </div>
       </div>
     </div>
@@ -289,8 +258,7 @@ const Sidebar = () => {
           variant="ghost"
           size="sm"
           onClick={() => {
-            setIsMobileOpen(true);
-            setIsCollapsed(false);
+            toggleSidebar(false);
           }}
           className="fixed top-4 left-4 z-50 bg-gray-800 text-white hover:bg-gray-700 md:hidden"
         >
@@ -298,10 +266,10 @@ const Sidebar = () => {
         </Button>
 
         {/* Mobile Overlay */}
-        {isMobileOpen && (
+        {!isCollapsed && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
-            onClick={() => setIsMobileOpen(false)}
+            className="fixed inset-0 bg-black/50 z-40 md:hidden"
+            onClick={() => toggleSidebar(true)}
           />
         )}
 
@@ -309,7 +277,7 @@ const Sidebar = () => {
         <div
           className={`
           fixed top-0 left-0 h-full w-64 bg-surface border-r border-gray-800 z-50 transform transition-transform duration-300 md:hidden
-          ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}
+          ${!isCollapsed ? "translate-x-0" : "-translate-x-full"}
         `}
         >
           {sidebarContent}

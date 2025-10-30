@@ -80,7 +80,7 @@ export const getFeaturedStories = async () => {
     .from("stories")
     .select("*")
     .order("created_at", { ascending: true })
-    .limit(10);
+    .limit(5);
 
   if (data) {
     return { data, error };

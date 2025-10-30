@@ -53,8 +53,8 @@ const FeaturedBanner = ({ story }) => {
           <h1 className="text-white text-4xl font-bold mb-4 leading-tight">
             {currentStory.title}
           </h1>
-          <p className="text-gray-200 text-lg mb-6 leading-relaxed">
-            {currentStory.short_desc}
+          <p className="text-gray-200 text-lg mb-6 leading-relaxed line-clamp-4">
+            {currentStory.long_desc}
           </p>
           <Link
             href={`/story/${currentStory.slug}`}

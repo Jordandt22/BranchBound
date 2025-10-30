@@ -15,7 +15,7 @@ const FeaturedSidebar = ({ stories, activeStoryId, onStorySelect }) => {
         <div
           key={story.story_id}
           onClick={() => onStorySelect(story.story_id)}
-          className="bg-surface/40 backdrop-blur-sm rounded-lg p-4 cursor-pointer hover:bg-surface-hover transition-all duration-200 hover:scale-105 group"
+          className="bg-surface/40 backdrop-blur-sm rounded-lg p-4 cursor-pointer hover:bg-surface-hover transition-all duration-300 hover:scale-105 group"
           style={{
             animationDelay: `${index * 100}ms`,
           }}

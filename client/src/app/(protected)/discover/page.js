@@ -1,21 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
-import DiscoverHeader from "@/components/discover/DiscoverHeader";
-import FeaturedSection from "@/components/discover/FeaturedSection";
-import StoryCarousel from "@/components/discover/StoryCarousel";
-import BackgroundImage from "@/components/discover/BackgroundImage";
+import React from "react";
+
+// Data
 import { mockStories } from "@/data/mockStories";
 
+// Components
+import DiscoverHeader from "@/components/discover/DiscoverHeader";
+import FeaturedWrapper from "@/components/discover/featured/FeaturedWrapper";
+import StoryCarousel from "@/components/discover/StoryCarousel";
+
 function DiscoverPage() {
-  const [activeStoryId, setActiveStoryId] = useState(
-    mockStories.featured[0]?.story_id || null
-  );
-
-  const activeStory =
-    mockStories.featured.find((story) => story.story_id === activeStoryId) ||
-    mockStories.featured[0];
-
   return (
     <div className="min-h-screen w-full">
       {/* Header */}
@@ -23,15 +18,9 @@ function DiscoverPage() {
         <DiscoverHeader />
       </div>
 
-      <BackgroundImage imageUrl={activeStory?.image_url} />
-
       {/* Main Content */}
-      <div className="relative py-6 px-6 mt-4 md:mt-0">
-        {/* Featured Section */}
-        <FeaturedSection
-          stories={mockStories.featured}
-          onActiveStoryChange={setActiveStoryId}
-        />
+      <div className="py-6 px-6 mt-4 md:mt-0">
+        <FeaturedWrapper />
 
         {/* Other Sections */}
         <div className="space-y-8">
@@ -39,13 +28,13 @@ function DiscoverPage() {
           {/* <StoryCarousel title="Trending" stories={mockStories.trending} /> */}
 
           {/* Newly Added Section */}
-          {/* <StoryCarousel
+          <StoryCarousel
             title="Recently Added"
             stories={mockStories.newlyAdded}
-          /> */}
+          />
 
           {/* Action Section */}
-          {/* <StoryCarousel title="Action" stories={mockStories.action} /> */}
+          <StoryCarousel title="Action" stories={mockStories.action} />
 
           {/* Romance Section */}
           {/* <StoryCarousel title="Romance" stories={mockStories.romance} /> */}

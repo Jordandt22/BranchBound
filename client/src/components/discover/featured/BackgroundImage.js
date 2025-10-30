@@ -28,14 +28,14 @@ const BackgroundImage = ({ imageUrl }) => {
         src={currentImage}
         alt="Background"
         fill
-        className={`object-cover bg-fixed transition-opacity duration-500 ${
+        className={`object-cover object-top bg-fixed transition-opacity duration-500 ${
           isTransitioning ? "opacity-0" : "opacity-100"
         }`}
         priority
         quality={75}
       />
       {/* Gradient overlay that fades to dark at the bottom */}
-      <div className="absolute inset-0 bg-linear-to-b from-base-bg/70 via-base-bg md:via-base-bg/90 to-base-bg" />
+      <div className="absolute inset-0 bg-linear-to-b from-base-bg/70 via-base-bg md:via-base-bg/95 to-base-bg" />
     </div>
   );
 };

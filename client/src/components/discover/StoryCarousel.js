@@ -27,8 +27,8 @@ const StoryCarousel = ({ title, stories }) => {
     <div className="mb-16 group/carousel">
       {/* Section Title with Navigation */}
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-text-primary text-2xl font-bold">{title}</h2>
-        <div className="gap-2 group-hover/carousel:flex hidden">
+        <h2 className="text-text-primary text-2xl font-bold z-10">{title}</h2>
+        <div className="gap-2 z-10 flex">
           <button onClick={scrollPrev} className={navButtonStyles}>
             <ChevronLeft size={16} />
           </button>
