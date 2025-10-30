@@ -61,7 +61,7 @@ export const GlobalProvider = ({ children }) => {
   // Sidebar State
   const isMobile = useMediaQuery("(max-width: 768px)");
   const [sidebarState, setSidebarState] = useState({
-    isCollapsed: false,
+    isCollapsed: isMobile ? true : false,
     searchValue: "",
     isProfileMenuOpen: false,
   });

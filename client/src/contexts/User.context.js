@@ -17,8 +17,12 @@ export const UserProvider = ({ children }) => {
     setUser({ ...userData });
   };
 
+  const clearUser = () => {
+    setUser(null);
+  };
+
   return (
-    <UserContext.Provider value={{ user, updateUser }}>
+    <UserContext.Provider value={{ user, updateUser, clearUser }}>
       {children}
     </UserContext.Provider>
   );

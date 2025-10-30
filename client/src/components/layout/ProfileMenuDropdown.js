@@ -1,20 +1,35 @@
 import React from "react";
 import Link from "next/link";
 import { Settings, LogOut } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 // Contexts
 import { useGlobal } from "@/contexts/Global.context";
+import { useAuth } from "@/contexts/Auth.context";
+import { useUser } from "@/contexts/User.context";
 
 function ProfileMenuDropdown() {
   const {
     sidebarState: { isCollapsed },
     toggleProfileMenu,
+    showLoading,
+    hideLoading,
   } = useGlobal();
-  const handleLogout = () => {
-    // Add logout logic here
-    console.log("Logout clicked");
-    toggleProfileMenu(false);
-    toggleMobileSidebar(false);
+  const router = useRouter();
+  const { logout } = useAuth();
+  const { clearUser } = useUser();
+
+  // Logout
+  const handleLogout = async () => {
+    showLoading("Logging out...");
+    await logout();
+
+    // Clear Contexts
+    clearUser();
+
+    // Redirect to home
+    hideLoading();
+    return router.push("/");
   };
 
   return (
