@@ -5,10 +5,10 @@ function AuthBackground({ children }) {
   return (
     <div className="min-h-screen relative bg-base-bg flex items-end md:items-center md:justify-center md:p-4 overflow-hidden">
       {/* Cinematic Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-surface via-base-bg to-base-bg"></div>
+      <div className="absolute inset-0 bg-linear-to-br from-surface via-base-bg to-base-bg"></div>
 
       {/* Subtle Overlay Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[rgba(20,24,28,0.6)] to-[rgba(14,17,20,0.9)]"></div>
+      <div className="absolute inset-0 bg-linear-to-b from-[rgba(20,24,28,0.6)] to-[rgba(14,17,20,0.9)]"></div>
 
       {/* Glow Gradient */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,219,150,0.2),transparent_70%)]"></div>

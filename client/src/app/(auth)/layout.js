@@ -13,7 +13,7 @@ export default function AuthLayout({ children }) {
   // Check for session
   useEffect(() => {
     if (session) {
-      return router.push("/dashboard");
+      return router.push("/discover");
     }
   }, [session]);
 

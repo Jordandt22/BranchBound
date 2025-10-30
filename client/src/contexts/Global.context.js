@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState } from "react";
 
 // Contexts
 import { useToast } from "@/contexts/Toast.context";
+import { useMediaQuery } from "usehooks-ts";
 
 const GlobalContext = createContext();
 export const useGlobal = () => useContext(GlobalContext);
@@ -57,18 +58,62 @@ export const GlobalProvider = ({ children }) => {
     showInfoToast(title, message);
   };
 
+  // Sidebar State
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const [sidebarState, setSidebarState] = useState({
+    isCollapsed: isMobile ? true : false,
+    searchValue: "",
+    isProfileMenuOpen: false,
+  });
+
+  const toggleSidebar = (isCollapsed = null) => {
+    setSidebarState((curState) => ({
+      ...curState,
+      isCollapsed: isCollapsed !== null ? isCollapsed : !curState.isCollapsed,
+    }));
+  };
+
+  const toggleProfileMenu = (isProfileMenuOpen = null) => {
+    setSidebarState((curState) => ({
+      ...curState,
+      isProfileMenuOpen:
+        isProfileMenuOpen !== null
+          ? isProfileMenuOpen
+          : !curState.isProfileMenuOpen,
+    }));
+  };
+
+  const updateSearchValue = (value) => {
+    setSidebarState((curState) => ({
+      ...curState,
+      searchValue: value,
+    }));
+  };
+
   return (
     <GlobalContext.Provider
       value={{
+        // Loading State
         loadingState,
         showLoading,
         hideLoading,
+
+        // Error State
         errorState,
         showError,
         hideError,
+
+        // Toasts
         showSuccess,
         showWarning,
         showInfo,
+
+        // Sidebar State
+        isMobile,
+        sidebarState,
+        toggleSidebar,
+        updateSearchValue,
+        toggleProfileMenu,
       }}
     >
       {children}

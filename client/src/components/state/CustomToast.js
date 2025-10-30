@@ -67,7 +67,9 @@ const CustomToast = ({
       className={`${config.bgColor} ${
         config.borderColor
       } border rounded-lg p-4 shadow-sm transition-all duration-300 ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
+        isVisible
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 -translate-y-2 z-1000"
       }`}
       style={{ minWidth: "320px", maxWidth: "400px" }}
     >

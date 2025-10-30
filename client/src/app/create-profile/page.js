@@ -20,9 +20,8 @@ export default function CreateProfilePage() {
       return router.push("/login");
     }
 
-    console.log("USER", user);
     if (user) {
-      return router.push("/dashboard");
+      return router.push("/discover");
     }
   }, [user, session, router]);
 
