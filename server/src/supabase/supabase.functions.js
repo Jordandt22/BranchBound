@@ -79,7 +79,8 @@ export const getFeaturedStories = async () => {
   const { data, error } = await supabase
     .from("stories")
     .select("*")
-    .order("created_at", { ascending: true })
+    .eq("is_featured", true)
+    .order("updated_at", { ascending: false })
     .limit(5);
 
   if (data) {
