@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -8,7 +8,6 @@ import {
   ChevronRight,
   Compass,
   Menu,
-  X,
   ChevronDown,
   Search,
   LayoutDashboard,
@@ -23,9 +22,8 @@ import { useGlobal } from "@/contexts/Global.context";
 // Components
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-
-// Components
 import ProfileMenuDropdown from "@/components/layout/ProfileMenuDropdown";
+import SearchBar from "@/components/layout/SearchBar";
 
 const Sidebar = () => {
   const {
@@ -37,11 +35,9 @@ const Sidebar = () => {
   } = useGlobal();
   const { user } = useUser();
   const pathname = usePathname();
-  const searchInputRef = useRef(null);
 
   const clearSearch = () => {
     updateSearchValue("");
-    searchInputRef.current?.focus();
   };
 
   const navigationItems = [
@@ -104,30 +100,12 @@ const Sidebar = () => {
         </div>
       ) : (
         <div className="px-4 pb-4">
-          <div className="relative">
-            <Search
-              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-              size={16}
-            />
-            <input
-              ref={searchInputRef}
-              type="text"
-              placeholder="Search..."
-              value={searchValue}
-              onChange={(e) => updateSearchValue(e.target.value)}
-              className="w-full bg-gray-700 text-white placeholder-gray-400 rounded-md px-10 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-accent-primary focus:border-transparent transition-all duration-200"
-            />
-            {searchValue && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={clearSearch}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0 text-gray-400 hover:text-white hover:bg-gray-600 cursor-pointer"
-              >
-                <X size={14} />
-              </Button>
-            )}
-          </div>
+          <SearchBar
+            value={searchValue}
+            onChange={updateSearchValue}
+            onClear={clearSearch}
+            placeholder="Enter a story title..."
+          />
         </div>
       )}
 
@@ -276,7 +254,7 @@ const Sidebar = () => {
         {/* Mobile Sidebar */}
         <div
           className={`
-          fixed top-0 left-0 h-full w-64 bg-surface border-r border-gray-800 z-50 transform transition-transform duration-300 md:hidden
+          fixed top-0 left-0 h-full w-[70%] bg-surface border-r border-gray-800 z-50 transform transition-transform duration-300 md:hidden
           ${!isCollapsed ? "translate-x-0" : "-translate-x-full"}
         `}
         >

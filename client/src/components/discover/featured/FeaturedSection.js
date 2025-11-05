@@ -7,6 +7,10 @@ import FeaturedBanner from "./FeaturedBanner";
 import FeaturedSidebar from "./FeaturedSidebar";
 import BackgroundImage from "./BackgroundImage";
 
+// Utils
+import { getStoryImageURL } from "@/lib/utils";
+import { THREE_TO_TWO } from "@/lib/constants/aspectRatios";
+
 const FeaturedSection = ({ stories }) => {
   const [activeStoryId, setActiveStoryId] = useState(
     stories.length > 0 ? stories[0]?.story_id : null
@@ -42,7 +46,9 @@ const FeaturedSection = ({ stories }) => {
     <>
       {stories.length > 0 ? (
         <>
-          <BackgroundImage imageUrl={activeStory?.image_url} />
+          <BackgroundImage
+            imageUrl={getStoryImageURL(activeStory?.slug, THREE_TO_TWO)}
+          />
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
             {/* Main Banner - Takes up 2/3 of the width */}

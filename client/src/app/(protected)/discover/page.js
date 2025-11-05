@@ -2,9 +2,6 @@
 
 import React from "react";
 
-// Data
-import { mockStories } from "@/data/mockStories";
-
 // Components
 import DiscoverHeader from "@/components/discover/DiscoverHeader";
 import FeaturedWrapper from "@/components/discover/featured/FeaturedWrapper";
@@ -28,13 +25,13 @@ function DiscoverPage() {
           {/* <StoryCarousel title="Trending" stories={mockStories.trending} /> */}
 
           {/* Newly Added Section */}
-          <StoryCarousel
+          {/* <StoryCarousel
             title="Recently Added"
             stories={mockStories.newlyAdded}
-          />
+          /> */}
 
           {/* Action Section */}
-          <StoryCarousel title="Action" stories={mockStories.action} />
+          {/* <StoryCarousel title="Action" stories={mockStories.action} /> */}
 
           {/* Romance Section */}
           {/* <StoryCarousel title="Romance" stories={mockStories.romance} /> */}
