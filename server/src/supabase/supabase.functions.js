@@ -90,11 +90,11 @@ export const getFeaturedStories = async () => {
   return { data: null, error };
 };
 
-export const getStoryByID = async (storyID) => {
+export const getStoryBySlug = async (slug) => {
   const { data, error } = await supabase
     .from("stories")
     .select(fullStorySelect)
-    .eq("story_id", storyID);
+    .eq("slug", slug);
   if (data) {
     return { data: formatFullStory(data), error };
   }

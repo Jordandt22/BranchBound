@@ -5,7 +5,9 @@ import {
   errorCodes,
   customErrorHandler,
 } from "../helpers/customErrorHandler.js";
+import { getWebURL } from "../utils/urlGenerator.js";
 
+const allowedUserAgents = [process.env.CLIENT_USER_AGENT];
 const aj = arcjet({
   key: process.env.ARCJET_KEY,
   characteristics: ["ip.src"],
@@ -15,8 +17,9 @@ const aj = arcjet({
       mode: "LIVE",
       allow:
         process.env.NODE_ENV === "development"
-          ? ["CATEGORY:SEARCH_ENGINE", "POSTMAN"]
-          : ["CATEGORY:SEARCH_ENGINE"],
+          ? [...allowedUserAgents, "POSTMAN"]
+          : allowedUserAgents,
+      trusted: [getWebURL()],
     }),
     tokenBucket({
       mode: "LIVE",
