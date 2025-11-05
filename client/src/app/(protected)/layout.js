@@ -98,7 +98,7 @@ export default function ProtectedLayout({ children }) {
       {/* Main Content */}
       <div
         className={`flex-1 overflow-auto md:py-4 px-4 ${
-          isCollapsed ? "md:px-36" : "px-12"
+          isCollapsed ? "md:px-36" : "px-0 md:px-12"
         }`}
       >
         {children}
