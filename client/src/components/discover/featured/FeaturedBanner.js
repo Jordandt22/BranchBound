@@ -7,6 +7,7 @@ import { ExternalLink } from "lucide-react";
 
 // Utils
 import { getStoryImageURL } from "@/lib/utils";
+import { SIXTEEN_TO_NINE } from "@/lib/constants/aspectRatios";
 
 const FeaturedBanner = ({ story }) => {
   const [currentStory, setCurrentStory] = useState(story);
@@ -32,7 +33,7 @@ const FeaturedBanner = ({ story }) => {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src={getStoryImageURL(currentStory.slug)}
+          src={getStoryImageURL(currentStory.slug, SIXTEEN_TO_NINE)}
           alt={currentStory.title}
           fill
           className={`object-cover group-hover/active-story:scale-110 group-hover/active-story:rotate-3 transition-all duration-500 ${
@@ -41,12 +42,12 @@ const FeaturedBanner = ({ story }) => {
           priority
         />
         {/* Dark gradient overlay for text readability */}
-        <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/75 to-black/20" />
       </div>
 
       {/* Content */}
       <div
-        className={`relative z-10 h-full flex flex-col justify-end p-8 transition-all duration-500 ${
+        className={`relative z-10 h-full flex flex-col justify-end p-10 transition-all duration-500 ${
           isTransitioning
             ? "opacity-0 transform translate-y-4"
             : "opacity-100 transform translate-y-0"
@@ -56,7 +57,7 @@ const FeaturedBanner = ({ story }) => {
           <h1 className="text-white text-4xl font-bold mb-4 leading-tight">
             {currentStory.title}
           </h1>
-          <p className="text-gray-200 text-lg mb-6 leading-relaxed line-clamp-4">
+          <p className="text-gray-200 text-lg mb-6 leading-relaxed line-clamp-3">
             {currentStory.long_desc}
           </p>
           <Link

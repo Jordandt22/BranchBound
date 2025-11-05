@@ -6,6 +6,7 @@ import Image from "next/image";
 
 // Utils
 import { getStoryImageURL } from "@/lib/utils";
+import { FOUR_TO_FIVE } from "@/lib/constants/aspectRatios";
 
 const StoryCard = ({ story }) => {
   return (
@@ -17,7 +18,7 @@ const StoryCard = ({ story }) => {
         {/* Story Image */}
         <div className="relative w-full h-full overflow-hidden">
           <Image
-            src={getStoryImageURL(story.slug)}
+            src={getStoryImageURL(story.slug, FOUR_TO_FIVE)}
             alt={story.title}
             fill
             className="object-cover transition-transform duration-400 bg-black"
