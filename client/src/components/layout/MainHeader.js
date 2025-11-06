@@ -8,13 +8,14 @@ import { useRouter } from "next/navigation";
 // Components
 import { Button } from "@/components/ui/button";
 import SearchBar from "@/components/layout/SearchBar";
+import Breadcrumb from "@/components/ui/breadcrumb";
 
-function StoryPageHeader({ story }) {
+function MainHeader({ breadcrumbItems }) {
   const [searchValue, setSearchValue] = useState("");
   const router = useRouter();
 
   return (
-    <div className="w-full flex items-center justify-between px-6 py-4">
+    <div className="w-full flex items-center justify-between">
       {/* Left side - Back Button and Breadcrumbs */}
       <div className="flex items-center gap-4">
         <Button
@@ -25,16 +26,7 @@ function StoryPageHeader({ story }) {
         >
           <ArrowLeft size={20} />
         </Button>
-        <nav className="hidden md:flex items-center gap-2 text-sm">
-          <Link
-            href="/discover"
-            className="text-text-secondary hover:text-white transition-colors"
-          >
-            Discover
-          </Link>
-          <span className="text-text-secondary">/</span>
-          <span className="text-text-primary">{story.title}</span>
-        </nav>
+        <Breadcrumb items={breadcrumbItems} />
       </div>
 
       {/* Right side - Share Button */}
@@ -58,4 +50,4 @@ function StoryPageHeader({ story }) {
   );
 }
 
-export default StoryPageHeader;
+export default MainHeader;

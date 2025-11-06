@@ -22,12 +22,12 @@ const CharacterCard = ({
 
   return (
     <div
-      className={`z-10 h-[30vh] bg-surface/10 rounded-lg border-2 overflow-hidden transition-all duration-300 ${
+      className={`z-10 h-auto md:h-[30vh] bg-surface/10 rounded-lg border-2 overflow-hidden transition-all duration-300 ${
         isLocked
-          ? "border-gray-700 opacity-75 cursor-not-allowed"
+          ? "border-gray-700 opacity-75 cursor-not-allowed w-full md:w-auto"
           : isSelected
-          ? "flex flex-row w-[35vw] border-accent-primary cursor-pointer col-span-2 md:col-span-3 lg:col-span-4"
-          : "w-[15vw] h-[15vh] border-black/25 hover:border-accent-primary hover:border-2 cursor-pointer hover:scale-95"
+          ? "flex flex-col md:flex-row w-full md:w-[35vw] border-accent-primary cursor-pointer col-span-2 md:col-span-3 lg:col-span-4"
+          : "w-full md:w-[15vw] h-auto md:h-[15vh] border-black/25 hover:border-accent-primary hover:border-2 cursor-pointer hover:scale-95"
       }`}
       onClick={() => {
         if (isLocked) return;
@@ -36,8 +36,8 @@ const CharacterCard = ({
     >
       {/* Character Image */}
       <div
-        className={`relative transition-all h-full duration-300 aspect-square ${
-          isSelected ? "w-1/3" : "w-full"
+        className={`relative transition-all h-auto md:h-full duration-300 aspect-square w-full md:w-auto ${
+          isSelected ? "w-full md:w-1/3" : "w-full"
         }`}
       >
         <Image

@@ -6,8 +6,8 @@ import { DEFAULT_ERROR_MESSAGE } from "@/lib/handlers/errorHandlers";
 
 // Components
 import StoryPageContent from "@/components/pages/story/StoryPageContent";
-import StoryPageHeader from "@/components/pages/story/StoryPageHeader";
 import MainPageWrapper from "@/components/layout/MainPageWrapper";
+import MainHeader from "@/components/layout/MainHeader";
 
 export async function getStoryBySlug(slug) {
   try {
@@ -39,7 +39,16 @@ async function StoryPage({ params }) {
   }
 
   return (
-    <MainPageWrapper Header={<StoryPageHeader story={data} />}>
+    <MainPageWrapper
+      Header={
+        <MainHeader
+          breadcrumbItems={[
+            { label: "Discover", href: "/discover" },
+            { label: data.title },
+          ]}
+        />
+      }
+    >
       <StoryPageContent story={data} />
     </MainPageWrapper>
   );

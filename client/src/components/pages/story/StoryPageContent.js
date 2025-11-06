@@ -25,7 +25,7 @@ const StoryPageContent = ({ story }) => {
       {/* Background Image */}
       <BackgroundImage imageUrl={getStoryImageURL(story.slug, THREE_TO_TWO)} />
 
-      <div className="h-fit z-10 flex justify-between gap-8 ">
+      <div className="h-fit z-10 flex flex-col md:flex-row md:justify-between gap-8">
         {/* Story Info */}
         <StoryInfo story={story} />
         {/* Basic Info Section */}

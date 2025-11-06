@@ -17,7 +17,7 @@ function StoryCharacters({
       <h2 className="text-white text-2xl md:text-3xl font-bold mb-6 relative">
         Characters
       </h2>
-      <div className="flex flex-wrap gap-6">
+      <div className="flex md:flex-row flex-wrap gap-6">
         {story.characters.map((character) => (
           <CharacterCard
             key={character.character_id}

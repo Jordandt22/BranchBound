@@ -14,7 +14,7 @@ function StoryInfo({ story }) {
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
   return (
-    <div className="relative w-3/5 h-full aspect-video rounded-lg overflow-hidden z-10 group/story-info">
+    <div className="relative w-full md:w-3/5 h-full aspect-square md:aspect-video rounded-lg overflow-hidden z-10 group/story-info">
       <Image
         src={getStoryImageURL(story.slug, SIXTEEN_TO_NINE)}
         alt={story.title}
@@ -52,7 +52,7 @@ function StoryInfo({ story }) {
 
           {/* Description with More/Less */}
           {description && (
-            <div className="mb-4">
+            <div className="hidden md:block mb-4">
               <p
                 className={`text-white/90 text-base md:text-lg leading-relaxed drop-shadow-md ${
                   !isDescriptionExpanded ? "line-clamp-3" : ""

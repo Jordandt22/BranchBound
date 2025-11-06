@@ -7,10 +7,13 @@ import DiscoverHeader from "@/components/pages/discover/DiscoverHeader";
 import FeaturedWrapper from "@/components/pages/discover/featured/FeaturedWrapper";
 import StoryCarousel from "@/components/pages/discover/StoryCarousel";
 import MainPageWrapper from "@/components/layout/MainPageWrapper";
+import MainHeader from "@/components/layout/MainHeader";
 
 function DiscoverPage() {
   return (
-    <MainPageWrapper Header={<DiscoverHeader />}>
+    <MainPageWrapper
+      Header={<MainHeader breadcrumbItems={[{ label: "Discover" }]} />}
+    >
       <FeaturedWrapper />
 
       {/* Other Sections */}
