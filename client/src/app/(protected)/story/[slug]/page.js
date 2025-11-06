@@ -4,6 +4,11 @@ import React from "react";
 import { storiesFetcher } from "@/lib/swr/fetchers";
 import { DEFAULT_ERROR_MESSAGE } from "@/lib/handlers/errorHandlers";
 
+// Components
+import StoryPageContent from "@/components/pages/story/StoryPageContent";
+import StoryPageHeader from "@/components/pages/story/StoryPageHeader";
+import MainPageWrapper from "@/components/layout/MainPageWrapper";
+
 export async function getStoryBySlug(slug) {
   try {
     const data = await storiesFetcher(`/${slug}`);
@@ -33,7 +38,11 @@ async function StoryPage({ params }) {
     return <div>Error: {error?.message || DEFAULT_ERROR_MESSAGE}</div>;
   }
 
-  return <div>StoryPage {data.title}</div>;
+  return (
+    <MainPageWrapper Header={<StoryPageHeader story={data} />}>
+      <StoryPageContent story={data} />
+    </MainPageWrapper>
+  );
 }
 
 export default StoryPage;
