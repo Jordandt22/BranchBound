@@ -7,18 +7,16 @@ import {
 } from "../helpers/customErrorHandler.js";
 import { getWebURL } from "../utils/urlGenerator.js";
 
-const allowedUserAgents = [process.env.CLIENT_USER_AGENT];
 const aj = arcjet({
   key: process.env.ARCJET_KEY,
   characteristics: ["ip.src"],
   rules: [
-    shield({ mode: "LIVE" }),
+    shield({
+      mode: "LIVE",
+    }),
     detectBot({
       mode: "LIVE",
-      allow:
-        process.env.NODE_ENV === "development"
-          ? [...allowedUserAgents, "POSTMAN"]
-          : allowedUserAgents,
+      allow: process.env.NODE_ENV === "development" ? ["POSTMAN"] : [],
       trusted: [getWebURL()],
     }),
     tokenBucket({
@@ -48,6 +46,17 @@ export const arcjetMiddleware = async (req, res, next) => {
           )
         );
     } else if (decision.reason.isBot()) {
+      // Allow Front-end with Auth Key
+      const clientName = req.headers["x-client-name"];
+      const authKey = req.headers["x-auth-key"];
+      if (
+        clientName === process.env.CLIENT_NAME &&
+        authKey === process.env.AUTH_KEY
+      ) {
+        console.log("Allowing Frontend with Auth Key:", clientName);
+        return next();
+      }
+
       return res
         .status(403)
         .json(

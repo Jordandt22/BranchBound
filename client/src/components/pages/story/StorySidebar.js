@@ -51,7 +51,7 @@ function StorySidebar({ story }) {
           </div>
           <p
             className={`text-text-secondary text-sm leading-relaxed ${
-              !isWorldDescExpanded ? "line-clamp-4" : ""
+              !isWorldDescExpanded ? "line-clamp-6" : ""
             }`}
           >
             {story.world_desc}
@@ -99,7 +99,7 @@ function StorySidebar({ story }) {
         </Button>
         <Button
           size="lg"
-          className="w-full md:w-auto z-10 bg-accent-secondary hover:bg-accent-secondary/70 hover:scale-95 transition-all duration-300 text-white cursor-pointer"
+          className="w-full md:w-auto z-10 bg-surface-hover hover:bg-surface/70 hover:scale-95 transition-all duration-300 text-white cursor-pointer"
         >
           <Share2 size={20} />
         </Button>

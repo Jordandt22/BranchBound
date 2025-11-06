@@ -32,13 +32,13 @@ if (NODE_ENV !== "production") {
   app.set("trust proxy", 1);
 }
 
+// Arcjet Middleware
+app.use(arcjetMiddleware);
+
 // Landing Page Route
 app.get("/", (req, res) => {
   res.send("BranchBound API Server is Up and Running !");
 });
-
-// Arcjet Middleware
-app.use(arcjetMiddleware);
 
 // ---- API Routes ----
 

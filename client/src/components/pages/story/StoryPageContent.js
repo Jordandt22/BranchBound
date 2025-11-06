@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { getStoryImageURL } from "@/lib/utils";
 import { THREE_TO_TWO } from "@/lib/constants/aspectRatios";
 
@@ -25,7 +25,7 @@ const StoryPageContent = ({ story }) => {
       {/* Background Image */}
       <BackgroundImage imageUrl={getStoryImageURL(story.slug, THREE_TO_TWO)} />
 
-      <div className="h-fit z-10 flex justify-between gap-8">
+      <div className="h-fit z-10 flex justify-between gap-8 ">
         {/* Story Info */}
         <StoryInfo story={story} />
         {/* Basic Info Section */}
@@ -42,11 +42,9 @@ const StoryPageContent = ({ story }) => {
           isStoryLocked={story.is_locked}
         />
       ) : (
-        <div className="mt-12 z-10">
-          <h2 className="text-white text-2xl md:text-3xl font-bold mb-6">
-            No Characters Found
-          </h2>
-        </div>
+        <h2 className="bg-surface/10 backdrop-blur-sm rounded-lg p-4 border border-gray-800 text-center mt-12 z-10 text-white text-2xl md:text-3xl font-bold mb-6">
+          No Characters Found
+        </h2>
       )}
     </div>
   );

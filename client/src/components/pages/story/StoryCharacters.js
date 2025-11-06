@@ -13,8 +13,8 @@ function StoryCharacters({
   isStoryLocked,
 }) {
   return (
-    <div className="mt-12 z-10">
-      <h2 className="text-white text-2xl md:text-3xl font-bold mb-6 z-10">
+    <div className="mt-12 relative z-10">
+      <h2 className="text-white text-2xl md:text-3xl font-bold mb-6 relative">
         Characters
       </h2>
       <div className="flex flex-wrap gap-6">

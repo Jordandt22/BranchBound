@@ -268,7 +268,7 @@ const Sidebar = () => {
     <>
       <div
         className={`
-        hidden md:flex flex-col h-full bg-surface border-r border-gray-800 transition-all duration-300
+        hidden md:flex flex-col h-full bg-surface/80 border-r border-gray-800 transition-all duration-300
         ${isCollapsed ? "w-16" : "w-64"} z-50
       `}
       >
