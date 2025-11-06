@@ -80,7 +80,7 @@ const Sidebar = () => {
             toggleSidebar();
             clearSearch();
           }}
-          className="text-gray-400 hover:text-white hover:bg-gray-700 rounded-full cursor-pointer duration-200"
+          className="text-gray-400 hover:text-white hover:bg-surface-hover rounded-sm cursor-pointer duration-200 bg-surface-hover md:bg-transparent"
         >
           {isCollapsed ? <ChevronRight size={25} /> : <ChevronLeft size={25} />}
         </Button>
@@ -232,16 +232,14 @@ const Sidebar = () => {
     return (
       <>
         {/* Mobile Toggle Button */}
-        <Button
-          variant="ghost"
-          size="sm"
+        <button
           onClick={() => {
             toggleSidebar(false);
           }}
-          className="fixed top-4 left-4 z-50 bg-gray-800 text-white hover:bg-gray-700 md:hidden"
+          className="fixed bottom-4 left-4 z-50 bg-gray-800 text-white hover:bg-gray-700 md:hidden p-2 rounded-sm duration-200"
         >
-          <Menu size={20} />
-        </Button>
+          <Menu size={25} />
+        </button>
 
         {/* Mobile Overlay */}
         {!isCollapsed && (
@@ -268,7 +266,7 @@ const Sidebar = () => {
     <>
       <div
         className={`
-        hidden md:flex flex-col h-full bg-surface border-r border-gray-800 transition-all duration-300
+        hidden md:flex flex-col h-full bg-surface/80 border-r border-gray-800 transition-all duration-300
         ${isCollapsed ? "w-16" : "w-64"} z-50
       `}
       >

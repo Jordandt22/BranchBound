@@ -20,7 +20,9 @@
   --color-accent-hover: #11724d; /* hover/active variant */
   --color-accent-subtle: #173c32; /* subtle background or border use */
   --color-accent-dark: #189c6a; /* dark accent color */
+  --color-accent-secondary: #6a189c; /* accent secondary color */
   --color-error: #e96363; /* gentle red for alerts */
+  --color-orange: #ff9500; /* orange color */
 
   /* Cinematic Design System Font Variables */
   --font-family-merriweather: "Merriweather", serif;
@@ -85,7 +87,9 @@
   --color-accent-hover: var(--color-accent-hover);
   --color-accent-subtle: var(--color-accent-subtle);
   --color-accent-dark: var(--color-accent-dark);
+  --color-accent-secondary: var(--color-accent-secondary);
   --color-error: var(--color-error);
+  --color-orange: var(--color-orange);
 
   /* Cinematic Design System Fonts */
   --font-family-merriweather: var(--font-family-merriweather);

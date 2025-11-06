@@ -18,7 +18,7 @@ const DiscoverHeader = () => {
   };
 
   return (
-    <div className="w-full flex items-center justify-between px-6 py-4">
+    <div className="w-full flex items-center justify-between">
       {/* Left side - Welcome message */}
       <div className="hidden md:block">
         <p className="text-text-secondary text-md">Welcome back,</p>

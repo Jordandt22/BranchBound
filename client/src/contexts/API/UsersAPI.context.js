@@ -28,6 +28,9 @@ export const UsersAPIProvider = ({ children }) => {
   const setAuthHeader = (session) => {
     return {
       headers: {
+        "Content-Type": "application/json",
+        "X-Client-Name": process.env.NEXT_PUBLIC_CLIENT_NAME,
+        "X-Auth-Key": process.env.NEXT_PUBLIC_AUTH_KEY,
         Authorization: `Bearer ${session.access_token}`,
       },
     };

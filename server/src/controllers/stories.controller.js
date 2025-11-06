@@ -5,7 +5,7 @@ import {
 } from "../helpers/customErrorHandler.js";
 import {
   getFeaturedStories,
-  getStoryByID,
+  getStoryBySlug,
 } from "../supabase/supabase.functions.js";
 import { getFeaturedStoriesKey, getStoryKey } from "../redis/redis.js";
 import { getCacheData, cacheData } from "../redis/redis.js";
@@ -48,17 +48,17 @@ export const getFeaturedStoriesController = async (req, res) => {
 
 // Get Story
 export const getStoryController = async (req, res) => {
-  const { storyID } = req.params;
+  const { slug } = req.params;
 
   // Get Data from Cache
-  const { key, interval } = getStoryKey(storyID);
+  const { key, interval } = getStoryKey(slug);
   const cachedData = await getCacheData(key);
   if (cachedData) {
     return res.status(200).json(successHandler(cachedData.data));
   }
 
   // Get DB Data
-  const { data, error } = await getStoryByID(storyID);
+  const { data, error } = await getStoryBySlug(slug);
   if (error) {
     return res
       .status(500)

@@ -4,7 +4,7 @@ import {
   getStoryController,
 } from "../controllers/stories.controller.js";
 import { serverErrorCatcherWrapper } from "../helpers/wrappers.js";
-import { StoryIDSchema } from "../schemas/stories.schemas.js";
+import { StorySlugSchema } from "../schemas/stories.schemas.js";
 import { paramsValidator } from "../middleware/validators.js";
 
 const storiesRouter = Router();
@@ -15,10 +15,10 @@ storiesRouter.get(
   serverErrorCatcherWrapper(getFeaturedStoriesController)
 );
 
-// Get Stories
+// Get Story
 storiesRouter.get(
-  "/:storyID",
-  paramsValidator(StoryIDSchema),
+  "/:slug",
+  paramsValidator(StorySlugSchema),
   serverErrorCatcherWrapper(getStoryController)
 );
 
