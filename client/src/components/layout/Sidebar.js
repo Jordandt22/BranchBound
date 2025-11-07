@@ -64,6 +64,14 @@ const Sidebar = () => {
     return user?.username || "User";
   };
 
+  const handleNavLinkClick = () => {
+    if (isMobile) {
+      toggleSidebar(true);
+      clearSearch();
+      toggleProfileMenu(false);
+    }
+  };
+
   const sidebarContent = (
     <div className="flex flex-col items-center h-full">
       {/* Header */}
@@ -125,6 +133,7 @@ const Sidebar = () => {
             <Link
               key={item.name}
               href={item.href}
+              onClick={handleNavLinkClick}
               className={`
                 flex items-center gap-3 p-2 rounded-md duration-200
                 ${
@@ -151,6 +160,7 @@ const Sidebar = () => {
           {!isCollapsed && (
             <Link
               href="/dashboard"
+              onClick={handleNavLinkClick}
               className="flex items-center justify-between w-full text-gray-400 bg-gray-800 md:bg-transparent hover:bg-gray-800 rounded-md p-2 duration-200"
             >
               <div className="flex items-center gap-2">
@@ -173,6 +183,7 @@ const Sidebar = () => {
             </div>
             <Link
               href="/discover"
+              onClick={handleNavLinkClick}
               className="block w-full bg-accent-dark hover:scale-95 hover:bg-accent-hover text-white rounded-md p-2 text-sm font-medium text-center mt-4 duration-200"
             >
               Find a story

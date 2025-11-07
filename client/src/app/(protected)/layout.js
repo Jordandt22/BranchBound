@@ -18,6 +18,7 @@ import { useError } from "@/contexts/Error.context";
 
 // Components
 import Sidebar from "@/components/layout/Sidebar";
+import Footer from "@/components/layout/Footer";
 
 export default function ProtectedLayout({ children }) {
   const router = useRouter();
@@ -102,6 +103,8 @@ export default function ProtectedLayout({ children }) {
         }`}
       >
         {children}
+
+        <Footer />
       </div>
     </div>
   );
