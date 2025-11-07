@@ -12,6 +12,9 @@ import { useUsersAPI } from "@/contexts/API/UsersAPI.context";
 import { useUser } from "@/contexts/User.context";
 import { useError } from "@/contexts/Error.context";
 
+// Utils
+import { getRedirectURL } from "@/lib/utils";
+
 // Components
 import AuthBackground from "./layout/AuthBackground";
 import AuthFormCard from "./layout/AuthFormCard";
@@ -57,7 +60,7 @@ export default function CreateProfileForm() {
 
       // Set User
       updateUser(user);
-      router.push("/discover");
+      return router.push(getRedirectURL());
     } catch (error) {
       if (error?.response?.data) {
         const { error: APIError } = error.response.data;

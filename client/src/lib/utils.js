@@ -17,3 +17,9 @@ export function getCharacterImageURL(
 ) {
   return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/stories/${storySlug}/characters/${characterSlug}/${aspectRatio}.webp`;
 }
+
+export function getRedirectURL() {
+  const redirect = localStorage.getItem("redirect");
+  if (redirect === "/") return "/discover";
+  return redirect || "/discover";
+}
