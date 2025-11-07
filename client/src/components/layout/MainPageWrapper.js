@@ -2,7 +2,7 @@ import React from "react";
 
 function MainPageWrapper({ Header, children }) {
   return (
-    <div className="w-full pb-24">
+    <div className="min-h-screen w-full pb-24">
       {/* Header */}
       {Header && <div className="relative z-10 px-6 py-4">{Header}</div>}
 
