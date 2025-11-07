@@ -1,8 +1,12 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 // Contexts
 import { useSupabase } from "@/contexts/Supabase.context";
+
+// Utils
+import { setRedirectURL } from "@/lib/utils";
 
 const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
@@ -10,6 +14,7 @@ export const AuthProvider = ({ children }) => {
   const { supabase } = useSupabase();
   const [session, setSession] = useState(null);
   const [authIsLoading, setAuthIsLoading] = useState(true);
+  const pathname = usePathname();
 
   const clearSession = () => {
     setSession(null);
@@ -18,6 +23,8 @@ export const AuthProvider = ({ children }) => {
 
   // Check for session
   useEffect(() => {
+    setRedirectURL(pathname);
+
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setAuthIsLoading(false);
@@ -31,7 +38,7 @@ export const AuthProvider = ({ children }) => {
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [pathname]);
 
   const logout = async () => {
     await supabase.auth.signOut();

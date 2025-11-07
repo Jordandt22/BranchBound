@@ -1,14 +1,11 @@
-// app/auth/callback/page.tsx
 "use client";
+
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 // Contexts
 import { useAuth } from "@/contexts/Auth.context";
 import { useSupabase } from "@/contexts/Supabase.context";
-
-// Components
-import LoadingSpinner from "@/components/state/LoadingSpinner";
 
 export default function AuthCallback() {
   const router = useRouter();
@@ -24,17 +21,17 @@ export default function AuthCallback() {
 
       if (error) {
         console.error("Auth error:", error);
-        router.push("/login");
+        return router.push("/login");
       }
 
       if (session) {
         setSession(session);
-        router.push("/create-profile");
+        return router.push("/create-profile");
       }
     };
 
     handleAuth();
-  }, [router, setSession]);
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen gap-4">

@@ -63,6 +63,7 @@ export default function RootLayout({ children }) {
       >
         <ContextProvider>
           {children}
+
           <LoadingSpinner />
         </ContextProvider>
       </body>
