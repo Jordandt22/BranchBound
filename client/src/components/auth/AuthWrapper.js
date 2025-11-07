@@ -82,7 +82,15 @@ function AuthWrapper({ children }) {
     getUserWrapper();
   }, [authIsLoading, pathname, session, user]);
 
-  if (authIsLoading) return <div>Loading...</div>;
+  if (authIsLoading)
+    return (
+      <div className="flex flex-col items-center justify-center w-full h-screen gap-4">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-accent-primary"></div>
+        <p className="text-2xl font-bold text-white">
+          Loading your adventure...
+        </p>
+      </div>
+    );
 
   return <>{children}</>;
 }
