@@ -18,8 +18,25 @@ export function getCharacterImageURL(
   return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/stories/${storySlug}/characters/${characterSlug}/${aspectRatio}.webp`;
 }
 
+const unauthenticatedBlacklist = [
+  "/",
+  "/login",
+  "/signup",
+  "/create-profile",
+  "/auth/callback",
+];
+
+export function setRedirectURL(pathname) {
+  if (unauthenticatedBlacklist.includes(pathname)) return;
+
+  localStorage.setItem("redirect", pathname);
+}
+
 export function getRedirectURL() {
   const redirect = localStorage.getItem("redirect");
-  if (redirect === "/") return "/discover";
-  return redirect || "/discover";
+  if (!redirect) return "/discover";
+
+  if (unauthenticatedBlacklist.includes(redirect)) return "/discover";
+
+  return redirect;
 }

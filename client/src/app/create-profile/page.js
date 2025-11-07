@@ -26,7 +26,7 @@ export default function CreateProfilePage() {
     if (user) {
       return router.push(getRedirectURL());
     }
-  }, [user, session, router]);
+  }, [user, session]);
 
   return <CreateProfileForm />;
 }
