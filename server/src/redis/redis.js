@@ -82,6 +82,11 @@ export const getStoryKey = (slug) => ({
   interval: 60 * 60 * 24,
 });
 
+export const getCharacterKey = (slug) => ({
+  key: `CHARACTER_SLUG:${slug}`,
+  interval: 60 * 60 * 24,
+});
+
 // --- Users ----
 export const getUserKey = (uid) => ({
   key: `USER_UID:${uid}`,

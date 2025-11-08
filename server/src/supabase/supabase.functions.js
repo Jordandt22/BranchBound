@@ -102,6 +102,17 @@ export const getStoryBySlug = async (slug) => {
   return { data: null, error };
 };
 
+export const getCharacterBySlug = async (slug) => {
+  const { data, error } = await supabase
+    .from("characters")
+    .select(
+      "*, default_story:stories!characters_default_story_id_fkey(slug, title, short_desc, story_id, is_locked)"
+    )
+    .eq("slug", slug);
+
+  return { data, error };
+};
+
 // ---- Users ----
 export const createUser = async (uid, username, age) => {
   const { data, error } = await supabase

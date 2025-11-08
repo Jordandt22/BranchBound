@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 // ---- Params Request ----
 
-export const StorySlugSchema = Yup.object({
+export const SlugParamSchema = Yup.object({
   slug: Yup.string()
     .min(3, "Slug must be atleast 3 characters.")
     .max(50, "Slug must be less than 50 characters.")

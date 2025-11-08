@@ -1,27 +1,21 @@
 "use client";
 
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import {
-  Lock,
-  Play,
-  ChevronUp,
-  ChevronDown,
-  Heart,
-  Share2,
-} from "lucide-react";
-import { useRouter } from "next/navigation";
+import { ChevronUp, ChevronDown } from "lucide-react";
+
+// Components
+import PlayButton from "@/components/layout/buttons/PlayButton";
+import FavoriteButton from "@/components/layout/buttons/FavoriteButton";
+import ShareButton from "@/components/layout/buttons/ShareButton";
 
 function StorySidebar({ story }) {
   const [isLongDescExpanded, setIsLongDescExpanded] = useState(false);
   const [isWorldDescExpanded, setIsWorldDescExpanded] = useState(false);
-  const router = useRouter();
-  const isLocked = story.is_locked;
 
   return (
     <div className="flex flex-col gap-6 w-full md:w-2/5">
       {story.long_desc && (
-        <div className="block md:hidden bg-surface/80 backdrop-blur-sm rounded-lg p-4 border border-gray-800">
+        <div className="block md:hidden bg-surface/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-800">
           <div className="flex items-start justify-between gap-2 mb-2">
             <h3 className="text-white font-semibold">Description</h3>
             <button
@@ -52,7 +46,7 @@ function StorySidebar({ story }) {
       )}
       {/* Tone and World Description */}
       {story.tone && (
-        <div className="bg-surface/80 backdrop-blur-sm rounded-lg p-4 border border-gray-800">
+        <div className="bg-surface/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-800">
           <h3 className="text-white font-semibold mb-2">Tone / Mood</h3>
           <p className="text-text-secondary text-sm leading-relaxed capitalize">
             {story.tone}
@@ -60,7 +54,7 @@ function StorySidebar({ story }) {
         </div>
       )}
       {story.world_desc && (
-        <div className="bg-surface/80 backdrop-blur-sm rounded-lg p-4 border border-gray-800">
+        <div className="bg-surface/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-800">
           <div className="flex items-start justify-between gap-2 mb-2">
             <h3 className="text-white font-semibold">World Description</h3>
             <button
@@ -92,50 +86,9 @@ function StorySidebar({ story }) {
 
       {/* Start Story Button */}
       <div className="w-full flex flex-col md:flex-row gap-4">
-        <Button
-          size="lg"
-          disabled={isLocked}
-          className={`w-full md:w-1/2 z-10 ${
-            isLocked
-              ? "bg-gray-700 text-gray-400 cursor-not-allowed"
-              : "bg-accent-primary hover:bg-accent-hover text-white cursor-pointer hover:scale-95 transition-all duration-300"
-          }`}
-          onClick={() => {
-            if (isLocked) return;
-            router.push(`/story/${story.slug}/play`);
-          }}
-        >
-          {isLocked ? (
-            <>
-              <Lock size={20} />
-              <span>Story Locked</span>
-            </>
-          ) : (
-            <>
-              <Play size={20} />
-              <span>Start Story</span>
-            </>
-          )}
-        </Button>
-        <Button
-          size="lg"
-          disabled={isLocked}
-          className={`w-full md:w-auto z-10 bg-red-400 hover:bg-red-500 hover:scale-95 transition-all duration-300 text-white cursor-pointer ${
-            isLocked
-              ? "bg-gray-700 text-gray-400 cursor-not-allowed"
-              : "bg-red-400 hover:bg-red-500"
-          }`}
-        >
-          <Heart size={20} />
-          <span className="block md:hidden">Favorite</span>
-        </Button>
-        <Button
-          size="lg"
-          className="w-full md:w-auto z-10 bg-surface-hover hover:bg-surface/70 hover:scale-95 transition-all duration-300 text-white cursor-pointer"
-        >
-          <Share2 size={20} />
-          <span className="block md:hidden">Share</span>
-        </Button>
+        <PlayButton isLocked={story.is_locked} story={story} />
+        <FavoriteButton isLocked={story.is_locked} />
+        <ShareButton />
       </div>
     </div>
   );
