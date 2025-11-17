@@ -5,9 +5,6 @@ import { usePathname } from "next/navigation";
 // Contexts
 import { useSupabase } from "@/contexts/Supabase.context";
 
-// Utils
-import { setRedirectURL } from "@/lib/utils";
-
 const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
@@ -23,8 +20,6 @@ export const AuthProvider = ({ children }) => {
 
   // Check for session
   useEffect(() => {
-    setRedirectURL(pathname);
-
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setAuthIsLoading(false);

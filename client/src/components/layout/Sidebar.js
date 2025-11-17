@@ -15,6 +15,9 @@ import {
   ArrowRight,
 } from "lucide-react";
 
+// Utils
+import { generateElementKey } from "@/lib/utils";
+
 // Contexts
 import { useUser } from "@/contexts/User.context";
 import { useGlobal } from "@/contexts/Global.context";
@@ -131,7 +134,7 @@ const Sidebar = () => {
 
           return (
             <Link
-              key={item.name}
+              key={generateElementKey("sidebar-link", item.name)}
               href={item.href}
               onClick={handleNavLinkClick}
               className={`
@@ -247,7 +250,7 @@ const Sidebar = () => {
           onClick={() => {
             toggleSidebar(false);
           }}
-          className="fixed bottom-4 left-4 z-50 bg-gray-800 text-white hover:bg-gray-700 md:hidden p-2 rounded-sm duration-200"
+          className="fixed bottom-4 left-4 z-100 bg-gray-800 text-white hover:bg-gray-700 md:hidden p-2 rounded-sm duration-200"
         >
           <Menu size={25} />
         </button>
@@ -255,7 +258,7 @@ const Sidebar = () => {
         {/* Mobile Overlay */}
         {!isCollapsed && (
           <div
-            className="fixed inset-0 bg-black/50 z-40 md:hidden"
+            className="fixed inset-0 bg-black/50 z-100 md:hidden"
             onClick={() => toggleSidebar(true)}
           />
         )}
@@ -263,7 +266,7 @@ const Sidebar = () => {
         {/* Mobile Sidebar */}
         <div
           className={`
-          fixed top-0 left-0 h-full w-[70%] bg-surface border-r border-gray-800 z-50 transform transition-transform duration-300 md:hidden
+          fixed top-0 left-0 h-full w-[70%] bg-surface border-r border-gray-800 z-100 transform transition-transform duration-300 md:hidden
           ${!isCollapsed ? "translate-x-0" : "-translate-x-full"}
         `}
         >

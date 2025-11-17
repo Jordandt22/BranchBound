@@ -2,9 +2,10 @@ import { Router } from "express";
 import {
   getFeaturedStoriesController,
   getStoryController,
+  getCharacterController,
 } from "../controllers/stories.controller.js";
 import { serverErrorCatcherWrapper } from "../helpers/wrappers.js";
-import { StorySlugSchema } from "../schemas/stories.schemas.js";
+import { SlugParamSchema } from "../schemas/stories.schemas.js";
 import { paramsValidator } from "../middleware/validators.js";
 
 const storiesRouter = Router();
@@ -18,8 +19,15 @@ storiesRouter.get(
 // Get Story
 storiesRouter.get(
   "/:slug",
-  paramsValidator(StorySlugSchema),
+  paramsValidator(SlugParamSchema),
   serverErrorCatcherWrapper(getStoryController)
+);
+
+// Get Character
+storiesRouter.get(
+  "/character/:slug",
+  paramsValidator(SlugParamSchema),
+  serverErrorCatcherWrapper(getCharacterController)
 );
 
 export default storiesRouter;

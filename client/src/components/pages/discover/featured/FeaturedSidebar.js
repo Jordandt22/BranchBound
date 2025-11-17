@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 
 // Utils
-import { getStoryImageURL } from "@/lib/utils";
+import { getStoryImageURL, generateElementKey } from "@/lib/utils";
 import { ONE_TO_ONE } from "@/lib/constants/aspectRatios";
 
 const FeaturedSidebar = ({ stories, activeStoryId, onStorySelect }) => {
@@ -17,7 +17,7 @@ const FeaturedSidebar = ({ stories, activeStoryId, onStorySelect }) => {
     <div className="space-y-4 transition-all duration-300">
       {nonActiveStories.map((story, index) => (
         <div
-          key={story.story_id}
+          key={generateElementKey("featured-sidebar-story", story.story_id)}
           onClick={() => onStorySelect(story.story_id)}
           className="bg-surface/40 backdrop-blur-sm rounded-lg p-2 cursor-pointer hover:bg-surface-hover transition-all duration-300 hover:scale-105 group"
           style={{

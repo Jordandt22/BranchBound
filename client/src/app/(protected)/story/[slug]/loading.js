@@ -1,5 +1,8 @@
 import React from "react";
 
+// Utils
+import { generateElementKey } from "@/lib/utils";
+
 // Components
 import MainPageWrapper from "@/components/layout/MainPageWrapper";
 import MainHeader from "@/components/layout/MainHeader";
@@ -26,7 +29,7 @@ function Loading() {
                 <div className="space-y-3 w-full">
                   {Array.from({ length: 4 }).map((_, index) => (
                     <div
-                      key={index}
+                      key={generateElementKey("skeleton-story", index)}
                       className="h-4 w-full rounded-md bg-surface/80 animate-pulse"
                     />
                   ))}
@@ -43,7 +46,7 @@ function Loading() {
             <div className="flex flex-col gap-8 md:flex-row w-full">
               {Array.from({ length: 3 }).map((_, index) => (
                 <div
-                  key={index}
+                  key={generateElementKey("skeleton-story-card", index)}
                   className="w-full md:w-[15vw] rounded-2xl bg-surface/80 p-4 shadow-sm"
                 >
                   <div className="h-48 w-full md:w-[15vw] rounded-xl bg-transparent animate-pulse" />

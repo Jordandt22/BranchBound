@@ -17,6 +17,7 @@ export const errorCodes = {
   // Stories
   STORY_NOT_FOUND: "story-not-found",
   STORIES_NOT_FOUND: "stories-not-found",
+  CHARACTER_NOT_FOUND: "character-not-found",
 
   // Users
   USER_NOT_FOUND: "user-not-found",

@@ -3,6 +3,9 @@
 import React from "react";
 import Link from "next/link";
 
+// Utils
+import { generateElementKey } from "@/lib/utils";
+
 /**
  * Breadcrumb Component
  * @param {Array} items - Array of breadcrumb items. Each item should have:
@@ -25,7 +28,7 @@ function Breadcrumb({ items = [], className = "", hideOnMobile = true }) {
         const isActive = !item.href || isLast;
 
         return (
-          <React.Fragment key={index}>
+          <React.Fragment key={generateElementKey("breadcrumb-item", index)}>
             {item.href && !isLast ? (
               <Link
                 href={item.href}

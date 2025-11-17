@@ -6,6 +6,7 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
+// Images
 export function getStoryImageURL(storySlug, aspectRatio = ONE_TO_ONE) {
   return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/stories/${storySlug}/covers/${aspectRatio}.webp`;
 }
@@ -18,6 +19,7 @@ export function getCharacterImageURL(
   return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/stories/${storySlug}/characters/${characterSlug}/${aspectRatio}.webp`;
 }
 
+// Local Storage
 const unauthenticatedBlacklist = [
   "/",
   "/login",
@@ -39,4 +41,13 @@ export function getRedirectURL() {
   if (unauthenticatedBlacklist.includes(redirect)) return "/discover";
 
   return redirect;
+}
+
+export function removeRedirectURL() {
+  localStorage.removeItem("redirect");
+}
+
+// Generate Element Key
+export function generateElementKey(elementGroupName, id) {
+  return `${elementGroupName}-${id}`;
 }

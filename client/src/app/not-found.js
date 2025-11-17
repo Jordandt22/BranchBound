@@ -1,10 +1,25 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { MapPinOff } from "lucide-react";
+import { useRouter } from "next/navigation";
+
+// Utils
+import { removeRedirectURL } from "@/lib/utils";
+
+// Contexts
+import { useAuth } from "@/contexts/Auth.context";
 
 function NotFound() {
+  const { session } = useAuth();
+  const router = useRouter();
+  useEffect(() => {
+    removeRedirectURL();
+  }, []);
+
+  const mainLinkStyle =
+    "rounded-lg bg-accent-primary px-6 py-2 text-sm font-medium text-white transition-all duration-200 hover:bg-accent-primary/80 hover:scale-95";
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-base-bg px-6 py-16">
       <div className="flex flex-col items-center gap-6 text-center">
@@ -26,18 +41,22 @@ function NotFound() {
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-3 mt-4">
-          <Link
-            href="/discover"
-            className="rounded-lg bg-accent-primary px-6 py-2 text-sm font-medium text-white transition-all duration-200 hover:bg-accent-primary/80 hover:scale-95"
+          <button
+            onClick={() => router.back()}
+            className="rounded-lg border border-gray-700 px-6 py-2 text-sm font-medium text-text-primary transition-all duration-200 hover:border-accent-primary hover:text-white cursor-pointer"
           >
-            Return to Discover
-          </Link>
-          <Link
-            href="/"
-            className="rounded-lg border border-gray-700 px-6 py-2 text-sm font-medium text-text-primary transition-all duration-200 hover:border-accent-primary hover:text-white"
-          >
-            Back to Home
-          </Link>
+            Previous Page
+          </button>
+
+          {session ? (
+            <Link href="/discover" className={mainLinkStyle}>
+              Return to Discover
+            </Link>
+          ) : (
+            <Link href="/" className={mainLinkStyle}>
+              Back to Home
+            </Link>
+          )}
         </div>
       </div>
     </div>

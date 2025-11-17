@@ -6,11 +6,22 @@ import {
 import {
   getFeaturedStories,
   getStoryBySlug,
+  getCharacterBySlug,
 } from "../supabase/supabase.functions.js";
-import { getFeaturedStoriesKey, getStoryKey } from "../redis/redis.js";
-import { getCacheData, cacheData } from "../redis/redis.js";
+import {
+  getFeaturedStoriesKey,
+  getStoryKey,
+  getCharacterKey,
+  getCacheData,
+  cacheData,
+} from "../redis/redis.js";
 
-const { SUPABASE_ERROR, STORIES_NOT_FOUND, STORY_NOT_FOUND } = errorCodes;
+const {
+  SUPABASE_ERROR,
+  STORIES_NOT_FOUND,
+  STORY_NOT_FOUND,
+  CHARACTER_NOT_FOUND,
+} = errorCodes;
 
 // Get Featured Stories
 export const getFeaturedStoriesController = async (req, res) => {
@@ -81,6 +92,43 @@ export const getStoryController = async (req, res) => {
   const storyData = data[0];
   await cacheData(key, interval, storyData);
   return res.status(200).json(successHandler(storyData));
+};
+
+// Get Character
+export const getCharacterController = async (req, res) => {
+  const { slug } = req.params;
+
+  // Get Data from Cache
+  const { key, interval } = getCharacterKey(slug);
+  const cachedData = await getCacheData(key);
+  if (cachedData) {
+    return res.status(200).json(successHandler(cachedData.data));
+  }
+
+  // Get DB Data
+  const { data, error } = await getCharacterBySlug(slug);
+  if (error) {
+    return res
+      .status(500)
+      .json(
+        customErrorHandler(
+          SUPABASE_ERROR,
+          "There was an error fetching the character.",
+          error
+        )
+      );
+  }
+
+  // Character Not Found
+  if (!data || data?.length === 0)
+    return res
+      .status(404)
+      .json(customErrorHandler(CHARACTER_NOT_FOUND, "Character not found."));
+
+  // Cache Data
+  const characterData = data[0];
+  await cacheData(key, interval, characterData);
+  return res.status(200).json(successHandler(characterData));
 };
 
 // Generate Story Scene
