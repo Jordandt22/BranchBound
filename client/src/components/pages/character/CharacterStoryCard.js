@@ -47,13 +47,13 @@ const CharacterStoryCard = ({ story }) => {
           <div className="flex flex-wrap items-center gap-3">
             <Link
               href={`/story/${story.slug}`}
-              className="inline-flex items-center gap-2 rounded-full bg-accent-primary px-5 py-2 text-sm font-semibold text-white transition-transform duration-200 hover:bg-accent-primary/80 hover:scale-95"
+              className="w-full md:w-fit inline-flex items-center justify-center gap-2 rounded-full bg-accent-primary px-5 py-2 text-sm font-semibold text-white transition-transform duration-200 hover:bg-accent-primary/80 hover:scale-95"
             >
               View Story <ArrowRight size={18} />
             </Link>
             <Link
               href="/discover"
-              className="rounded-full border border-gray-700 px-5 py-2 text-sm font-semibold text-text-primary transition-colors duration-200 hover:bg-gray-700 hover:text-white"
+              className="w-full md:w-fit inline-flex items-center justify-center gap-2 rounded-full border border-gray-700 px-5 py-2 text-sm font-semibold text-text-primary transition-colors duration-200 hover:bg-gray-700 hover:text-white"
             >
               Discover More Stories
             </Link>

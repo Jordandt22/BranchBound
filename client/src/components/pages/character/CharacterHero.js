@@ -15,6 +15,7 @@ import PlayButton from "@/components/layout/buttons/PlayButton";
 import FavoriteButton from "@/components/layout/buttons/FavoriteButton";
 import ShareButton from "@/components/layout/buttons/ShareButton";
 import CharacterStoryCard from "./CharacterStoryCard";
+import AdjustableTextBox from "@/components/layout/AdjustableTextBox";
 
 const COLLAPSED_BACKSTORY_HEIGHT = 144;
 
@@ -109,7 +110,7 @@ const CharacterHero = ({ character }) => {
 
   return (
     <section className="relative z-10 rounded-3xl flex flex-col gap-8 md:flex-row">
-      <div className="relative w-1/3 rounded-2xl shadow-md h-auto group/character">
+      <div className="relative w-full md:w-1/3 rounded-2xl shadow-md h-auto group/character">
         {heroImageUrl ? (
           <div className="relative h-full w-full aspect-square overflow-hidden rounded-2xl bg-surface">
             <Image
@@ -126,11 +127,11 @@ const CharacterHero = ({ character }) => {
           </div>
         )}
 
-        <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/10 to-transparent rounded-2xl" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent rounded-2xl" />
 
         <div className="absolute bottom-0 left-0 w-full p-6 text-left">
           <div className="mb-2 flex items-center gap-2">
-            <span className="rounded-full bg-accent-primary/20 px-3 py-1 text-xs font-bold uppercase tracking-widest text-accent-primary">
+            <span className="rounded-full bg-accent-primary/25 px-3 py-1 text-xs font-bold uppercase tracking-widest text-accent-dark">
               Character Profile
             </span>
             {character.is_locked && (
@@ -145,13 +146,13 @@ const CharacterHero = ({ character }) => {
         </div>
       </div>
 
-      <div className="flex flex-col justify-between gap-6 w-1/3 h-full">
+      <div className="flex flex-col justify-between gap-6 w-full md:w-1/3 h-full">
         <div className="space-y-6 h-full">
           <div className="h-full">
             <h2 className="text-sm font-semibold uppercase tracking-[0.4em] text-text-secondary">
               Traits
             </h2>
-            <div className="mt-3 flex flex-wrap gap-2">
+            <div className="mt-3 flex gap-2">
               {traits.length > 0 ? (
                 traits.map((trait) => (
                   <span
@@ -169,11 +170,7 @@ const CharacterHero = ({ character }) => {
             </div>
           </div>
 
-          <div className={`${CARD_STYLES} p-6 h-full`}>
-            <p className="text-sm font-semibold uppercase tracking-[0.4em] text-text-secondary mb-4">
-              Backstory
-            </p>
-            <BackstorySection key={backstory} backstory={backstory} />
+          <AdjustableTextBox title="Backstory" content={backstory}>
             <div className="flex flex-wrap items-center gap-3 mt-8">
               <PlayButton
                 isLocked={character.is_locked}
@@ -182,11 +179,11 @@ const CharacterHero = ({ character }) => {
               <FavoriteButton isLocked={character.is_locked} />
               <ShareButton />
             </div>
-          </div>
+          </AdjustableTextBox>
         </div>
       </div>
 
-      <div className="w-1/3">
+      <div className="hidden md:block w-full md:w-1/3">
         <CharacterStoryCard story={character.default_story} />
       </div>
     </section>
