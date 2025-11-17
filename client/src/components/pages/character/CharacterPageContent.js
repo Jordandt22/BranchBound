@@ -10,7 +10,7 @@ import { THREE_TO_TWO } from "@/lib/constants/aspectRatios";
 import BackgroundImage from "@/components/pages/discover/featured/BackgroundImage";
 import CharacterHero from "@/components/pages/character/CharacterHero";
 import CharacterProfile from "@/components/pages/character/CharacterProfile";
-import CharacterStats from "@/components/pages/character/CharacterStats";
+import CharacterChoices from "@/components/pages/character/CharacterChoices";
 
 const CharacterPageContent = ({ character }) => {
   const storySlug = character?.default_story?.slug;
@@ -22,12 +22,12 @@ const CharacterPageContent = ({ character }) => {
     <div className="relative w-full">
       {backgroundUrl && <BackgroundImage imageUrl={backgroundUrl} />}
 
-      <div className="relative z-10 flex flex-col gap-10">
+      <div className="relative z-10 flex flex-col gap-12">
         <CharacterHero character={character} />
 
         <div className="grid grid-cols-3 gap-8">
           <CharacterProfile character={character} />
-          <CharacterStats character={character} />
+          <CharacterChoices character={character} />
         </div>
       </div>
     </div>

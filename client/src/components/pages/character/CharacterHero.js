@@ -54,7 +54,11 @@ const BackstorySection = ({ backstory }) => {
         transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
       >
         <div ref={contentRef}>
-          <p className="text-sm leading-relaxed h-auto text-text-secondary whitespace-pre-line">
+          <p
+            className={`text-sm leading-relaxed h-auto text-text-secondary whitespace-pre-line ${
+              isExpanded ? "" : "line-clamp-6"
+            }`}
+          >
             {trimmedBackstory}
           </p>
         </div>

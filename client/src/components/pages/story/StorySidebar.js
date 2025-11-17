@@ -13,6 +13,7 @@ import FavoriteButton from "@/components/layout/buttons/FavoriteButton";
 import ShareButton from "@/components/layout/buttons/ShareButton";
 
 const COLLAPSED_WORLD_DESC_HEIGHT = 120;
+const COLLAPSED_LONG_DESC_HEIGHT = 144; // Approximately 6 lines of text
 
 function StorySidebar({ story }) {
   const [isLongDescExpanded, setIsLongDescExpanded] = useState(false);
@@ -20,7 +21,11 @@ function StorySidebar({ story }) {
   const [worldDescHeight, setWorldDescHeight] = useState(
     COLLAPSED_WORLD_DESC_HEIGHT
   );
+  const [longDescHeight, setLongDescHeight] = useState(
+    COLLAPSED_LONG_DESC_HEIGHT
+  );
   const worldDescRef = useRef(null);
+  const longDescRef = useRef(null);
 
   useEffect(() => {
     if (!story.world_desc || !worldDescRef.current) return;
@@ -33,37 +38,63 @@ function StorySidebar({ story }) {
     return () => clearTimeout(timer);
   }, [story.world_desc, isWorldDescExpanded]);
 
+  useEffect(() => {
+    if (!story.long_desc || !longDescRef.current) return;
+    const timer = setTimeout(() => {
+      if (longDescRef.current) {
+        setLongDescHeight(longDescRef.current.scrollHeight);
+      }
+    }, 0);
+    return () => clearTimeout(timer);
+  }, [story.long_desc, isLongDescExpanded]);
+
   return (
     <div className="flex flex-col gap-6 w-full md:w-2/5">
       {story.long_desc && (
-        <div className="block md:hidden bg-surface/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-800">
+        <motion.article
+          layout
+          transition={{ layout: { duration: 0.3, ease: "easeInOut" } }}
+          className="block md:hidden bg-surface/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-800"
+        >
           <div className="flex items-start justify-between gap-2 mb-2">
             <h3 className="text-white font-semibold">Description</h3>
-            <button
-              onClick={() => setIsLongDescExpanded(!isLongDescExpanded)}
-              className="inline-flex items-center gap-1 text-accent-primary hover:text-accent-hover/80 font-medium transition-colors text-sm shrink-0 cursor-pointer"
-            >
-              {isLongDescExpanded ? (
-                <>
-                  <span>Less</span>
-                  <ChevronUp size={14} />
-                </>
-              ) : (
-                <>
-                  <span>More</span>
-                  <ChevronDown size={14} />
-                </>
-              )}
-            </button>
+            {longDescHeight > COLLAPSED_LONG_DESC_HEIGHT + 12 && (
+              <button
+                type="button"
+                onClick={() => setIsLongDescExpanded((prev) => !prev)}
+                className="inline-flex items-center gap-1 text-accent-primary hover:text-accent-hover/80 font-medium transition-colors text-sm shrink-0 cursor-pointer"
+              >
+                {isLongDescExpanded ? (
+                  <>
+                    <span>Show Less</span>
+                    <ChevronUp size={14} />
+                  </>
+                ) : (
+                  <>
+                    <span>Show More</span>
+                    <ChevronDown size={14} />
+                  </>
+                )}
+              </button>
+            )}
           </div>
-          <p
-            className={`text-text-secondary text-sm leading-relaxed ${
-              !isLongDescExpanded ? "line-clamp-6" : ""
-            }`}
+          <motion.div
+            className="overflow-hidden"
+            animate={{
+              height: isLongDescExpanded
+                ? longDescHeight
+                : Math.min(longDescHeight, COLLAPSED_LONG_DESC_HEIGHT),
+            }}
+            initial={false}
+            transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
           >
-            {story.long_desc}
-          </p>
-        </div>
+            <div ref={longDescRef}>
+              <p className="whitespace-pre-line text-text-secondary text-sm leading-relaxed">
+                {story.long_desc}
+              </p>
+            </div>
+          </motion.div>
+        </motion.article>
       )}
       {/* Tone and World Description */}
       {story.tone && (
@@ -111,7 +142,11 @@ function StorySidebar({ story }) {
             transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
           >
             <div ref={worldDescRef}>
-              <p className="whitespace-pre-line text-text-secondary text-sm leading-relaxed">
+              <p
+                className={`whitespace-pre-line text-text-secondary text-sm leading-relaxed ${
+                  isWorldDescExpanded ? "" : "line-clamp-5"
+                }`}
+              >
                 {story.world_desc.trim()}
               </p>
             </div>

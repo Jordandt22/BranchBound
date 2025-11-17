@@ -40,3 +40,7 @@ export function getRedirectURL() {
 
   return redirect;
 }
+
+export function removeRedirectURL() {
+  localStorage.removeItem("redirect");
+}

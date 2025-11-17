@@ -36,7 +36,7 @@ const statConfig = (character) => [
   },
 ];
 
-const CharacterStats = ({ character }) => {
+const CharacterChoices = ({ character }) => {
   const stats = statConfig(character).filter(
     (stat) => stat.value !== undefined
   );
@@ -90,4 +90,4 @@ const CharacterStats = ({ character }) => {
   );
 };
 
-export default CharacterStats;
+export default CharacterChoices;

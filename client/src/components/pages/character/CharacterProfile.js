@@ -7,6 +7,9 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 // Utils
 import { CARD_STYLES } from "@/lib/constants/styles";
 
+// Components
+import CharacterGroupInfo from "@/components/pages/character/CharacterGroupInfo";
+
 const infoSections = [
   {
     key: "conflicts",
@@ -43,7 +46,7 @@ const ProfileInfoCard = ({ title, content }) => {
     <motion.article
       layout
       transition={{ layout: { duration: 0.3, ease: "easeInOut" } }}
-      className={`${CARD_STYLES} p-6 w-full h-fit`}
+      className={`${CARD_STYLES} p-6 w-1/2 h-fit`}
     >
       <h3 className="text-sm font-semibold uppercase tracking-[0.4em] text-text-secondary">
         {title}
@@ -57,7 +60,11 @@ const ProfileInfoCard = ({ title, content }) => {
         transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
       >
         <div ref={contentRef}>
-          <p className="whitespace-pre-line text-sm leading-relaxed text-text-secondary">
+          <p
+            className={`whitespace-pre-line text-sm leading-relaxed text-text-secondary ${
+              isExpanded ? "" : "line-clamp-5"
+            }`}
+          >
             {trimmedContent}
           </p>
         </div>
@@ -108,11 +115,14 @@ const CharacterProfile = ({ character }) => {
   if (!hasContent) return null;
 
   return (
-    <>
-      {sections.map(({ key, title, content }) => (
-        <ProfileInfoCard key={key} title={title} content={content} />
-      ))}
-    </>
+    <div className="col-span-2 flex flex-col gap-8">
+      <div className="flex gap-8">
+        {sections.map(({ key, title, content }) => (
+          <ProfileInfoCard key={key} title={title} content={content} />
+        ))}
+      </div>
+      <CharacterGroupInfo character={character} />
+    </div>
   );
 };
 

@@ -1,9 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 // Contexts
 import { useGlobal } from "@/contexts/Global.context";
+
+// Utils
+import { setRedirectURL } from "@/lib/utils";
 
 // Components
 import Sidebar from "@/components/layout/Sidebar";
@@ -11,9 +15,14 @@ import Footer from "@/components/layout/Footer";
 import AuthWrapper from "@/components/auth/AuthWrapper";
 
 export default function ProtectedLayout({ children }) {
+  const pathname = usePathname();
   const {
     sidebarState: { isCollapsed },
   } = useGlobal();
+
+  useEffect(() => {
+    setRedirectURL(pathname);
+  }, [pathname]);
 
   return (
     <AuthWrapper>
