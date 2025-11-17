@@ -54,29 +54,27 @@ function StorySidebar({ story }) {
         <motion.article
           layout
           transition={{ layout: { duration: 0.3, ease: "easeInOut" } }}
-          className="block md:hidden bg-surface/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-800"
+          className={`${CARD_STYLES} p-6 md:hidden block`}
         >
           <div className="flex items-start justify-between gap-2 mb-2">
             <h3 className="text-white font-semibold">Description</h3>
-            {longDescHeight > COLLAPSED_LONG_DESC_HEIGHT + 12 && (
-              <button
-                type="button"
-                onClick={() => setIsLongDescExpanded((prev) => !prev)}
-                className="inline-flex items-center gap-1 text-accent-primary hover:text-accent-hover/80 font-medium transition-colors text-sm shrink-0 cursor-pointer"
-              >
-                {isLongDescExpanded ? (
-                  <>
-                    <span>Show Less</span>
-                    <ChevronUp size={14} />
-                  </>
-                ) : (
-                  <>
-                    <span>Show More</span>
-                    <ChevronDown size={14} />
-                  </>
-                )}
-              </button>
-            )}
+            <button
+              type="button"
+              onClick={() => setIsLongDescExpanded((prev) => !prev)}
+              className="inline-flex items-center gap-1 text-accent-primary hover:text-accent-hover/80 font-medium transition-colors text-sm shrink-0 cursor-pointer"
+            >
+              {isLongDescExpanded ? (
+                <>
+                  <span>Show Less</span>
+                  <ChevronUp size={14} />
+                </>
+              ) : (
+                <>
+                  <span>Show More</span>
+                  <ChevronDown size={14} />
+                </>
+              )}
+            </button>
           </div>
           <motion.div
             className="overflow-hidden"
@@ -89,8 +87,12 @@ function StorySidebar({ story }) {
             transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
           >
             <div ref={longDescRef}>
-              <p className="whitespace-pre-line text-text-secondary text-sm leading-relaxed">
-                {story.long_desc}
+              <p
+                className={`whitespace-pre-line text-text-secondary text-sm leading-relaxed ${
+                  isLongDescExpanded ? "" : "line-clamp-5"
+                }`}
+              >
+                {story.long_desc.trim()}
               </p>
             </div>
           </motion.div>
@@ -105,7 +107,7 @@ function StorySidebar({ story }) {
           </p>
         </div>
       )}
-      {story.world_desc?.trim() && (
+      {story.world_desc && (
         <motion.article
           layout
           transition={{ layout: { duration: 0.3, ease: "easeInOut" } }}

@@ -30,9 +30,9 @@ const socialLinks = [
 
 function Footer() {
   return (
-    <footer className="relative z-10">
+    <footer className="relative z-10 pb-16 md:pb-0">
       <div className="mx-auto w-full max-w-6xl px-6 py-12 md:py-14">
-        <div className="flex flex-col gap-24 md:flex-row md:items-start md:justify-between">
+        <div className="flex flex-col gap-12 md:gap-24 md:flex-row md:items-start md:justify-between">
           <div className="md:max-w-sm">
             <h2 className="font-merriweather text-2xl text-white tracking-wide">
               BranchBound
