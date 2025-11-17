@@ -2,6 +2,9 @@
 
 import React, { useMemo } from "react";
 
+// Utils
+import { generateElementKey } from "@/lib/utils";
+
 // Components
 import CharacterGroupInfo from "@/components/pages/character/CharacterGroupInfo";
 import AdjustableTextBox from "@/components/layout/AdjustableTextBox";
@@ -34,7 +37,7 @@ const CharacterProfile = ({ character }) => {
       <div className="flex flex-col md:flex-row gap-8">
         {sections.map(({ key, title, content }) => (
           <AdjustableTextBox
-            key={key}
+            key={generateElementKey("character-profile-section", key)}
             title={title}
             content={content}
             containerClass="w-full md:w-1/2"

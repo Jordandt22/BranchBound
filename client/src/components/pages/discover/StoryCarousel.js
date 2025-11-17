@@ -3,6 +3,11 @@
 import React, { useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+
+// Utils
+import { generateElementKey } from "@/lib/utils";
+
+// Components
 import StoryCard from "./StoryCard";
 
 const StoryCarousel = ({ title, stories }) => {
@@ -43,7 +48,7 @@ const StoryCarousel = ({ title, stories }) => {
         <div className="flex gap-2.5">
           {[...stories].map((story, index) => (
             <div
-              key={story.story_id + "-" + index}
+              key={generateElementKey("story-carousel-item", `${story.story_id}-${index}`)}
               className="w-48 h-64 md:w-48 flex-[0_0_85%] md:flex-none"
             >
               <StoryCard story={story} />

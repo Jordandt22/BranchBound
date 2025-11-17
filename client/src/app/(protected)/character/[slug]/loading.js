@@ -1,5 +1,8 @@
 import React from "react";
 
+// Utils
+import { generateElementKey } from "@/lib/utils";
+
 // Components
 import MainPageWrapper from "@/components/layout/MainPageWrapper";
 import MainHeader from "@/components/layout/MainHeader";
@@ -108,7 +111,10 @@ function Loading() {
                   <div className="grid grid-cols-3 md:grid-cols-4 gap-3">
                     {Array.from({ length: 4 }).map((_, index) => (
                       <div
-                        key={index}
+                        key={generateElementKey(
+                          "skeleton-group-characters",
+                          index
+                        )}
                         className="aspect-4/5 rounded-lg bg-surface/60 animate-pulse"
                       />
                     ))}
@@ -129,7 +135,7 @@ function Loading() {
               <div className="space-y-4">
                 {Array.from({ length: 4 }).map((_, index) => (
                   <div
-                    key={index}
+                    key={generateElementKey("skeleton-choice-stats", index)}
                     className="relative rounded-2xl p-4 bg-surface/60 animate-pulse"
                   >
                     <div className="flex items-start gap-4">

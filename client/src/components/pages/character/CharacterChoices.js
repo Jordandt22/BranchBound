@@ -3,6 +3,9 @@
 import React from "react";
 import { BadgeCheck, Flame, Shield, Shuffle } from "lucide-react";
 
+// Utils
+import { generateElementKey } from "@/lib/utils";
+
 const statConfig = (character) => [
   {
     label: "Bold Choices",
@@ -59,7 +62,7 @@ const CharacterChoices = ({ character }) => {
       <div className="space-y-4">
         {stats.map(({ label, value, description, icon: Icon, accent }) => (
           <div
-            key={label}
+            key={generateElementKey("character-choice-stat", label)}
             className="relative rounded-2xl p-4 group/stat group-hover/stat:scale-105 transition-all duration-300"
           >
             <div

@@ -2,6 +2,9 @@
 
 import React, { createContext, useContext, useState, useCallback } from "react";
 
+// Utils
+import { generateElementKey } from "@/lib/utils";
+
 // Components
 import CustomToast from "@/components/state/CustomToast";
 
@@ -100,7 +103,7 @@ export const ToastProvider = ({ children }) => {
       <div className="fixed top-4 right-4 z-50 space-y-2">
         {toasts.map((toast) => (
           <CustomToast
-            key={toast.id}
+            key={generateElementKey("toast", toast.id)}
             type={toast.type}
             title={toast.title}
             message={toast.message}

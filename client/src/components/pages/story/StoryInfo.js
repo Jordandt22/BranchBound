@@ -7,7 +7,7 @@ import { ChevronUp, ChevronDown } from "lucide-react";
 import Link from "next/link";
 
 // Utils
-import { getStoryImageURL } from "@/lib/utils";
+import { getStoryImageURL, generateElementKey } from "@/lib/utils";
 import { SIXTEEN_TO_NINE } from "@/lib/constants/aspectRatios";
 
 const COLLAPSED_DESCRIPTION_HEIGHT = 72; // Approximately 3 lines of text
@@ -52,7 +52,7 @@ function StoryInfo({ story }) {
             <div className="flex flex-wrap gap-2 mb-4">
               {story.genres.map((genre) => (
                 <Link
-                  key={genre.genre_id}
+                  key={generateElementKey("story-genre", genre.genre_id)}
                   href={`/genres/${genre.slug}`}
                   className="inline-flex items-center gap-1 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-3 py-1 rounded-md text-sm hover:bg-white/20 transition-colors cursor-pointer"
                 >

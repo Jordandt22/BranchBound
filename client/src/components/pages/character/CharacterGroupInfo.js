@@ -10,7 +10,7 @@ import { CARD_STYLES } from "@/lib/constants/styles";
 import { FOUR_TO_FIVE, ONE_TO_ONE } from "@/lib/constants/aspectRatios";
 
 // Utils
-import { getCharacterImageURL } from "@/lib/utils";
+import { getCharacterImageURL, generateElementKey } from "@/lib/utils";
 
 // Contexts
 import { useGlobal } from "@/contexts/Global.context";
@@ -68,7 +68,10 @@ function CharacterGroupInfo({ character }) {
                     <>
                       {isMobile ? (
                         <Link
-                          key={c.character_id}
+                          key={generateElementKey(
+                            "mobile-character-group-character",
+                            c.character_id
+                          )}
                           href={`/character/${c.slug}`}
                           className="flex items-center gap-4 w-full bg-surface-hover rounded-md p-2"
                         >
@@ -88,7 +91,10 @@ function CharacterGroupInfo({ character }) {
                         </Link>
                       ) : (
                         <Link
-                          key={c.character_id}
+                          key={generateElementKey(
+                            "desktop-character-group-character",
+                            c.character_id
+                          )}
                           href={`/character/${c.slug}`}
                           className="group relative aspect-4/5 rounded-lg overflow-hidden transition-all duration-300"
                         >

@@ -15,6 +15,9 @@ import {
   ArrowRight,
 } from "lucide-react";
 
+// Utils
+import { generateElementKey } from "@/lib/utils";
+
 // Contexts
 import { useUser } from "@/contexts/User.context";
 import { useGlobal } from "@/contexts/Global.context";
@@ -131,7 +134,7 @@ const Sidebar = () => {
 
           return (
             <Link
-              key={item.name}
+              key={generateElementKey("sidebar-link", item.name)}
               href={item.href}
               onClick={handleNavLinkClick}
               className={`

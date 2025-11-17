@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Lock, Sparkles, ChevronDown, ChevronUp } from "lucide-react";
 
 // Utils
-import { getCharacterImageURL } from "@/lib/utils";
+import { getCharacterImageURL, generateElementKey } from "@/lib/utils";
 import { FOUR_TO_FIVE } from "@/lib/constants/aspectRatios";
 import { CARD_STYLES } from "@/lib/constants/styles";
 
@@ -68,7 +68,6 @@ const BackstorySection = ({ backstory }) => {
         {shouldShowToggle && (
           <motion.button
             type="button"
-            key="backstory-toggle"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -156,7 +155,7 @@ const CharacterHero = ({ character }) => {
               {traits.length > 0 ? (
                 traits.map((trait) => (
                   <span
-                    key={trait}
+                    key={generateElementKey("character-trait", trait)}
                     className="rounded-full border border-gray-700 bg-surface/70 px-3 py-1 text-xs font-medium text-text-primary backdrop-blur capitalize"
                   >
                     {trait}

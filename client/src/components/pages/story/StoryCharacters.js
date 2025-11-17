@@ -2,6 +2,9 @@
 
 import React from "react";
 
+// Utils
+import { generateElementKey } from "@/lib/utils";
+
 // Components
 import CharacterCard from "./CharacterCard";
 
@@ -20,7 +23,7 @@ function StoryCharacters({
       <div className="flex md:flex-row flex-wrap gap-6">
         {story.characters.map((character) => (
           <CharacterCard
-            key={character.character_id}
+            key={generateElementKey("story-character", character.character_id)}
             character={character}
             storySlug={story.slug}
             toggleExpand={toggleExpand}

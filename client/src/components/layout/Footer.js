@@ -4,6 +4,9 @@ import React from "react";
 import Link from "next/link";
 import { Github, Twitter, Mail } from "lucide-react";
 
+// Utils
+import { generateElementKey } from "@/lib/utils";
+
 const footerLinks = [
   {
     title: "Explore",
@@ -44,7 +47,7 @@ function Footer() {
             <div className="mt-6 flex items-center gap-3">
               {socialLinks.map(({ label, href, icon: Icon }) => (
                 <Link
-                  key={label}
+                  key={generateElementKey("social-link", label)}
                   href={href}
                   aria-label={label}
                   className="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-700 text-gray-400 transition-colors duration-200 hover:border-accent-primary hover:text-white"
@@ -57,13 +60,13 @@ function Footer() {
 
           <div className="grid flex-1 gap-10 sm:grid-cols-2">
             {footerLinks.map(({ title, links }) => (
-              <div key={title}>
+              <div key={generateElementKey("footer-link", title)}>
                 <h3 className="text-sm font-semibold uppercase tracking-widest text-text-secondary">
                   {title}
                 </h3>
                 <ul className="mt-4 space-y-3 text-sm">
                   {links.map(({ label, href }) => (
-                    <li key={label}>
+                    <li key={generateElementKey("footer-link-item", label)}>
                       <Link
                         href={href}
                         className="text-text-secondary transition-colors duration-200 hover:text-white"
