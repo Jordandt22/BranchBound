@@ -8,7 +8,7 @@ import { Lock, Sparkles, ChevronDown, ChevronUp } from "lucide-react";
 // Utils
 import { getCharacterImageURL } from "@/lib/utils";
 import { FOUR_TO_FIVE } from "@/lib/constants/aspectRatios";
-import { cardStyles } from "@/lib/constants/styles";
+import { CARD_STYLES } from "@/lib/constants/styles";
 
 // Components
 import PlayButton from "@/components/layout/buttons/PlayButton";
@@ -165,7 +165,7 @@ const CharacterHero = ({ character }) => {
             </div>
           </div>
 
-          <div className={`${cardStyles} p-6 h-full`}>
+          <div className={`${CARD_STYLES} p-6 h-full`}>
             <p className="text-sm font-semibold uppercase tracking-[0.4em] text-text-secondary mb-4">
               Backstory
             </p>

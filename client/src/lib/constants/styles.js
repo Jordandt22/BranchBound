@@ -1,2 +1,2 @@
-export const cardStyles =
-  "rounded-3xl border-gray-800/50 bg-surface/70 hover:border-accent-primary border-2 transition-all duration-300";
+export const CARD_STYLES =
+  "rounded-3xl border-gray-800/50 bg-surface/70 backdrop-blur-sm hover:border-accent-primary border-2 transition-all duration-300";

@@ -1,16 +1,37 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ChevronUp, ChevronDown } from "lucide-react";
+
+// Constants
+import { CARD_STYLES } from "@/lib/constants/styles";
 
 // Components
 import PlayButton from "@/components/layout/buttons/PlayButton";
 import FavoriteButton from "@/components/layout/buttons/FavoriteButton";
 import ShareButton from "@/components/layout/buttons/ShareButton";
 
+const COLLAPSED_WORLD_DESC_HEIGHT = 120;
+
 function StorySidebar({ story }) {
   const [isLongDescExpanded, setIsLongDescExpanded] = useState(false);
   const [isWorldDescExpanded, setIsWorldDescExpanded] = useState(false);
+  const [worldDescHeight, setWorldDescHeight] = useState(
+    COLLAPSED_WORLD_DESC_HEIGHT
+  );
+  const worldDescRef = useRef(null);
+
+  useEffect(() => {
+    if (!story.world_desc || !worldDescRef.current) return;
+    // Use setTimeout to ensure DOM is fully rendered
+    const timer = setTimeout(() => {
+      if (worldDescRef.current) {
+        setWorldDescHeight(worldDescRef.current.scrollHeight);
+      }
+    }, 0);
+    return () => clearTimeout(timer);
+  }, [story.world_desc, isWorldDescExpanded]);
 
   return (
     <div className="flex flex-col gap-6 w-full md:w-2/5">
@@ -46,42 +67,56 @@ function StorySidebar({ story }) {
       )}
       {/* Tone and World Description */}
       {story.tone && (
-        <div className="bg-surface/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-800">
+        <div className={`${CARD_STYLES} p-6`}>
           <h3 className="text-white font-semibold mb-2">Tone / Mood</h3>
           <p className="text-text-secondary text-sm leading-relaxed capitalize">
             {story.tone}
           </p>
         </div>
       )}
-      {story.world_desc && (
-        <div className="bg-surface/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-800">
+      {story.world_desc?.trim() && (
+        <motion.article
+          layout
+          transition={{ layout: { duration: 0.3, ease: "easeInOut" } }}
+          className={`${CARD_STYLES} p-6`}
+        >
           <div className="flex items-start justify-between gap-2 mb-2">
             <h3 className="text-white font-semibold">World Description</h3>
             <button
-              onClick={() => setIsWorldDescExpanded(!isWorldDescExpanded)}
+              type="button"
+              onClick={() => setIsWorldDescExpanded((prev) => !prev)}
               className="inline-flex items-center gap-1 text-accent-primary hover:text-accent-hover/80 font-medium transition-colors text-sm shrink-0 cursor-pointer"
             >
               {isWorldDescExpanded ? (
                 <>
-                  <span>Less</span>
+                  <span>Show Less</span>
                   <ChevronUp size={14} />
                 </>
               ) : (
                 <>
-                  <span>More</span>
+                  <span>Show More</span>
                   <ChevronDown size={14} />
                 </>
               )}
             </button>
           </div>
-          <p
-            className={`text-text-secondary text-sm leading-relaxed ${
-              !isWorldDescExpanded ? "line-clamp-6" : ""
-            }`}
+          <motion.div
+            className="overflow-hidden"
+            animate={{
+              height: isWorldDescExpanded
+                ? worldDescHeight
+                : Math.min(worldDescHeight, COLLAPSED_WORLD_DESC_HEIGHT),
+            }}
+            initial={false}
+            transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
           >
-            {story.world_desc}
-          </p>
-        </div>
+            <div ref={worldDescRef}>
+              <p className="whitespace-pre-line text-text-secondary text-sm leading-relaxed">
+                {story.world_desc.trim()}
+              </p>
+            </div>
+          </motion.div>
+        </motion.article>
       )}
 
       {/* Start Story Button */}

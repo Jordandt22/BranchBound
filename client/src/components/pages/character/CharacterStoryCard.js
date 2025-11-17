@@ -8,13 +8,13 @@ import { ArrowRight, Lock } from "lucide-react";
 // Utils
 import { getStoryImageURL } from "@/lib/utils";
 import { SIXTEEN_TO_NINE } from "@/lib/constants/aspectRatios";
-import { cardStyles } from "@/lib/constants/styles";
+import { CARD_STYLES } from "@/lib/constants/styles";
 
 const CharacterStoryCard = ({ story }) => {
   if (!story?.slug) return null;
 
   return (
-    <section className={`relative z-10 ${cardStyles} p-6 h-full w-full`}>
+    <section className={`relative z-10 ${CARD_STYLES} p-6 h-full w-full`}>
       <div className="flex flex-col gap-6 w-full">
         <div className="relative h-[260px] w-full overflow-hidden rounded-2xl shadow-md group/story-card">
           <Image
@@ -53,7 +53,7 @@ const CharacterStoryCard = ({ story }) => {
             </Link>
             <Link
               href="/discover"
-              className="rounded-full border border-gray-700 px-5 py-2 text-sm font-semibold text-text-primary transition-colors duration-200 hover:border-accent-primary hover:text-white"
+              className="rounded-full border border-gray-700 px-5 py-2 text-sm font-semibold text-text-primary transition-colors duration-200 hover:bg-gray-700 hover:text-white"
             >
               Discover More Stories
             </Link>

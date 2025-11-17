@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
 // Utils
-import { cardStyles } from "@/lib/constants/styles";
+import { CARD_STYLES } from "@/lib/constants/styles";
 
 const infoSections = [
   {
@@ -43,7 +43,7 @@ const ProfileInfoCard = ({ title, content }) => {
     <motion.article
       layout
       transition={{ layout: { duration: 0.3, ease: "easeInOut" } }}
-      className={`${cardStyles} p-6 w-full h-fit`}
+      className={`${CARD_STYLES} p-6 w-full h-fit`}
     >
       <h3 className="text-sm font-semibold uppercase tracking-[0.4em] text-text-secondary">
         {title}
