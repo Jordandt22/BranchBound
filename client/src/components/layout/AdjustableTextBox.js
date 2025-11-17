@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import { ChevronUp, ChevronDown } from "lucide-react";
 import { CARD_STYLES } from "@/lib/constants/styles";
 
-const COLLAPSED_LONG_DESC_HEIGHT = 144; // Approximately 6 lines of text
+const COLLAPSED_CONTENT_HEIGHT = 144;
 
 function AdjustableTextBox({ title, content, containerClass, children }) {
   const [contentExpanded, setContentExpanded] = useState(false);
@@ -53,7 +53,7 @@ function AdjustableTextBox({ title, content, containerClass, children }) {
         animate={{
           height: contentExpanded
             ? contentHeight
-            : Math.min(contentHeight, COLLAPSED_LONG_DESC_HEIGHT),
+            : Math.min(contentHeight, COLLAPSED_CONTENT_HEIGHT),
         }}
         initial={false}
         transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}

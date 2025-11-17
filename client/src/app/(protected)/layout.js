@@ -13,6 +13,7 @@ import { setRedirectURL } from "@/lib/utils";
 import Sidebar from "@/components/layout/Sidebar";
 import Footer from "@/components/layout/Footer";
 import AuthWrapper from "@/components/auth/AuthWrapper";
+import ScrollToTopButton from "@/components/layout/ScrollToTopButton";
 
 export default function ProtectedLayout({ children }) {
   const pathname = usePathname();
@@ -40,6 +41,8 @@ export default function ProtectedLayout({ children }) {
 
           <Footer />
         </div>
+
+        <ScrollToTopButton />
       </div>
     </AuthWrapper>
   );

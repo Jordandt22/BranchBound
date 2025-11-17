@@ -33,7 +33,12 @@ const CharacterProfile = ({ character }) => {
     <div className="md:col-span-2 flex flex-col gap-8">
       <div className="flex flex-col md:flex-row gap-8">
         {sections.map(({ key, title, content }) => (
-          <AdjustableTextBox key={key} title={title} content={content} />
+          <AdjustableTextBox
+            key={key}
+            title={title}
+            content={content}
+            containerClass="w-full md:w-1/2"
+          />
         ))}
       </div>
       <CharacterGroupInfo character={character} />
