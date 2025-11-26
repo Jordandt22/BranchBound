@@ -11,7 +11,6 @@ import { setRedirectURL } from "@/lib/utils";
 
 // Components
 import Sidebar from "@/components/layout/Sidebar";
-import Footer from "@/components/layout/Footer";
 import AuthWrapper from "@/components/auth/AuthWrapper";
 import ScrollToTopButton from "@/components/layout/ScrollToTopButton";
 
@@ -77,8 +76,6 @@ export default function ProtectedLayout({ children }) {
           }`}
         >
           {children}
-
-          <Footer />
         </div>
 
         <ScrollToTopButton />
