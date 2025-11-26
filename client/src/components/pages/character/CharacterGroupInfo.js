@@ -65,13 +65,14 @@ function CharacterGroupInfo({ character }) {
                     : null;
 
                   return (
-                    <>
+                    <React.Fragment
+                      key={generateElementKey(
+                        "character-group-character",
+                        c.character_id
+                      )}
+                    >
                       {isMobile ? (
                         <Link
-                          key={generateElementKey(
-                            "mobile-character-group-character",
-                            c.character_id
-                          )}
                           href={`/character/${c.slug}`}
                           className="flex items-center gap-4 w-full bg-surface-hover rounded-md p-2"
                         >
@@ -91,10 +92,6 @@ function CharacterGroupInfo({ character }) {
                         </Link>
                       ) : (
                         <Link
-                          key={generateElementKey(
-                            "desktop-character-group-character",
-                            c.character_id
-                          )}
                           href={`/character/${c.slug}`}
                           className="group relative aspect-4/5 rounded-lg overflow-hidden transition-all duration-300"
                         >
@@ -123,7 +120,7 @@ function CharacterGroupInfo({ character }) {
                           )}
                         </Link>
                       )}
-                    </>
+                    </React.Fragment>
                   );
                 })}
               </div>
