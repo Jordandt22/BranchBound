@@ -23,7 +23,7 @@ function PlayButton({ isLocked, story }) {
       }`}
       onClick={() => {
         if (isLocked) return;
-        router.push(`/story/${story.slug}/play`);
+        router.push(`/story/${story.slug}/select`);
       }}
     >
       {isLocked ? (

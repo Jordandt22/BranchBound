@@ -1,0 +1,37 @@
+import React from "react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+
+// Components
+import { Button } from "@/components/ui/button";
+
+function FormButtons({ story }) {
+  const router = useRouter();
+
+  const handleNext = () => {
+    // Functionality will be implemented later
+    console.log({ gameMode, playerMode, storyLength });
+  };
+
+  return (
+    <div className="flex flex-col-reverse md:flex-row items-center gap-4 mt-8 md:mt-16">
+      <Button
+        onClick={() => router.push("/story/" + story.slug)}
+        className="w-full md:w-1/2 rounded-full bg-transparent border-2 border-surface-hover text-white font-semibold py-6 text-md transition-all duration-300 cursor-pointer hover:scale-95 hover:bg-surface-hover flex items-center justify-center"
+      >
+        <ArrowLeft size={20} />
+        Back
+      </Button>
+
+      <Button
+        onClick={handleNext}
+        className="w-full md:w-1/2 rounded-full bg-accent-primary hover:bg-accent-hover text-white font-semibold py-6 text-md transition-all duration-300 cursor-pointer hover:scale-95 flex items-center justify-center"
+      >
+        Next
+        <ArrowRight size={20} />
+      </Button>
+    </div>
+  );
+}
+
+export default FormButtons;
