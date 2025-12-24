@@ -10,6 +10,7 @@ import { UserProvider } from "@/contexts/User.context";
 import { GlobalProvider } from "@/contexts/Global.context";
 import { ErrorProvider } from "@/contexts/Error.context";
 import { ToastProvider } from "@/contexts/Toast.context";
+import { UserStoriesAPIProvider } from "@/contexts/API/UserStoriesAPI.context";
 
 function ContextProvider({ children }) {
   return (
@@ -19,7 +20,9 @@ function ContextProvider({ children }) {
           <AuthProvider>
             <ErrorProvider>
               <UsersAPIProvider>
-                <UserProvider>{children}</UserProvider>
+                <UserStoriesAPIProvider>
+                  <UserProvider>{children}</UserProvider>
+                </UserStoriesAPIProvider>
               </UsersAPIProvider>
             </ErrorProvider>
           </AuthProvider>

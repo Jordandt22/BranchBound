@@ -26,21 +26,21 @@ import FormButtons from "@/components/pages/story-select/FormButtons";
 
 const StorySelectContent = ({ story }) => {
   const [storySettings, setStorySettings] = useState({
-    gameMode: GAME_MODES.CHOICES.value,
-    playerMode: SESSION_TYPES.SINGLEPLAYER.value,
-    storyLength: STORY_LENGTH_TYPES.MEDIUM.value,
+    game_mode: GAME_MODES.CHOICES.value,
+    session_type: SESSION_TYPES.SINGLEPLAYER.value,
+    story_length_type: STORY_LENGTH_TYPES.MEDIUM.value,
   });
 
   const updateGameMode = (value) => {
-    setStorySettings({ ...storySettings, gameMode: value });
+    setStorySettings({ ...storySettings, game_mode: value });
   };
 
   const updatePlayerMode = (value) => {
-    setStorySettings({ ...storySettings, playerMode: value });
+    setStorySettings({ ...storySettings, session_type: value });
   };
 
   const updateStoryLength = (value) => {
-    setStorySettings({ ...storySettings, storyLength: value });
+    setStorySettings({ ...storySettings, story_length_type: value });
   };
 
   const storyLengthOptions = [
@@ -125,7 +125,7 @@ const StorySelectContent = ({ story }) => {
                   key={option.value}
                   onClick={() => updateGameMode(option.value)}
                   text={option.text}
-                  isActive={storySettings.gameMode === option.value}
+                  isActive={storySettings.game_mode === option.value}
                   icon={option.icon}
                   isLocked={option.isLocked}
                 />
@@ -139,7 +139,7 @@ const StorySelectContent = ({ story }) => {
                   key={option.value}
                   onClick={() => updatePlayerMode(option.value)}
                   text={option.text}
-                  isActive={storySettings.playerMode === option.value}
+                  isActive={storySettings.session_type === option.value}
                   icon={option.icon}
                   isLocked={option.isLocked}
                 />
@@ -153,7 +153,7 @@ const StorySelectContent = ({ story }) => {
                   key={option.value}
                   onClick={() => updateStoryLength(option.value)}
                   text={option.text}
-                  isActive={storySettings.storyLength === option.value}
+                  isActive={storySettings.story_length_type === option.value}
                   subText={option.subText}
                   isLocked={option.isLocked}
                 />

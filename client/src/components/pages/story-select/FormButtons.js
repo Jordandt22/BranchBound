@@ -2,15 +2,31 @@ import React from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 
+// Contexts
+import { useUser } from "@/contexts/User.context";
+import { useUserStoriesAPI } from "@/contexts/API/UserStoriesAPI.context";
+
 // Components
 import { Button } from "@/components/ui/button";
 
 function FormButtons({ story, storySettings }) {
   const router = useRouter();
+  const { user } = useUser();
+  const { createUserStory } = useUserStoriesAPI();
 
-  const handleNext = () => {
-    // Functionality will be implemented later
-    console.log(storySettings);
+  const handleNext = async () => {
+    // Create User Story
+    const res = await createUserStory(user.uid, story.story_id, storySettings);
+    const rawData = res?.data;
+    if (!rawData?.data || rawData?.error) {
+      console.error(error);
+    }
+
+    // Data
+    const data = rawData.data;
+
+    // Send to Character Select Page
+    router.push(`/story/${story.slug}/select/${data.user_story_id}/characters`);
   };
 
   return (

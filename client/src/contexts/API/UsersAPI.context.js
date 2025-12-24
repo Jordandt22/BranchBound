@@ -57,7 +57,9 @@ export const UsersAPIProvider = ({ children }) => {
   };
 
   return (
-    <UsersAPIContext.Provider value={{ getUser, createProfile }}>
+    <UsersAPIContext.Provider
+      value={{ getUser, createProfile, setAuthHeader, checkAuthWrapper }}
+    >
       {children}
     </UsersAPIContext.Provider>
   );
