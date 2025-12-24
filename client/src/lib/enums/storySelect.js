@@ -8,7 +8,7 @@ export const SESSION_TYPES = Object.freeze({
   MULTIPLAYER: { value: 2, label: "Multiplayer" },
 });
 
-export const STORY_LENGTHS = Object.freeze({
+export const STORY_LENGTH_TYPES = Object.freeze({
   SHORT: { value: 1, label: "Short" },
   MEDIUM: { value: 2, label: "Medium" },
   LONG: { value: 3, label: "Long" },

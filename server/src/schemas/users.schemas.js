@@ -73,3 +73,21 @@ export const UserEmailSchema = Yup.object({
     .email("Please enter a valid email.")
     .required("Please enter a valid email."),
 });
+
+export const UserStorySchema = Yup.object({
+  story_id: Yup.string().trim().uuid().required("Please provide a story ID."),
+  story_settings: Yup.object().shape({
+    game_mode: Yup.number()
+      .min(1, "Please provide a valid game mode.")
+      .max(2, "Please provide a valid game mode.")
+      .required("Please provide a game mode."),
+    session_type: Yup.number()
+      .min(1, "Please provide a valid session type.")
+      .max(2, "Please provide a valid session type.")
+      .required("Please provide a session type."),
+    story_length_type: Yup.number()
+      .min(1, "Please provide a valid story length type.")
+      .max(4, "Please provide a valid story length type.")
+      .required("Please provide a story length type."),
+  }),
+});

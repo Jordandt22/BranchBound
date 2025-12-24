@@ -9,13 +9,14 @@ const { NO_API_KEY, INVALID_API_KEY, NO_ACCESS_TOKEN, INVALID_ACCESS_TOKEN } =
 
 export const authAPIKey = (API_KEY) =>
   serverErrorCatcherWrapper(async (req, res, next) => {
-    const apiKey = req.headers?.authorization?.replace("Bearer ", "");
+    const apiKey = req.headers?.["x-api-key"];
     if (!apiKey || apiKey === "null")
       return res
         .status(422)
-        .json(customErrorHandler(NO_API_KEY, "MUST provide credentials."));
+        .json(customErrorHandler(NO_API_KEY, "MUST provide API key."));
 
-    if (apiKey !== API_KEY)
+    const isAPIKeyValid = apiKey.replace("Bearer ", "") === API_KEY;
+    if (!isAPIKeyValid)
       return res
         .status(401)
         .json(customErrorHandler(INVALID_API_KEY, "Invalid API key."));

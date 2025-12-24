@@ -1,5 +1,6 @@
 import { supabase, adminAuthClient } from "./supabase.js";
-import { getWebURL } from "../utils/urlGenerator.js";
+import { getWebURL } from "../lib/utils/urlGenerator.js";
+import { STORY_LENGTH_TYPES } from "../lib/enums/user.stories.enums.js";
 
 const fullStorySelect =
   "*, characters:story_characters!inner(character_id, characters(*)), genres:story_genres!inner(genre_id, genres(*))";
@@ -150,6 +151,42 @@ export const deleteUser = async (uid) => {
     .from("users")
     .delete("*")
     .eq("uid", uid);
+
+  return { data, error };
+};
+
+// ---- User Stories ----
+export const createUserStory = async (uid, story_id, story_settings) => {
+  const { story_length_type } = story_settings;
+  let total_scenes = STORY_LENGTH_TYPES.MEDIUM.total_scenes;
+  switch (story_length_type) {
+    case STORY_LENGTH_TYPES.SHORT.value:
+      total_scenes = STORY_LENGTH_TYPES.SHORT.total_scenes;
+      break;
+    case STORY_LENGTH_TYPES.MEDIUM.value:
+      total_scenes = STORY_LENGTH_TYPES.MEDIUM.total_scenes;
+      break;
+    case STORY_LENGTH_TYPES.LONG.value:
+      total_scenes = STORY_LENGTH_TYPES.LONG.total_scenes;
+      break;
+    case STORY_LENGTH_TYPES.UNLIMITED.value:
+      total_scenes = STORY_LENGTH_TYPES.UNLIMITED.total_scenes;
+      break;
+
+    default:
+      total_scenes = STORY_LENGTH_TYPES.MEDIUM.total_scenes;
+      break;
+  }
+
+  const { data, error } = await supabase
+    .from("user_stories")
+    .insert({
+      uid,
+      story_id,
+      ...story_settings,
+      total_scenes,
+    })
+    .select("*");
 
   return { data, error };
 };

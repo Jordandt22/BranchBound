@@ -13,7 +13,7 @@ import { THREE_TO_TWO } from "@/lib/constants/aspectRatios";
 import {
   GAME_MODES,
   SESSION_TYPES,
-  STORY_LENGTHS,
+  STORY_LENGTH_TYPES,
 } from "@/lib/enums/storySelect";
 
 // Components
@@ -28,7 +28,7 @@ const StorySelectContent = ({ story }) => {
   const [storySettings, setStorySettings] = useState({
     gameMode: GAME_MODES.CHOICES.value,
     playerMode: SESSION_TYPES.SINGLEPLAYER.value,
-    storyLength: STORY_LENGTHS.MEDIUM.value,
+    storyLength: STORY_LENGTH_TYPES.MEDIUM.value,
   });
 
   const updateGameMode = (value) => {
@@ -45,27 +45,27 @@ const StorySelectContent = ({ story }) => {
 
   const storyLengthOptions = [
     {
-      text: STORY_LENGTHS.SHORT.label,
+      text: STORY_LENGTH_TYPES.SHORT.label,
       subText: "10 scenes",
-      value: STORY_LENGTHS.SHORT.value,
+      value: STORY_LENGTH_TYPES.SHORT.value,
       isLocked: false,
     },
     {
-      text: STORY_LENGTHS.MEDIUM.label,
+      text: STORY_LENGTH_TYPES.MEDIUM.label,
       subText: "20 scenes",
-      value: STORY_LENGTHS.MEDIUM.value,
+      value: STORY_LENGTH_TYPES.MEDIUM.value,
       isLocked: false,
     },
     {
-      text: STORY_LENGTHS.LONG.label,
+      text: STORY_LENGTH_TYPES.LONG.label,
       subText: "30 scenes",
-      value: STORY_LENGTHS.LONG.value,
+      value: STORY_LENGTH_TYPES.LONG.value,
       isLocked: false,
     },
     {
-      text: STORY_LENGTHS.UNLIMITED.label,
+      text: STORY_LENGTH_TYPES.UNLIMITED.label,
       subText: "Unlimited scenes",
-      value: STORY_LENGTHS.UNLIMITED.value,
+      value: STORY_LENGTH_TYPES.UNLIMITED.value,
       isLocked: true,
     },
   ];

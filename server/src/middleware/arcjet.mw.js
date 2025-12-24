@@ -5,7 +5,7 @@ import {
   errorCodes,
   customErrorHandler,
 } from "../helpers/customErrorHandler.js";
-import { getWebURL } from "../utils/urlGenerator.js";
+import { getWebURL } from "../lib/utils/urlGenerator.js";
 
 const aj = arcjet({
   key: process.env.ARCJET_KEY,
