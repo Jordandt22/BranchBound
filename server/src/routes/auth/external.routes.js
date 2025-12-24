@@ -1,21 +1,13 @@
 import { Router } from "express";
-import {
-  signUpController,
-  signInController,
-  sendEmailVerificationController,
-  sendForgotPasswordController,
-} from "../../controllers/auth/internal.controller.js";
+import { googleAuthController } from "../../controllers/auth/external.controller.js";
 import { serverErrorCatcherWrapper } from "../../helpers/wrappers.js";
-import {
-  SignUpSchema,
-  SignInSchema,
-  UserEmailSchema,
-} from "../../schemas/users.schemas.js";
-import { bodyValidator } from "../../middleware/validators.js";
 
 const externalAuthRouter = Router();
 
 // Google
-externalAuthRouter.post("/google", serverErrorCatcherWrapper(googleAuthController));
+externalAuthRouter.post(
+  "/google",
+  serverErrorCatcherWrapper(googleAuthController)
+);
 
-export default externalAuthRouter;  
+export default externalAuthRouter;

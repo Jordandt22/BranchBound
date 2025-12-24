@@ -147,7 +147,12 @@ const StorySelectContent = ({ story }) => {
             </FormSection>
 
             {/* Form Buttons */}
-            <FormButtons story={story} />
+            <FormButtons
+              story={story}
+              gameMode={gameMode}
+              playerMode={playerMode}
+              storyLength={storyLength}
+            />
           </div>
         </motion.div>
 

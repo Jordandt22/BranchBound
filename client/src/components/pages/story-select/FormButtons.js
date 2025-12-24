@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 // Components
 import { Button } from "@/components/ui/button";
 
-function FormButtons({ story }) {
+function FormButtons({ story, gameMode, playerMode, storyLength }) {
   const router = useRouter();
 
   const handleNext = () => {

@@ -36,6 +36,7 @@ function AuthWrapper({ children }) {
     // User already has a profile
     if (user) {
       hideLoading();
+      console.log("AuthWrapper 1");
       return router.push(getRedirectURL());
     }
 

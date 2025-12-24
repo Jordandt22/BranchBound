@@ -11,7 +11,6 @@ import { authAPIKey } from "./middleware/auth.mw.js";
 // Routers
 import storiesRouter from "./routes/stories.routes.js";
 import usersRouter from "./routes/users.routes.js";
-import internalAuthRouter from "./routes/auth/internal.routes.js";
 
 const app = express();
 
@@ -51,10 +50,6 @@ app.use(
 
 // Routes for Users
 app.use(`/v${API_VERSION}/api/users`, usersRouter);
-
-// ! NOT USED
-// Routes for Auth
-// app.use(`/v${API_VERSION}/api/auth/internal`, authAPIKey, internalAuthRouter);
 
 // PORT and Sever
 const server = http.createServer(app);
