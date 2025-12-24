@@ -1,16 +1,16 @@
 export const GAME_MODES = Object.freeze({
-  CHOICES: "choices",
-  TEXT_BASED: "text-based",
+  CHOICES: { value: 1, label: "Choices" },
+  TEXT_BASED: { value: 2, label: "Text-based" },
 });
 
 export const SESSION_TYPES = Object.freeze({
-  SINGLEPLAYER: "singleplayer",
-  MULTIPLAYER: "multiplayer",
+  SINGLEPLAYER: { value: 1, label: "Singleplayer" },
+  MULTIPLAYER: { value: 2, label: "Multiplayer" },
 });
 
 export const STORY_LENGTHS = Object.freeze({
-  SHORT: "short",
-  MEDIUM: "medium",
-  LONG: "long",
-  UNLIMITED: "unlimited",
+  SHORT: { value: 1, label: "Short" },
+  MEDIUM: { value: 2, label: "Medium" },
+  LONG: { value: 3, label: "Long" },
+  UNLIMITED: { value: 4, label: "Unlimited" },
 });

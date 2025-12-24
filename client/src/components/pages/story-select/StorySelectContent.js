@@ -25,47 +25,61 @@ import StorySection from "@/components/pages/story-select/StorySection";
 import FormButtons from "@/components/pages/story-select/FormButtons";
 
 const StorySelectContent = ({ story }) => {
-  const [gameMode, setGameMode] = useState(GAME_MODES.CHOICES);
-  const [playerMode, setPlayerMode] = useState(SESSION_TYPES.SINGLEPLAYER);
-  const [storyLength, setStoryLength] = useState(STORY_LENGTHS.MEDIUM);
+  const [storySettings, setStorySettings] = useState({
+    gameMode: GAME_MODES.CHOICES.value,
+    playerMode: SESSION_TYPES.SINGLEPLAYER.value,
+    storyLength: STORY_LENGTHS.MEDIUM.value,
+  });
+
+  const updateGameMode = (value) => {
+    setStorySettings({ ...storySettings, gameMode: value });
+  };
+
+  const updatePlayerMode = (value) => {
+    setStorySettings({ ...storySettings, playerMode: value });
+  };
+
+  const updateStoryLength = (value) => {
+    setStorySettings({ ...storySettings, storyLength: value });
+  };
 
   const storyLengthOptions = [
     {
-      text: "Short",
+      text: STORY_LENGTHS.SHORT.label,
       subText: "10 scenes",
-      value: STORY_LENGTHS.SHORT,
+      value: STORY_LENGTHS.SHORT.value,
       isLocked: false,
     },
     {
-      text: "Medium",
+      text: STORY_LENGTHS.MEDIUM.label,
       subText: "20 scenes",
-      value: STORY_LENGTHS.MEDIUM,
+      value: STORY_LENGTHS.MEDIUM.value,
       isLocked: false,
     },
     {
-      text: "Long",
+      text: STORY_LENGTHS.LONG.label,
       subText: "30 scenes",
-      value: STORY_LENGTHS.LONG,
+      value: STORY_LENGTHS.LONG.value,
       isLocked: false,
     },
     {
-      text: "Unlimited",
+      text: STORY_LENGTHS.UNLIMITED.label,
       subText: "Unlimited scenes",
-      value: STORY_LENGTHS.UNLIMITED,
+      value: STORY_LENGTHS.UNLIMITED.value,
       isLocked: true,
     },
   ];
 
   const gameModeOptions = [
     {
-      text: "Choices",
-      value: GAME_MODES.CHOICES,
+      text: GAME_MODES.CHOICES.label,
+      value: GAME_MODES.CHOICES.value,
       icon: ListChecks,
       isLocked: false,
     },
     {
-      text: "Text-based",
-      value: GAME_MODES.TEXT_BASED,
+      text: GAME_MODES.TEXT_BASED.label,
+      value: GAME_MODES.TEXT_BASED.value,
       icon: FileText,
       isLocked: true,
     },
@@ -73,14 +87,14 @@ const StorySelectContent = ({ story }) => {
 
   const sessionTypeOptions = [
     {
-      text: "Singleplayer",
-      value: SESSION_TYPES.SINGLEPLAYER,
+      text: SESSION_TYPES.SINGLEPLAYER.label,
+      value: SESSION_TYPES.SINGLEPLAYER.value,
       icon: User,
       isLocked: false,
     },
     {
-      text: "Multiplayer",
-      value: SESSION_TYPES.MULTIPLAYER,
+      text: SESSION_TYPES.MULTIPLAYER.label,
+      value: SESSION_TYPES.MULTIPLAYER.value,
       icon: Users,
       isLocked: true,
     },
@@ -109,9 +123,9 @@ const StorySelectContent = ({ story }) => {
               {gameModeOptions.map((option) => (
                 <SelectButton
                   key={option.value}
-                  onClick={() => setGameMode(option.value)}
+                  onClick={() => updateGameMode(option.value)}
                   text={option.text}
-                  isActive={gameMode === option.value}
+                  isActive={storySettings.gameMode === option.value}
                   icon={option.icon}
                   isLocked={option.isLocked}
                 />
@@ -123,9 +137,9 @@ const StorySelectContent = ({ story }) => {
               {sessionTypeOptions.map((option) => (
                 <SelectButton
                   key={option.value}
-                  onClick={() => setPlayerMode(option.value)}
+                  onClick={() => updatePlayerMode(option.value)}
                   text={option.text}
-                  isActive={playerMode === option.value}
+                  isActive={storySettings.playerMode === option.value}
                   icon={option.icon}
                   isLocked={option.isLocked}
                 />
@@ -137,9 +151,9 @@ const StorySelectContent = ({ story }) => {
               {storyLengthOptions.map((option) => (
                 <StoryLengthButton
                   key={option.value}
-                  onClick={() => setStoryLength(option.value)}
+                  onClick={() => updateStoryLength(option.value)}
                   text={option.text}
-                  isActive={storyLength === option.value}
+                  isActive={storySettings.storyLength === option.value}
                   subText={option.subText}
                   isLocked={option.isLocked}
                 />
@@ -147,12 +161,7 @@ const StorySelectContent = ({ story }) => {
             </FormSection>
 
             {/* Form Buttons */}
-            <FormButtons
-              story={story}
-              gameMode={gameMode}
-              playerMode={playerMode}
-              storyLength={storyLength}
-            />
+            <FormButtons story={story} storySettings={storySettings} />
           </div>
         </motion.div>
 

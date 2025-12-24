@@ -41,4 +41,6 @@ usersRouter.patch(
   serverErrorCatcherWrapper(updateUserEmailController)
 );
 
+// Stories
+
 export default usersRouter;

@@ -5,12 +5,12 @@ import { useRouter } from "next/navigation";
 // Components
 import { Button } from "@/components/ui/button";
 
-function FormButtons({ story, gameMode, playerMode, storyLength }) {
+function FormButtons({ story, storySettings }) {
   const router = useRouter();
 
   const handleNext = () => {
     // Functionality will be implemented later
-    console.log({ gameMode, playerMode, storyLength });
+    console.log(storySettings);
   };
 
   return (
