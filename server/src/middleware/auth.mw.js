@@ -37,6 +37,6 @@ export const authUser = async (req, res, next) => {
       .status(401)
       .json(customErrorHandler(INVALID_ACCESS_TOKEN, "Invalid access token."));
 
-  req.user = data.user;
+  req.user = { ...data.user, uid: data.user.id, access_token: accessToken };
   return next();
 };

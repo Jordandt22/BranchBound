@@ -91,3 +91,10 @@ export const UserStorySchema = Yup.object({
       .required("Please provide a story length type."),
   }),
 });
+
+export const UserStoryIDSchema = Yup.object({
+  user_story_id: Yup.string()
+    .trim()
+    .uuid()
+    .required("Please provide a user story ID."),
+});

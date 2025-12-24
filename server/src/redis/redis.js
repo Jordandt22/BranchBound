@@ -78,17 +78,23 @@ export const getFeaturedStoriesKey = () => ({
 });
 
 export const getStoryKey = (slug) => ({
-  key: `STORIES_SLUG:${slug}`,
+  key: `STORIES-SLUG:${slug}`,
   interval: 60 * 60 * 24,
 });
 
 export const getCharacterKey = (slug) => ({
-  key: `CHARACTER_SLUG:${slug}`,
+  key: `CHARACTER-SLUG:${slug}`,
   interval: 60 * 60 * 24,
 });
 
 // --- Users ----
 export const getUserKey = (uid) => ({
-  key: `USER_UID:${uid}`,
+  key: `USER-UID:${uid}`,
   interval: 60 * 60,
+});
+
+// --- User Stories ----
+export const getUserStoryKey = (uid, user_story_id) => ({
+  key: `USER_STORY?UID:${uid}&USER_STORY_ID:${user_story_id}`,
+  interval: 60 * 60 * 24,
 });
