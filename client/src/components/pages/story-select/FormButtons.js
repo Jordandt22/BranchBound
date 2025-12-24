@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 // Contexts
 import { useUser } from "@/contexts/User.context";
 import { useUserStoriesAPI } from "@/contexts/API/UserStoriesAPI.context";
+import { useGlobal } from "@/contexts/Global.context";
 
 // Components
 import { Button } from "@/components/ui/button";
@@ -13,8 +14,11 @@ function FormButtons({ story, storySettings }) {
   const router = useRouter();
   const { user } = useUser();
   const { createUserStory } = useUserStoriesAPI();
+  const { showLoading, hideLoading } = useGlobal();
 
   const handleNext = async () => {
+    showLoading("Creating your new adventure...");
+
     // Create User Story
     const res = await createUserStory(user.uid, story.story_id, storySettings);
     const rawData = res?.data;
@@ -27,6 +31,8 @@ function FormButtons({ story, storySettings }) {
 
     // Send to Character Select Page
     router.push(`/story/${story.slug}/select/${data.user_story_id}/characters`);
+
+    hideLoading();
   };
 
   return (
