@@ -10,14 +10,12 @@ const fullStorySelect =
   "*, characters:story_characters!inner(character_id, characters(*)), genres:story_genres!inner(genre_id, genres(*))";
 
 // Formatters
-const formatFullStory = (stories) => {
-  return stories.map((story) => {
-    return {
-      ...story,
-      characters: story.characters.map((character) => character.characters),
-      genres: story.genres.map((genre) => genre.genres),
-    };
-  });
+const formatFullStory = (story) => {
+  return {
+    ...story,
+    characters: story.characters.map((character) => character.characters),
+    genres: story.genres.map((genre) => genre.genres),
+  };
 };
 
 // * --------- Auth ---------
@@ -109,6 +107,7 @@ export const getStoryBySlug = async (slug) => {
     .select(fullStorySelect)
     .eq("slug", slug)
     .single();
+
   if (data) {
     return { data: formatFullStory(data), error };
   }
