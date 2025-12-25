@@ -1,5 +1,8 @@
 import React from "react";
 
+// Enums
+import { errors } from "@/lib/enums/errors";
+
 // Utils
 import { getStoryBySlug } from "@/app/(protected)/story/[slug]/page";
 
@@ -14,16 +17,7 @@ async function StorySelectPage({ params }) {
   const { data, error } = await getStoryBySlug(paramSlug);
 
   if (error || !data) {
-    return (
-      <ErrorDisplay
-        error={
-          error || {
-            code: "loading-error",
-            message: "Sorry, an error occurred while loading this content.",
-          }
-        }
-      />
-    );
+    return <ErrorDisplay error={error || errors.LOADING_ERROR} />;
   }
 
   const { title, slug } = data;

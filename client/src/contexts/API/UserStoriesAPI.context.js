@@ -19,8 +19,17 @@ export const UserStoriesAPIProvider = ({ children }) => {
     );
   };
 
+  const getUserStory = (uid, userStoryID) => {
+    return checkAuthWrapper((session) =>
+      axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${uid}/stories/${userStoryID}`,
+        setAuthHeader(session)
+      )
+    );
+  };
+
   return (
-    <UserStoriesAPIContext.Provider value={{ createUserStory }}>
+    <UserStoriesAPIContext.Provider value={{ createUserStory, getUserStory }}>
       {children}
     </UserStoriesAPIContext.Provider>
   );
