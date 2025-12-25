@@ -9,7 +9,6 @@ import { getStoryBySlug } from "@/app/(protected)/story/[slug]/page";
 // Components
 import ErrorDisplay from "@/components/pages/error/ErrorDisplay";
 import MainPageWrapper from "@/components/layout/MainPageWrapper";
-import MainHeader from "@/components/layout/MainHeader";
 import StorySelectContent from "@/components/pages/story-select/StorySelectContent";
 
 async function StorySelectPage({ params }) {
@@ -21,20 +20,7 @@ async function StorySelectPage({ params }) {
   }
 
   const { title, slug } = data;
-  return (
-    <MainPageWrapper
-      Header={
-        <MainHeader
-          breadcrumbItems={[
-            { label: title, href: `/story/${slug}` },
-            { label: "Customize", href: `/story/${slug}/select` },
-          ]}
-        />
-      }
-    >
-      <StorySelectContent story={data} />
-    </MainPageWrapper>
-  );
+  return <StorySelectContent story={data} />;
 }
 
 export default StorySelectPage;

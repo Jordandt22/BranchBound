@@ -63,20 +63,25 @@ export default function ProtectedLayout({ children }) {
     }
   }, [pathname]);
 
+  const isSelectPage = pathname.includes("select");
   return (
     <AuthWrapper>
       <div className="flex h-screen bg-[#0E1114]">
         {/* Left Sidebar */}
-        <Sidebar />
+        {!isSelectPage && <Sidebar />}
 
         {/* Main Content */}
-        <div
-          className={`flex-1 overflow-auto md:py-4 ${
-            isCollapsed ? "md:px-36" : "px-0 md:px-12"
-          }`}
-        >
-          {children}
-        </div>
+        {!isSelectPage ? (
+          <div
+            className={`flex-1 overflow-auto md:py-4 ${
+              isCollapsed ? "md:px-36" : "px-0 md:px-12"
+            }`}
+          >
+            {children}
+          </div>
+        ) : (
+          children
+        )}
 
         <ScrollToTopButton />
       </div>

@@ -15,7 +15,7 @@ const CharacterSelectCard = ({
   toggleSelectedCharacter,
 }) => {
   const isLocked = character.is_locked;
-  const isSelected = selectedCharacter === character.character_id;
+  const isSelected = selectedCharacter?.character_id === character.character_id;
 
   return (
     <div
@@ -27,7 +27,7 @@ const CharacterSelectCard = ({
           : "border-black/25 hover:border-accent-primary/70 hover:border-2 cursor-pointer hover:scale-95"
       }`}
       onClick={() => {
-        if (!isLocked) toggleSelectedCharacter(character.character_id);
+        if (!isLocked) toggleSelectedCharacter(character);
       }}
     >
       {/* Character Image */}

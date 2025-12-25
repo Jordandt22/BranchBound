@@ -26,7 +26,6 @@ export const UsersAPIProvider = ({ children }) => {
   };
 
   const setAuthHeader = (session) => {
-    console.log(session.access_token);
     return {
       headers: {
         "Content-Type": "application/json",

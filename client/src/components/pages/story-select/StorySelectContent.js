@@ -1,15 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "motion/react";
-
-// Icons
-import { ListChecks, FileText, User, Users } from "lucide-react";
 
 // Utils
-import { CARD_STYLES_NO_HOVER } from "@/lib/constants/styles";
-import { getStoryImageURL } from "@/lib/utils";
-import { THREE_TO_TWO } from "@/lib/constants/aspectRatios";
 import {
   GAME_MODES,
   SESSION_TYPES,
@@ -17,14 +10,18 @@ import {
 } from "@/lib/enums/storySelect";
 
 // Components
-import BackgroundImage from "@/components/pages/discover/featured/BackgroundImage";
-import FormSection from "@/components/pages/story-select/FormSection";
-import SelectButton from "@/components/pages/story-select/SelectButton";
-import StoryLengthButton from "@/components/pages/story-select/StoryLengthButton";
 import StorySection from "@/components/pages/story-select/StorySection";
-import FormButtons from "@/components/pages/story-select/FormButtons";
+import StorySelectForm from "@/components/pages/story-select/settings/StorySelectForm";
+import FormStepper from "./FormStepper";
+import CharacterSelectContent from "./character/CharacterSelectContent";
 
 const StorySelectContent = ({ story }) => {
+  // Current Step
+  const [currentStep, setCurrentStep] = useState(1);
+  const handleNextStep = () => setCurrentStep((prevStep) => prevStep + 1);
+  const handleBackStep = () => setCurrentStep((prevStep) => prevStep - 1);
+
+  // Story Settings
   const [storySettings, setStorySettings] = useState({
     game_mode: GAME_MODES.CHOICES.value,
     session_type: SESSION_TYPES.SINGLEPLAYER.value,
@@ -43,131 +40,36 @@ const StorySelectContent = ({ story }) => {
     setStorySettings({ ...storySettings, story_length_type: value });
   };
 
-  const storyLengthOptions = [
-    {
-      text: STORY_LENGTH_TYPES.SHORT.label,
-      subText: "10 scenes",
-      value: STORY_LENGTH_TYPES.SHORT.value,
-      isLocked: false,
-    },
-    {
-      text: STORY_LENGTH_TYPES.MEDIUM.label,
-      subText: "20 scenes",
-      value: STORY_LENGTH_TYPES.MEDIUM.value,
-      isLocked: false,
-    },
-    {
-      text: STORY_LENGTH_TYPES.LONG.label,
-      subText: "30 scenes",
-      value: STORY_LENGTH_TYPES.LONG.value,
-      isLocked: false,
-    },
-    {
-      text: STORY_LENGTH_TYPES.UNLIMITED.label,
-      subText: "Unlimited scenes",
-      value: STORY_LENGTH_TYPES.UNLIMITED.value,
-      isLocked: true,
-    },
-  ];
-
-  const gameModeOptions = [
-    {
-      text: GAME_MODES.CHOICES.label,
-      value: GAME_MODES.CHOICES.value,
-      icon: ListChecks,
-      isLocked: false,
-    },
-    {
-      text: GAME_MODES.TEXT_BASED.label,
-      value: GAME_MODES.TEXT_BASED.value,
-      icon: FileText,
-      isLocked: true,
-    },
-  ];
-
-  const sessionTypeOptions = [
-    {
-      text: SESSION_TYPES.SINGLEPLAYER.label,
-      value: SESSION_TYPES.SINGLEPLAYER.value,
-      icon: User,
-      isLocked: false,
-    },
-    {
-      text: SESSION_TYPES.MULTIPLAYER.label,
-      value: SESSION_TYPES.MULTIPLAYER.value,
-      icon: Users,
-      isLocked: true,
-    },
-  ];
+  // Character Selection
+  const [selectedCharacter, setSelectedCharacter] = useState(null);
+  const toggleSelectedCharacter = (character) =>
+    setSelectedCharacter((prev) =>
+      prev?.character_id === character.character_id ? null : character
+    );
 
   return (
-    <div className="w-full relative">
-      {/* Background Image */}
-      <BackgroundImage imageUrl={getStoryImageURL(story.slug, THREE_TO_TWO)} />
+    <div className="w-full min-h-full h-fit bg-linear-to-tr from-[#1a1e22] via-[#142127] to-[#070808] flex flex-col items-center justify-start pt-12 pb-32">
+      <FormStepper currentStep={currentStep} />
 
-      <div className="relative z-10 flex flex-col lg:flex-row gap-8 lg:gap-12">
-        {/* Left Side - Form (70% on desktop) */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          className="w-full lg:w-[70%] space-y-8"
-        >
-          <div className={`${CARD_STYLES_NO_HOVER} p-6 lg:p-8`}>
-            <h2 className="text-white text-2xl lg:text-3xl font-bold mb-8">
-              Customize Your Story
-            </h2>
+      <StorySection story={story} />
 
-            {/* Game Mode Selection */}
-            <FormSection label="Game Mode">
-              {gameModeOptions.map((option) => (
-                <SelectButton
-                  key={option.value}
-                  onClick={() => updateGameMode(option.value)}
-                  text={option.text}
-                  isActive={storySettings.game_mode === option.value}
-                  icon={option.icon}
-                  isLocked={option.isLocked}
-                />
-              ))}
-            </FormSection>
-
-            {/* Session Type Selection */}
-            <FormSection label="Session Type">
-              {sessionTypeOptions.map((option) => (
-                <SelectButton
-                  key={option.value}
-                  onClick={() => updatePlayerMode(option.value)}
-                  text={option.text}
-                  isActive={storySettings.session_type === option.value}
-                  icon={option.icon}
-                  isLocked={option.isLocked}
-                />
-              ))}
-            </FormSection>
-
-            {/* Story Length Selection */}
-            <FormSection label="Story Length">
-              {storyLengthOptions.map((option) => (
-                <StoryLengthButton
-                  key={option.value}
-                  onClick={() => updateStoryLength(option.value)}
-                  text={option.text}
-                  isActive={storySettings.story_length_type === option.value}
-                  subText={option.subText}
-                  isLocked={option.isLocked}
-                />
-              ))}
-            </FormSection>
-
-            {/* Form Buttons */}
-            <FormButtons story={story} storySettings={storySettings} />
-          </div>
-        </motion.div>
-
-        {/* Right Side - Story Info (30% on desktop) */}
-        <StorySection story={story} />
-      </div>
+      {currentStep === 1 ? (
+        <StorySelectForm
+          story={story}
+          storySettings={storySettings}
+          updateGameMode={updateGameMode}
+          updatePlayerMode={updatePlayerMode}
+          updateStoryLength={updateStoryLength}
+          handleNextStep={handleNextStep}
+        />
+      ) : (
+        <CharacterSelectContent
+          story={story}
+          handleBackStep={handleBackStep}
+          selectedCharacter={selectedCharacter}
+          toggleSelectedCharacter={toggleSelectedCharacter}
+        />
+      )}
     </div>
   );
 };
