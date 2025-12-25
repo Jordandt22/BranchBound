@@ -90,7 +90,7 @@ function CharacterSelectContent({ story, userStoryID }) {
       )}
 
       {/* Form Buttons */}
-      <div className="w-full flex flex-col md:flex-row items-center gap-6 md:gap-4 mt-12 md:mt-8">
+      <div className="w-full flex flex-col md:flex-row items-center gap-6 md:gap-4 mt-14 md:mt-10">
         <Button className="w-full md:w-fit rounded-full bg-transparent border-2 border-surface-hover text-white font-semibold py-6 px-12 text-md transition-all duration-300 cursor-pointer hover:scale-95 hover:bg-surface-hover">
           Cancel
         </Button>
