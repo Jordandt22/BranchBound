@@ -3,12 +3,13 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
-// Utils
+// Constants
 import {
   GAME_MODES,
   SESSION_TYPES,
   STORY_LENGTH_TYPES,
 } from "@/lib/enums/storySelect";
+import { DEFAULT_ERROR_MESSAGE } from "@/lib/handlers/errorHandlers";
 
 // Contexts
 import { useUserStoriesAPI } from "@/contexts/API/UserStoriesAPI.context";
@@ -51,7 +52,7 @@ const StorySelectContent = ({ story }) => {
 
   // Character Selection
   const [selectedCharacter, setSelectedCharacter] = useState(
-    story.characters[0]
+    story?.characters[0] || null
   );
   const toggleSelectedCharacter = (character) =>
     setSelectedCharacter((prev) =>
@@ -73,12 +74,12 @@ const StorySelectContent = ({ story }) => {
         selectedCharacter.character_id,
         storySettings
       );
-      const { data, error: APIError } = res?.data?.data;
+      const { data, error: APIError } = res?.data;
 
       // Check for API Error
       if (APIError) return createUserStoryErrorHandler(APIError, showError);
 
-      router.push(`/session/${data.user_story_id}/play`);
+      router.push(`/session/${data?.user_story_id}/play`);
     } catch (err) {
       if (err?.response?.data) {
         const { error: APIError } = err.response.data;
