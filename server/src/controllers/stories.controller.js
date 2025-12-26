@@ -83,15 +83,14 @@ export const getStoryController = async (req, res) => {
   }
 
   // Story Not Found
-  if (!data || data?.length === 0)
+  if (!data)
     return res
       .status(404)
       .json(customErrorHandler(STORY_NOT_FOUND, "Story not found."));
 
   // Cache Data
-  const storyData = data[0];
-  await cacheData(key, interval, storyData);
-  return res.status(200).json(successHandler(storyData));
+  await cacheData(key, interval, data);
+  return res.status(200).json(successHandler(data));
 };
 
 // Get Character
@@ -120,15 +119,14 @@ export const getCharacterController = async (req, res) => {
   }
 
   // Character Not Found
-  if (!data || data?.length === 0)
+  if (!data)
     return res
       .status(404)
       .json(customErrorHandler(CHARACTER_NOT_FOUND, "Character not found."));
 
   // Cache Data
-  const characterData = data[0];
-  await cacheData(key, interval, characterData);
-  return res.status(200).json(successHandler(characterData));
+  await cacheData(key, interval, data);
+  return res.status(200).json(successHandler(data));
 };
 
 // Generate Story Scene

@@ -6,6 +6,13 @@ export const UserIDSchema = Yup.object({
   uid: Yup.string().trim().uuid().required("Please provide a user ID."),
 });
 
+export const UserStoryIDSchema = Yup.object({
+  user_story_id: Yup.string()
+    .trim()
+    .uuid()
+    .required("Please provide a user story ID."),
+});
+
 // ---- Body Request ----
 
 // Profile Schema
@@ -72,4 +79,26 @@ export const UserEmailSchema = Yup.object({
     .max(50, "Email exceeds the character limit (50).")
     .email("Please enter a valid email.")
     .required("Please enter a valid email."),
+});
+
+export const UserStorySchema = Yup.object({
+  story_id: Yup.string().trim().uuid().required("Please provide a story ID."),
+  character_id: Yup.string()
+    .trim()
+    .uuid()
+    .required("Please provide a character ID."),
+  story_settings: Yup.object().shape({
+    game_mode: Yup.number()
+      .min(1, "Please provide a valid game mode.")
+      .max(2, "Please provide a valid game mode.")
+      .required("Please provide a game mode."),
+    session_type: Yup.number()
+      .min(1, "Please provide a valid session type.")
+      .max(2, "Please provide a valid session type.")
+      .required("Please provide a session type."),
+    story_length_type: Yup.number()
+      .min(1, "Please provide a valid story length type.")
+      .max(4, "Please provide a valid story length type.")
+      .required("Please provide a story length type."),
+  }),
 });

@@ -5,6 +5,9 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 
+// Utils
+import { removeRedirectURL } from "@/lib/utils";
+
 // Components
 import { Button } from "@/components/ui/button";
 import SearchBar from "@/components/layout/SearchBar";
@@ -21,7 +24,10 @@ function MainHeader({ breadcrumbItems }) {
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => router.back()}
+          onClick={() => {
+            removeRedirectURL();
+            router.back();
+          }}
           className="text-gray-400 bg-surface hover:text-white hover:bg-surface-hover cursor-pointer"
         >
           <ArrowLeft size={20} />

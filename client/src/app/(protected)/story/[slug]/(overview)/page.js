@@ -3,6 +3,9 @@ import React from "react";
 // Fetchers
 import { storiesFetcher } from "@/lib/swr/fetchers";
 
+// Enums
+import { errors } from "@/lib/enums/errors";
+
 // Components
 import StoryPageContent from "@/components/pages/story/StoryPageContent";
 import MainPageWrapper from "@/components/layout/MainPageWrapper";
@@ -22,10 +25,7 @@ export async function getStoryBySlug(slug) {
     }
     return {
       data: null,
-      error: {
-        code: "server-error",
-        message: "Sorry, there was an error with the server.",
-      },
+      error: errors.SERVER_ERROR,
     };
   }
 }
@@ -35,16 +35,7 @@ async function StoryPage({ params }) {
   const { data, error } = await getStoryBySlug(slug);
 
   if (error || !data) {
-    return (
-      <ErrorDisplay
-        error={
-          error || {
-            code: "loading-error",
-            message: "Sorry, an error occurred while loading this content.",
-          }
-        }
-      />
-    );
+    return <ErrorDisplay error={error || errors.LOADING_ERROR} />;
   }
 
   return (

@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { Github, Twitter, Mail } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 // Utils
 import { generateElementKey } from "@/lib/utils";
@@ -31,7 +32,18 @@ const socialLinks = [
   { label: "Email", href: "mailto:support@branchbound.com", icon: Mail },
 ];
 
+const whitelist = {
+  "/": true,
+};
+
 function Footer() {
+  const pathname = usePathname();
+  const isWhitelisted = whitelist[pathname];
+
+  if (!isWhitelisted) {
+    return null;
+  }
+
   return (
     <footer className="relative z-10 pb-16 md:pb-0">
       <div className="mx-auto w-full max-w-6xl px-6 py-12 md:py-14">

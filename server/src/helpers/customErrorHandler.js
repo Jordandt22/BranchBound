@@ -26,6 +26,9 @@ export const errorCodes = {
   INVALID_CREDENTIALS: "invalid-credentials",
   EMAIL_NOT_CONFIRMED: "email-not-confirmed",
   EMAIL_RATE_LIMIT: "email-rate-limit",
+
+  // User Stories
+  USER_STORY_ERROR: "user-story-error",
 };
 
 export const customErrorHandler = (code, message, error) => {

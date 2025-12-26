@@ -42,7 +42,10 @@ function NotFound() {
 
         <div className="flex flex-wrap items-center justify-center gap-3 mt-4">
           <button
-            onClick={() => router.back()}
+            onClick={() => {
+              removeRedirectURL();
+              router.back();
+            }}
             className="rounded-lg border border-gray-700 px-6 py-2 text-sm font-medium text-text-primary transition-all duration-200 hover:border-accent-primary hover:text-white cursor-pointer"
           >
             Previous Page

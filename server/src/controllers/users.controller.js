@@ -3,52 +3,28 @@ import {
   customErrorHandler,
   successHandler,
 } from "../helpers/customErrorHandler.js";
-import {
-  cacheData,
-  getUserKey,
-  getCacheData,
-  deleteCacheData,
-} from "../redis/redis.js";
+import { cacheData, getUserKey, deleteCacheData } from "../redis/redis.js";
 import {
   createUser,
   deleteAuthUser,
   deleteUser,
-  getUserByID,
   updateAuthUserEmail,
   getUserByUsername,
 } from "../supabase/supabase.functions.js";
+import { getUserData } from "../helpers/api.helpers.js";
 
 const { EMAIL_USED, USER_NOT_FOUND, SUPABASE_ERROR, USERNAME_USED } =
   errorCodes;
 
 export const getUserController = async (req, res) => {
-  const { uid } = req.params;
-  const { email } = req.user;
-
-  // Check Cache
-  const { key, interval } = getUserKey(uid);
-  const cachedData = await getCacheData(key);
-  if (cachedData) return res.status(200).json(successHandler(cachedData));
-
   // Get User Data
-  const { data: userData, error: userError } = await getUserByID(uid);
-  if (userError) {
+  const { data, error } = await getUserData(req.user);
+  if (error) {
     return res
-      .status(500)
-      .json(
-        customErrorHandler(SUPABASE_ERROR, "Error getting user.", userError)
-      );
+      .status(error.status)
+      .json(customErrorHandler(error.code, error.message));
   }
 
-  if (userData.length <= 0) {
-    return res
-      .status(404)
-      .json(customErrorHandler(USER_NOT_FOUND, "User not found."));
-  }
-
-  // Cache Data
-  const data = { user: { uid, email, ...userData[0] } };
-  await cacheData(key, interval, data);
   res.status(200).json(successHandler(data));
 };
 
@@ -73,7 +49,7 @@ export const createProfileController = async (req, res) => {
       );
   }
 
-  if (usernameCheckData.length > 0) {
+  if (!usernameCheckData) {
     return res
       .status(422)
       .json(
@@ -95,14 +71,14 @@ export const createProfileController = async (req, res) => {
       );
   }
 
-  if (userData.length <= 0) {
+  if (!userData) {
     return res
       .status(404)
       .json(customErrorHandler(USER_NOT_FOUND, "User not found."));
   }
 
   // Cache Data
-  const data = { user: { uid, email, ...userData[0] } };
+  const data = { user: { uid, email, ...userData } };
   const { key, interval } = getUserKey(uid);
   await cacheData(key, interval, data);
   res.status(200).json(successHandler(data));

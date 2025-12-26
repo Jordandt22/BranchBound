@@ -8,7 +8,6 @@ import { Lock, Sparkles, ChevronDown, ChevronUp } from "lucide-react";
 // Utils
 import { getCharacterImageURL, generateElementKey } from "@/lib/utils";
 import { FOUR_TO_FIVE } from "@/lib/constants/aspectRatios";
-import { CARD_STYLES } from "@/lib/constants/styles";
 
 // Components
 import PlayButton from "@/components/layout/buttons/PlayButton";
