@@ -176,8 +176,10 @@ export const deleteUser = async (uid) => {
 export const createUserStory = async (
   { uid, access_token },
   story_id,
+  character_id,
   story_settings
 ) => {
+  const supabaseUserClient = getSupabaseUserClient(access_token);
   const { story_length_type } = story_settings;
   let total_scenes = STORY_LENGTH_TYPES.MEDIUM.total_scenes;
   switch (story_length_type) {
@@ -199,18 +201,45 @@ export const createUserStory = async (
       break;
   }
 
-  const { data, error } = await getSupabaseUserClient(access_token)
-    .from("user_stories")
-    .insert({
-      uid,
-      story_id,
-      ...story_settings,
-      total_scenes,
-    })
-    .select("*")
-    .single();
+  const { data: userStoryData, error: userStoryError } =
+    await supabaseUserClient
+      .from("user_stories")
+      .insert({
+        uid,
+        story_id,
+        ...story_settings,
+        total_scenes,
+      })
+      .select("*")
+      .single();
 
-  return { data, error };
+  if (userStoryError || !userStoryData) {
+    return { data: null, error };
+  }
+
+  // Add User Story Participant
+  const { data: participantData, error: participantError } =
+    await supabaseUserClient
+      .from("user_story_participants")
+      .insert({
+        user_story_id: userStoryData.user_story_id,
+        uid,
+        character_id,
+      })
+      .select("*")
+      .single();
+
+  if (participantError || !participantData) {
+    return { data: null, error: participantError };
+  }
+
+  return {
+    data: {
+      ...userStoryData,
+      participants: [participantData],
+    },
+    error: null,
+  };
 };
 
 export const getUserStoryByID = async (

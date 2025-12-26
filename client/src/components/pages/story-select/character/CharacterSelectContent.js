@@ -15,6 +15,7 @@ function CharacterSelectContent({
   handleBackStep,
   selectedCharacter,
   toggleSelectedCharacter,
+  handleStartStory,
 }) {
   // Characters
   const characters = story?.characters || [];
@@ -72,6 +73,7 @@ function CharacterSelectContent({
       <FormButtons
         handleBackStep={handleBackStep}
         selectedCharacter={selectedCharacter}
+        handleStartStory={handleStartStory}
       />
     </motion.div>
   );

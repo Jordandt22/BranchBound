@@ -64,14 +64,16 @@ export default function ProtectedLayout({ children }) {
   }, [pathname]);
 
   const isSelectPage = pathname.includes("select");
+  const isSessionPage = pathname.includes("session");
+  const showSidebar = !isSelectPage && !isSessionPage;
   return (
     <AuthWrapper>
       <div className="flex h-screen bg-[#0E1114]">
         {/* Left Sidebar */}
-        {!isSelectPage && <Sidebar />}
+        {showSidebar && <Sidebar />}
 
         {/* Main Content */}
-        {!isSelectPage ? (
+        {showSidebar ? (
           <div
             className={`flex-1 overflow-auto md:py-4 ${
               isCollapsed ? "md:px-36" : "px-0 md:px-12"

@@ -13,12 +13,13 @@ const { SUPABASE_ERROR, USER_STORY_ERROR } = errorCodes;
 
 export const createUserStoryController = async (req, res) => {
   const { uid } = req.user;
-  const { story_id, story_settings } = req.body;
+  const { story_id, character_id, story_settings } = req.body;
 
   // Create User Story
   const { data, error } = await createUserStory(
     req.user,
     story_id,
+    character_id,
     story_settings
   );
   if (error) {
@@ -39,10 +40,9 @@ export const createUserStoryController = async (req, res) => {
   }
 
   // Cache Data
-  const userStoryData = { ...data, participants: [] };
-  const { key, interval } = getUserStoryKey(uid, userStoryData.user_story_id);
-  await cacheData(key, interval, userStoryData);
-  return res.status(200).json(successHandler(userStoryData));
+  const { key, interval } = getUserStoryKey(uid, data.user_story_id);
+  await cacheData(key, interval, data);
+  return res.status(200).json(successHandler(data));
 };
 
 export const getUserStoryController = async (req, res) => {

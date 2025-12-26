@@ -1,6 +1,6 @@
 import React from "react";
 
-function FormButtons({ handleBackStep, selectedCharacter }) {
+function FormButtons({ handleBackStep, selectedCharacter, handleStartStory }) {
   return (
     <div className="flex flex-col-reverse md:flex-row items-center gap-4 mt-12">
       <button
@@ -19,6 +19,7 @@ function FormButtons({ handleBackStep, selectedCharacter }) {
             ? "opacity-50 cursor-not-allowed"
             : "opacity-100 cursor-pointer hover:bg-accent-primary hover:border-accent-primary hover:scale-95"
         }`}
+        onClick={handleStartStory}
       >
         Start
       </button>

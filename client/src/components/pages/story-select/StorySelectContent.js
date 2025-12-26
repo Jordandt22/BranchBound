@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 // Utils
 import {
@@ -9,6 +10,11 @@ import {
   STORY_LENGTH_TYPES,
 } from "@/lib/enums/storySelect";
 
+// Contexts
+import { useUserStoriesAPI } from "@/contexts/API/UserStoriesAPI.context";
+import { useGlobal } from "@/contexts/Global.context";
+import { useUser } from "@/contexts/User.context";
+
 // Components
 import StorySection from "@/components/pages/story-select/StorySection";
 import StorySelectForm from "@/components/pages/story-select/settings/StorySelectForm";
@@ -16,6 +22,8 @@ import FormStepper from "./FormStepper";
 import CharacterSelectContent from "./character/CharacterSelectContent";
 
 const StorySelectContent = ({ story }) => {
+  const router = useRouter();
+
   // Current Step
   const [currentStep, setCurrentStep] = useState(1);
   const handleNextStep = () => setCurrentStep((prevStep) => prevStep + 1);
@@ -47,6 +55,30 @@ const StorySelectContent = ({ story }) => {
       prev?.character_id === character.character_id ? null : character
     );
 
+  // Start Story
+  const { createUserStory } = useUserStoriesAPI();
+  const { showLoading, hideLoading } = useGlobal();
+  const { user } = useUser();
+  const handleStartStory = async () => {
+    showLoading("Creating your new adventure...");
+
+    try {
+      const res = await createUserStory(
+        user.uid,
+        story.story_id,
+        selectedCharacter.character_id,
+        storySettings
+      );
+
+      const data = res?.data?.data;
+      router.push(`/session/${data.user_story_id}/play`);
+    } catch (err) {
+      console.error(err); // ! Handle Error
+    } finally {
+      hideLoading();
+    }
+  };
+
   return (
     <div className="w-full min-h-full h-fit bg-linear-to-tr from-[#1a1e22] via-[#142127] to-[#070808] flex flex-col items-center justify-start pt-12 pb-32">
       <FormStepper currentStep={currentStep} />
@@ -68,6 +100,7 @@ const StorySelectContent = ({ story }) => {
           handleBackStep={handleBackStep}
           selectedCharacter={selectedCharacter}
           toggleSelectedCharacter={toggleSelectedCharacter}
+          handleStartStory={handleStartStory}
         />
       )}
     </div>

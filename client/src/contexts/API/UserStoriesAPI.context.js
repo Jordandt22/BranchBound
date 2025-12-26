@@ -9,11 +9,11 @@ export const useUserStoriesAPI = () => useContext(UserStoriesAPIContext);
 export const UserStoriesAPIProvider = ({ children }) => {
   const { checkAuthWrapper, setAuthHeader } = useUsersAPI();
 
-  const createUserStory = (uid, story_id, story_settings) => {
+  const createUserStory = (uid, story_id, character_id, story_settings) => {
     return checkAuthWrapper((session) =>
       axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/users/${uid}/stories`,
-        { story_id, story_settings },
+        { story_id, character_id, story_settings },
         setAuthHeader(session)
       )
     );
