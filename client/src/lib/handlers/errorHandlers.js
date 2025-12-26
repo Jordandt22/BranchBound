@@ -5,6 +5,7 @@ export const errorCodes = {
   TOO_MANY_REQUESTS: "too-many-requests",
   BOTS_DETECTED: "bots-detected",
   ACCESS_DENIED: "access-denied",
+  ROUTE_NOT_FOUND: "route-not-found",
   NO_API_KEY: "no-api-key",
   INVALID_API_KEY: "invalid-api-key",
   NO_ACCESS_TOKEN: "no-access-token",
@@ -16,6 +17,7 @@ export const errorCodes = {
   // Stories
   STORY_NOT_FOUND: "story-not-found",
   STORIES_NOT_FOUND: "stories-not-found",
+  CHARACTER_NOT_FOUND: "character-not-found",
 
   // Users
   USER_NOT_FOUND: "user-not-found",
@@ -24,6 +26,9 @@ export const errorCodes = {
   INVALID_CREDENTIALS: "invalid-credentials",
   EMAIL_NOT_CONFIRMED: "email-not-confirmed",
   EMAIL_RATE_LIMIT: "email-rate-limit",
+
+  // User Stories
+  USER_STORY_ERROR: "user-story-error",
 };
 
 export const DEFAULT_ERROR_MESSAGE =
@@ -59,6 +64,20 @@ export const getUserErrorHandler = (error, showError) => {
     case errorCodes.NO_ACCESS_TOKEN:
     case errorCodes.INVALID_ACCESS_TOKEN:
       showError("Please log in to continue.", errorTitle);
+      break;
+
+    default:
+      showError(DEFAULT_ERROR_MESSAGE, errorTitle);
+      break;
+  }
+};
+
+export const createUserStoryErrorHandler = (error, showError) => {
+  const errorTitle = "Error: Creating User Story";
+
+  switch (error.code) {
+    case errorCodes.USER_STORY_ERROR:
+      showError(error.message, errorTitle);
       break;
 
     default:

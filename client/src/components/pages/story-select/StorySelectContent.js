@@ -14,6 +14,7 @@ import {
 import { useUserStoriesAPI } from "@/contexts/API/UserStoriesAPI.context";
 import { useGlobal } from "@/contexts/Global.context";
 import { useUser } from "@/contexts/User.context";
+import { useError } from "@/contexts/Error.context";
 
 // Components
 import StorySection from "@/components/pages/story-select/StorySection";
@@ -49,7 +50,9 @@ const StorySelectContent = ({ story }) => {
   };
 
   // Character Selection
-  const [selectedCharacter, setSelectedCharacter] = useState(null);
+  const [selectedCharacter, setSelectedCharacter] = useState(
+    story.characters[0]
+  );
   const toggleSelectedCharacter = (character) =>
     setSelectedCharacter((prev) =>
       prev?.character_id === character.character_id ? null : character
@@ -57,7 +60,8 @@ const StorySelectContent = ({ story }) => {
 
   // Start Story
   const { createUserStory } = useUserStoriesAPI();
-  const { showLoading, hideLoading } = useGlobal();
+  const { showLoading, hideLoading, showError } = useGlobal();
+  const { createUserStoryErrorHandler } = useError();
   const { user } = useUser();
   const handleStartStory = async () => {
     showLoading("Creating your new adventure...");
@@ -69,11 +73,19 @@ const StorySelectContent = ({ story }) => {
         selectedCharacter.character_id,
         storySettings
       );
+      const { data, error: APIError } = res?.data?.data;
 
-      const data = res?.data?.data;
+      // Check for API Error
+      if (APIError) return createUserStoryErrorHandler(APIError, showError);
+
       router.push(`/session/${data.user_story_id}/play`);
     } catch (err) {
-      console.error(err); // ! Handle Error
+      if (err?.response?.data) {
+        const { error: APIError } = err.response.data;
+        createUserStoryErrorHandler(APIError, showError);
+      } else {
+        showError(DEFAULT_ERROR_MESSAGE);
+      }
     } finally {
       hideLoading();
     }

@@ -4,11 +4,10 @@ import React from "react";
 import { errors } from "@/lib/enums/errors";
 
 // Utils
-import { getStoryBySlug } from "@/app/(protected)/story/[slug]/page";
+import { getStoryBySlug } from "@/app/(protected)/story/[slug]/(overview)/page";
 
 // Components
 import ErrorDisplay from "@/components/pages/error/ErrorDisplay";
-import MainPageWrapper from "@/components/layout/MainPageWrapper";
 import StorySelectContent from "@/components/pages/story-select/StorySelectContent";
 
 async function StorySelectPage({ params }) {

@@ -5,6 +5,7 @@ import {
   errorCodes,
   createProfileErrorHandler,
   getUserErrorHandler,
+  createUserStoryErrorHandler,
 } from "@/lib/handlers/errorHandlers";
 
 // Contexts
@@ -51,6 +52,9 @@ export const ErrorProvider = ({ children }) => {
           createProfileErrorHandler
         ),
         getUserErrorHandler: errorHandlerWrapper(getUserErrorHandler),
+        createUserStoryErrorHandler: errorHandlerWrapper(
+          createUserStoryErrorHandler
+        ),
       }}
     >
       {children}
