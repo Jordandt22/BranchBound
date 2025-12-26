@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { ChevronLeft } from "lucide-react";
 
 // Constants
 import {
@@ -94,6 +95,15 @@ const StorySelectContent = ({ story }) => {
 
   return (
     <div className="w-full min-h-full h-fit bg-linear-to-tr from-[#1a1e22] via-[#142127] to-[#070808] flex flex-col items-center justify-start pt-12 pb-32">
+      {/* Exit Button */}
+      <button
+        className="hidden md:block absolute top-8 left-8 text-white text-2xl font-bold bg-surface rounded-md p-2 hover:bg-accent-primary transition-all duration-300 hover:scale-85 cursor-pointer"
+        onClick={() => router.push(`/story/${story.slug}`)}
+      >
+        <ChevronLeft className="w-6 h-6" />
+      </button>
+
+      {/* Form Stepper */}
       <FormStepper currentStep={currentStep} />
 
       <StorySection story={story} />
