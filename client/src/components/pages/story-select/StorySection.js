@@ -10,9 +10,9 @@ import { getStoryImageURL } from "@/lib/utils";
 function StorySection({ story }) {
   return (
     <motion.div
-      initial={{ opacity: 0, x: 20 }}
+      initial={{ opacity: 0, x: "50%" }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5, delay: 0.2 }}
+      transition={{ duration: 0.35, delay: 0.1, ease: "easeInOut" }}
       className="w-[85%] md:w-1/2 space-y-6 mb-12"
     >
       {/* Story Image Card */}
